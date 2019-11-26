@@ -322,11 +322,12 @@ div.column img.logo{
 @media(min-width: 760px){
 	.columns{
 		display: flex;
-		justify-content: center;
-		align-items: center;
+		justify-content: space-between
+		align-items: stretch;
 		display: -webkit-flex;
-		-webkit-justify-content: center;
-		-webkit-align-items: center;
+		-webkit-justify-content: space-between;
+		-webkit-align-items: stretch;
+		margin: 3em 0;
 	}
 
 	div.column{
