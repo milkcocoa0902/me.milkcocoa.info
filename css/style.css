@@ -188,8 +188,8 @@ div.column{
 	flex-basis: 0;
 	flex-grow: 1;
 	flex-shrink: 1;
-	padding: 1.25rem;
-	margin: 0 5rem;
+	padding: 1.25rem 1rem;
+	margin: 0 3rem;
 }
 
 div.column img.logo{
@@ -319,6 +319,31 @@ div.column img.logo{
 	border-color: cyan;
 }
 
+figure{
+	margin: 0;
+	padding: 0;
+	display: block;
+	text-align: center
+}
+
+#works{
+	display: inline-box;
+}
+
+#works .section-title:before{
+	content: '';
+	background: url('../asset/works.svg') no-repeat;
+	background-size: contain;
+	vertical-align: middle;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+}
+
+img.works{
+	width : 220px;
+}
+
 @media(min-width: 760px){
 	.columns{
 		display: flex;
@@ -340,6 +365,10 @@ div.column img.logo{
 
 	#contact{
 			display:block;
+	}
+
+	img.works{
+		width : 300px;
 	}
 }
 
