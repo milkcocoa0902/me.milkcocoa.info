@@ -1,36 +1,22 @@
 // 投稿詳細画面
 import { notFound } from "next/navigation";
 import {Heading, Text, k, Box, Image} from '@kuma-ui/core'
-import markdownHtml from 'zenn-markdown-html';
 import { getAllArticles, getArticle } from "../../../lib/api";
 import { BlogMainContent } from "./_lib/content";
 import { Header } from "../../_common/header";
 import { Footer } from "../../_common/footer";
 import { ContentContainer } from "../../_common/contentContainer";
 import { Main } from "../../_common/main";
-import Script from "next/script";
-import Head from "next/head";
-import { exec } from "child_process";
-
 import type { Metadata } from 'next'
 
-
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
     const articles = await getAllArticles()
 
-    return articles.filter((article) => article.type === 'blog').map((article) => ({
+    return articles.map((article) => ({
         slug: article.slug,
     }));
 };
 
-function splitByChunk(str: string, size: number) {
-    const numChunks = Math.ceil(str.length / size)
-    const chunks = new Array(numChunks)
-    for (let i = 0, x = 0; i < numChunks; ++i, x += size) {
-        chunks[i] = str.substr(x, size)
-    }
-    return chunks
-}
 
 function convertToDateString(date: Date){
     const [y, mo, d] = [date.getFullYear(), date.getMonth() + 1, date.getDay()]

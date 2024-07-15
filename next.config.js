@@ -2,6 +2,7 @@
 const { withKumaUI } = require("@kuma-ui/next-plugin");
 const nextConfig = {
     reactStrictMode: true,
+    output: "export",
 };
 
 module.exports = withKumaUI(nextConfig, {
