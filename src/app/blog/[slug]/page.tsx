@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export const generateStaticParams = async () => {
     const articles = await getAllArticles()
 
-    return articles.map((article) => ({
+    return articles.filter((article) => article.type === 'blog').map((article) => ({
         slug: article.slug,
     }));
 };
