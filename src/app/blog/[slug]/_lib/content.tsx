@@ -48,7 +48,6 @@ export const BlogMainContent: React.FC<{ article: ArticleDetail }> = (params) =>
     if (!params.article) {
         notFound()
     }
-    import('zenn-embed-elements');
     const router = useRouter()
 
     // embedOriginは必須？？？
@@ -56,6 +55,7 @@ export const BlogMainContent: React.FC<{ article: ArticleDetail }> = (params) =>
         embedOrigin: "https://embed.zenn.studio",
     })
     useEffect(() => {
+        import('zenn-embed-elements');
         let ignore = false;
         
         if (process.env.NODE_ENV !== "production") {

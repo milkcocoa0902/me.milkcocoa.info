@@ -2,9 +2,6 @@
 const { withKumaUI } = require("@kuma-ui/next-plugin");
 const nextConfig = {
     reactStrictMode: true,
-    typescript: {
-        tsconfigPath: "tsconfig.build.json"
-    }
 };
 
 module.exports = withKumaUI(nextConfig, {
