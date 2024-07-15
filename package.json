@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "vercel-build": "next build",
     "watch:article": "npm --prefix ./tools run watch:article",
     "next:dev": "next dev --port 3000",
     "dev": "run-p watch:article next:dev",
     "next:build": "next build",
     "next:start": "next start",
-    "next:lint": "next lint"
+    "next:lint": "next lint",
+    "next:export": "next build; next export"
   },
   "dependencies": {
     "@kuma-ui/core": "^1.5.7",
@@ -24,6 +26,7 @@
     "zenn-markdown-html": "^0.1.154"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.12.1",
     "@cloudflare/workers-types": "^4.20240712.0",
     "@types/node": "^20",
     "@types/react": "^18",

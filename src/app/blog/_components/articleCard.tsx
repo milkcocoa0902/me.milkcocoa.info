@@ -65,6 +65,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                     src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/svg/${(emoji ?? "📝").codePointAt(0)?.toString(16)}.svg`}
                     width={"64px"}
                     height={"64px"}
+                    alt={emoji ?? ''}
                 />
             </Box>
 

@@ -22,7 +22,7 @@ export const Card: React.FC<CardProps> = ({
     borderRadius = 8}) => {
     return (
         <VStack zIndex={8} p={8} boxShadow={"4px 4px 2px 1px rgba(0, 0, 0, .2)"} bg={background} borderRadius={borderRadius} height={height} width={width}>
-            {image ? <Image src={image.src} width={width} height={200} borderRadius={borderRadius}/> : <></>}
+            {image ? <Image src={image.src} width={width} height={200} borderRadius={borderRadius} alt={title}/> : <></>}
             <Heading
                 as="h3"
                 padding={"4px 0px"}

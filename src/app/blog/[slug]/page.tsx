@@ -15,6 +15,14 @@ import { exec } from "child_process";
 import type { Metadata } from 'next'
 
 
+export async function generateStaticParams() {
+    const articles = await getAllArticles()
+
+    return articles.filter((article) => article.type === 'blog').map((article) => ({
+        slug: article.slug,
+    }));
+};
+
 function splitByChunk(str: string, size: number) {
     const numChunks = Math.ceil(str.length / size)
     const chunks = new Array(numChunks)
@@ -60,14 +68,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-
-export const generateStaticParams = async () => {
-    const articles = await getAllArticles()
-
-    return articles.filter((article) => article.type === 'blog').map((article) => ({
-        slug: article.slug,
-    }));
-};
 
 
 export default async function Article({ params }: { params: { slug: string } }) {
