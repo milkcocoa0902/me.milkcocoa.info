@@ -1,5 +1,7 @@
 ---
 title: "ペットSNS「ぺったん」を支える技術（バックエンド編）"
+description: ''
+date: '2023-07-19T23:39:00.000+09:00'
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

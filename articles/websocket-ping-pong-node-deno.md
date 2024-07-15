@@ -1,5 +1,7 @@
 ---
 title: "Node.jsとDenoのPING/PONGの差分に関して"
+description: ''
+date: '2023-11-13T23:39:00.000+09:00'
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

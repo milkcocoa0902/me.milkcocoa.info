@@ -1,10 +1,16 @@
 ---
 title: "CognitoのUSER_SRP_AUTHを突破したい"
+description: ''
+date: '2022-11-11T00:00:00.000Z'
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [AWS, Cognito, Python]
+topics: 
+  - AWS
+  - Cognito
+  - Python
 published: true
 ---
+
 ※途中の説明をだいぶ端折っています。細かいところは追って追記するのでひとまずは「これでCognitoにログインできるんだな」って感じで思っといてもらえれば  
 
 AWSが提供しているサービスにCognitoという認証基板があって、それと接続するためのboto3というPython製のバックエンド向けSDKがあるのですが、SRPという方式を採用しているにもかかわらず署名計算は自分で行わないといけなかったので備忘録的に  

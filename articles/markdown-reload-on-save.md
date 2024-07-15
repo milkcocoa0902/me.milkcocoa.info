@@ -1,11 +1,14 @@
 ---
-title: "【React.js】Markdownの変更を検出してリロードする"
+title: "【Next.js】Markdownの変更を検出してリロードする"
 description: ''
-cover: '/assets/cover/cover.jpg'
 date: '2023-10-23T23:36:20.000+09:00'
+author:
+ name: ここあ
+ picture: '/assets/blog/authors/milkcocoa.png'
 emoji: "🥐"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [Next.js, React.js]
+topics: 
+ - Next.js
 published: true
 ---
 

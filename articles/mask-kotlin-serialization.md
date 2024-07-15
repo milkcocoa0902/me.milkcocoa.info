@@ -1,9 +1,15 @@
 ---
 title: "Kotlin Serializationで値をマスクする"
+description: ''
+cover: '/assets/cover/cover.jpg'
+date: '2024-01-08T21:43:00.000+09:00'
+author:
+  name: ここあ
+  picture: '/assets/blog/authors/milkcocoa.png'
 emoji: "📝"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
-    - kotlin
+  - kotlin
 published: true
 ---
 

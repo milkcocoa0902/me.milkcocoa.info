@@ -1,5 +1,7 @@
 ---
 title: "JetBrainsのWritersideを試してみた"
+description: ''
+date: '2023-10-27T21:33:00.000+09:00'
 emoji: "🗂"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

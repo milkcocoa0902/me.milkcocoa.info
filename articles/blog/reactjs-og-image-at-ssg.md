@@ -1,5 +1,7 @@
 ---
 title: "【Next.js】OG画像を自動で生成したい"
+description: ''
+date: ''
 emoji: "👋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

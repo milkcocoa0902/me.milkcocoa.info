@@ -1,5 +1,7 @@
 ---
 title: "ZFSの定期スナップショットをS3に自動バックアップするようにした"
+description: ''
+date: '2024-06-29T21:33:00.000+09:00'
 emoji: "🗃️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

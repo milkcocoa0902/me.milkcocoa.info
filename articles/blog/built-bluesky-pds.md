@@ -1,5 +1,7 @@
 ---
 title: "【Bluesky】PDSを建てた"
+description: ''
+date: ''
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

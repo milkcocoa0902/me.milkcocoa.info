@@ -1,10 +1,18 @@
 ---
 title: "Kotlinでファイルを圧縮/展開する"
+description: ''
+date: '2022-11-11T00:00:00.000Z'
+author:
+  name: ここあ
+  picture: '/assets/blog/authors/milkcocoa.png'
 emoji: "🐙"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: [Kotlin, Android]
+topics: 
+  - Kotlin
+  - Android
 published: true
 ---
+
 KotlinでファイルをZip圧縮/展開するコードを実装したので。  
 ちなみにディスク容量のセーフティとかはかけていません。  
 :::message alert

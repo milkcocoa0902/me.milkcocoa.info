@@ -1,5 +1,7 @@
 ---
 title: "ATProtocol用のKotlinライブラリを実装している話【1】"
+description: ''
+date: '2023-09-19T21:33:00.000+09:00'
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:

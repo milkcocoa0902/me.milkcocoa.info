@@ -1,11 +1,13 @@
 ---
 title: "Kotlinでつくるサーバサイドアプリケーション【02】"
+description: ''
+date: '2023-08-15T14:33:00.000+09:00'
 emoji: "🐈"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: 
-    - Kotlin
-    - Ktor
-    - サーバーサイド
+topics:
+  - Kotlin
+  - Ktor
+  - サーバーサイド
 published: true
 ---
 
