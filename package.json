@@ -24,6 +24,7 @@
     "zenn-markdown-html": "^0.1.154"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240712.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
