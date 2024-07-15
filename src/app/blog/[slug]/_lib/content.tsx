@@ -7,7 +7,7 @@ import markdownHtml from 'zenn-markdown-html';
 import 'zenn-content-css';
 import {Box, k} from '@kuma-ui/core'
 
-import { ArticleDetail } from "@/interface/article";
+import { ArticleDetail } from "../../../../interface/article";
 import React, { useEffect } from "react";
 import { env } from "process";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";

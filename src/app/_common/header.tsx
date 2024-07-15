@@ -37,7 +37,10 @@ export const Header: React.FC = () => {
             {
                 socialLinks.map((menu: Menu) => {
                     return (
-                        <Box p={"0px 16px"}>
+                        <Box
+                            p={"0px 16px"}
+                            key={menu.id}
+                        >
                             <Link href={menu.to} style={{ textDecoration: "none" }}>
                                 <Heading as="h2" color={"white"}>{menu.text}</Heading>
                             </Link>

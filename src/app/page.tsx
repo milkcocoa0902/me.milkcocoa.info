@@ -3,15 +3,15 @@ import { RiAccountCircleFill } from 'react-icons/ri'
 import { HiMail } from 'react-icons/hi'
 import { HiBuildingOffice2 } from 'react-icons/hi2'
 import { FaBirthdayCake } from 'react-icons/fa'
-import { Achievements } from '@/app/_components/achievenents'
-import { Works } from "@/app/_components/works";
-import { Footer } from "@/app/_common/footer";
-import { Header } from "@/app/_common/header";
-import { Layout } from "@/app/_common/layout";
-import { Main } from "@/app/_common/main";
+import { Achievements } from './_components/achievenents'
+import { Works } from ".//_components/works";
+import { Footer } from ".//_common/footer";
+import { Header } from ".//_common/header";
+import { ContentContainer } from ".//_common/contentContainer";
+import { Main } from ".//_common/main";
 export default function Home() {
   return (
-      <Layout>
+      <ContentContainer>
         <Header />
         {/* main content */}
         <Main>
@@ -87,6 +87,6 @@ export default function Home() {
 
         {/* footer */}
         <Footer />
-      </Layout>
+      </ContentContainer>
   );
 };

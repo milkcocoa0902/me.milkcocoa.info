@@ -1,14 +1,14 @@
 // 投稿一覧画面
 
-import {getAllArticles} from "@/lib/api";
-import {Footer} from "@/app/_common/footer";
-import {Header} from "@/app/_common/header";
-import {Layout} from "@/app/_common/layout";
-import {Main} from "@/app/_common/main";
+import {getAllArticles} from "../../lib/api";
+import {Footer} from "../_common/footer";
+import {Header} from "../_common/header";
+import {ContentContainer} from "../_common/contentContainer";
+import {Main} from "../_common/main";
 import {Box, Text} from "@kuma-ui/core";
 import {Grid, k} from "@kuma-ui/core";
-import {Article, BlogOnlyArticle, ZennArticle} from "@/interface/article";
-import {ArticleCard} from '@/app/blog/_components/articleCard'
+import {Article, BlogOnlyArticle, ZennArticle} from "../../interface/article";
+import {ArticleCard} from '../blog/_components/articleCard'
 import {Metadata} from "next";
 import {Link} from '@kuma-ui/core'
 
@@ -27,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Articles() {
     const posts = await getAllArticles()
     return (
-        <Layout>
+        <ContentContainer>
             <Header/>
             <Main>
                 <Grid
@@ -36,8 +36,6 @@ export default async function Articles() {
                     justifyContent={"center"}>
                     {
                         posts.map((article: Article) => {
-                            console.log(isBlogOnlyArticle(article))
-                            console.log(isZennArticle(article))
                             if(isBlogOnlyArticle(article)){
                                 return (
                                     <Box m={["8px 8px"]} key={article.slug}>
@@ -83,6 +81,6 @@ export default async function Articles() {
                 </Grid>
             </Main>
             <Footer/>
-        </Layout>
+        </ContentContainer>
     )
 }

@@ -2,12 +2,12 @@
 import { notFound } from "next/navigation";
 import {Heading, Text, k, Box, Image} from '@kuma-ui/core'
 import markdownHtml from 'zenn-markdown-html';
-import { getAllArticles, getArticle } from "@/lib/api";
+import { getAllArticles, getArticle } from "../../../lib/api";
 import { BlogMainContent } from "./_lib/content";
-import { Header } from "@/app/_common/header";
-import { Footer } from "@/app/_common/footer";
-import { Layout } from "@/app/_common/layout";
-import { Main } from "@/app/_common/main";
+import { Header } from "../../_common/header";
+import { Footer } from "../../_common/footer";
+import { ContentContainer } from "../../_common/contentContainer";
+import { Main } from "../../_common/main";
 import Script from "next/script";
 import Head from "next/head";
 import { exec } from "child_process";
@@ -76,7 +76,7 @@ export default async function Article({ params }: { params: { slug: string } }) 
         notFound()
     }
     return (
-        <Layout>
+        <ContentContainer>
             <Header />
             <Main>
                 <Box
@@ -115,7 +115,7 @@ export default async function Article({ params }: { params: { slug: string } }) 
                 </Box>
             </Main>
             <Footer />
-        </Layout>
+        </ContentContainer>
 
     )
 }
