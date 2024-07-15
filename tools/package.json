@@ -1,0 +1,24 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch:article": "ts-node watch/article.ts",
+    "ogp": "ts-node image/generate_og.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.8.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "gray-matter": "^4.0.3",
+    "socket.io": "^4.7.2"
+  }
+}
