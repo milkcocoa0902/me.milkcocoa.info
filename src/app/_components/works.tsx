@@ -9,12 +9,12 @@ import { StaticImageData } from 'next/image';
 import { Card } from "./card";
 
 
-import CocoaDiskInfo from '@/../public/assets/works/CocoaDiskInfo.png'
-import NoteForBabyFood from '@/../public/assets/works/GoodByeMilk.jpg'
-import CocoaZip from '@/../public/assets/works/CocoaZip.jpg'
-import CocoaTweet from '@/../public/assets/works/cocoatweet.png'
-import PantoryKeeper from '@/../public/assets/works/pantrykeeper.jpg'
-import Petlog from '@/../public/assets/works/petlog.png'
+import CocoaDiskInfo from '../../../public/assets/works/CocoaDiskInfo.png'
+import NoteForBabyFood from '../../../public/assets/works/GoodByeMilk.jpg'
+import CocoaZip from '../../../public/assets/works/CocoaZip.jpg'
+import CocoaTweet from '../../../public/assets/works/cocoatweet.png'
+import PantoryKeeper from '../../../public/assets/works/pantrykeeper.jpg'
+import Petlog from '../../../public/assets/works/petlog.png'
 import {randomUUID} from "node:crypto";
 
 type Items = {
