@@ -14,23 +14,8 @@ const items: Items[] = [
     },
     {
         id: randomUUID().toString(),
-        date: "2017, MAR.",
-        caption: "国立豊田工業高等専門学校卒業　電気・電子システム工学科卒業",
-    },
-    {
-        id: randomUUID().toString(),
-        date: "2017, APR.",
-        caption: "信州大学工学部　電気電子工学科編入学",
-    },
-    {
-        id: randomUUID().toString(),
         date: "2018, DEC.",
         caption: "信州未来アプリコンテスト0出場。KDDI賞",
-    },
-    {
-        id: randomUUID().toString(),
-        date: "2019, OCT.",
-        caption: "株式会社GAFS 入社",
     },
     {
         id: randomUUID().toString(),
@@ -51,11 +36,6 @@ const items: Items[] = [
         id: randomUUID().toString(),
         date: "2021, FEB.",
         caption: "CocoaTweetを公開",
-    },
-    {
-        id: randomUUID().toString(),
-        date: "2021, APR.",
-        caption: "株式会社J-TECH入社",
     },
     {
         id: randomUUID().toString(),

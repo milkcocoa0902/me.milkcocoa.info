@@ -20,63 +20,19 @@ export default function Home() {
               <Heading as="h2" color="black" fontSize="24px"> Profile
               </Heading>
               <HStack alignItems="center" gap={16}>
-                <Box
-                    as="button"
-                    p={4}
-                    bg="white"
-                    color="white"
-                    borderRadius={32}
-                    _hover={{
-                      opacity: 0.8,
-                    }}
-                >
                   <RiAccountCircleFill size={32} color={'#000'} />
-                </Box>
-                Keita.S
+                ここあ
               </HStack>
               <HStack alignItems="center" gap={16}>
-                <Box
-                    as="button"
-                    p={4}
-                    bg="white"
-                    color="white"
-                    borderRadius={32}
-                    _hover={{
-                      opacity: 0.8,
-                    }}
-                >
                   <HiBuildingOffice2 size={32} color={'#000'} />
-                </Box>
-                J-TECH, Co,Ltd.
+                  Cocoa Tech. Lab
               </HStack>
               <HStack alignItems="center" gap={16}>
-                <Box
-                    as="button"
-                    p={4}
-                    bg="white"
-                    color="white"
-                    borderRadius={32}
-                    _hover={{
-                      opacity: 0.8,
-                    }}
-                >
                   <FaBirthdayCake size={32} color={'#000'} />
-                </Box>
                 SEP.2, 1996
               </HStack>
               <HStack alignItems="center" gap={16}>
-                <Box
-                    as="button"
-                    p={4}
-                    bg="white"
-                    color="white"
-                    borderRadius={32}
-                    _hover={{
-                      opacity: 0.8,
-                    }}
-                >
                   <HiMail size={32} color={'#000'} />
-                </Box>
                 developer@milkcocoa.info
               </HStack>
             </VStack>
