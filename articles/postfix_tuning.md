@@ -5,8 +5,7 @@ date: '2024-10-07T01:59:00.000+09:00'
 emoji: "💭"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
-  - k8s
-  - docker
+  - Postfix
 published: true
 ---
 
