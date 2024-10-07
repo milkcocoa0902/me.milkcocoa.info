@@ -70,7 +70,7 @@ published: true
 
 ![](/images/postfix_tuning/0002.png)
 
-この頃、`Postfix`のキューには40万件ほど溜まっていたようです。  
+被害に気が付き停止してから`Postfix`のキューを見ると、40万件ほど溜まっていました。  
 
 ここで重要なのは、
 
@@ -136,7 +136,7 @@ published: true
 
 
 ## Postfixの設定
-まずは、最終的な設定（抜粋）です。
+具体的にどんなことをしたのかをつらつらと書いていきます。  
 
 ### 送信者制約の強化
 下記は、対応後の送信側制約です。  
@@ -495,6 +495,37 @@ Postfixも忘れずに再起動しましょう。
 sudo systemctl restart postfix
 ```
 
+#### 追記(2024/10/07 23:51)
+`SpamAssassin`はデフォルトの状態でもそれなりに動きますが、記事の最後に追記したメッセージはスパムスコア3.1で、スパムと判定されませんでした。  
+SpamAssassinが[学習用コーパス](https://spamassassin.apache.org/old/publiccorpus/)を配信しているので、それを使って学習しましょう。  
+
+わたしは上記から、
+
+- 20050311_spam_2.tar.bz2 (スパム)
+- 20030228_spam.tar.bz2 (スパム)
+- 20030228_easy_ham.tar.bz2 (ハム)
+- 20030228_easy_ham_2.tar.bz2 (ハム)
+- 20030228_hard_ham.tar.bz2 (ハム)
+
+を学習させました。  
+
+学習には以下のコマンドを使用します。  
+
+```bash: bash
+sudo sa-learn --spam /path/to/spam (file or dir)
+
+sudo sa-learn --ham /path/to/ham (file or dir)
+```
+
+この状態で同じメッセージを再検査し、スコアは6.8となり無事スパム認定されました。
+
+::: message alert
+学習用コーパスで配布されているメッセージを、実際にメールとして流さないように十分に気をつけてください。
+:::
+
+
+
+
 
 ## さいごに
 いま、26時になろうとしています。早く寝たくてだいぶ駆け足になってしまいました。  
@@ -506,3 +537,74 @@ sudo systemctl restart postfix
 
 この記事で挙げたのは一例であり、完璧ではないと思います。攻撃自体は一過性のものだったかもしれませんが、おかげで再度勉強しなおす機会を持つことができました。
 記事には自分なりの解釈も入っていたりするので、内容を鵜呑みにせず自分でもしっかりと調べ、自信のない場合には構築をやめて世にあるサービスを使用しましょう。  
+
+
+## 追記(2024/10/07 23:51)
+1件のスパムメールが貫通してきたので、検索でヒットするように載せておきます。  
+スパムフィルタ回避のためか、単語がぶつ切りです。
+
+::: details 貫通してきたメールのボディ
+> Hello!
+> I am a hac ker who has access to your ope rating system.
+> I also have full access to your account.
+> I've been watching you for a few months now.
+> The fact is that you were infe cted with mal ware through an adu lt site =
+> that you visited.
+> If you are not familiar with this, I will explain.
+> Tr ojan Viru s gives me full access and control over a computer or other =
+> device.
+> This means that I can see everything on your screen, turn on the camera a=
+> nd microphone, but you do not know about it.
+> I also have access to all your contacts and all your correspondence.
+> Why your antiv irus did not detect mal ware?
+> Answer: My mal ware uses the driver, I update its signatures every 4 hour=
+> s so that your anti virus is silent.
+> I made a video showing how you sati sfy yourself in the left half of the =
+> screen, and in the right half you see the video that you watched.
+> With one click of the mouse, I can send this video to all your emails and=
+> contacts on social networks.
+> I can also post access to all your e-mail correspondence and messengers t=
+> hat you use.
+> If you want to prevent this,
+> transfer the amount of=C2=A0 1 300 USD (US dollars) to my bit coin addres=
+> s (if you do not know how to do this, write to Google: "Buy Bit coin").
+> My bit coin address ( BTC Wall et) is:
+> 
+> ' bitcoin address '
+> After receiving the pay ment, I will delete the video and you will never =
+> hear me again.
+> I give you 55 hours (more than 2 days) to pay .
+> I have a notice reading this letter, and the timer will work when you see=
+> this letter.
+> Filing a complaint somewhere does not make sense because this email canno=
+> t be tracked like my bit coin address.
+> I do not make any mistakes.
+> If I find that you have shared this message with someone else, the video =
+> will be immedi ately distributed.
+> Best regards!
+:::
+
+また、ヘッダ情報は以下のようになっています。(抜粋)  
+メールサーバで色んな所を通過していますが、始まりはロシアのなんかですね（localhostになっているのは例のIPv4用受け皿です。）  
+でもってArtStationを名乗っているな
+
+
+::: details ヘッダ情報
+```
+Return-Path: <info@artstation.com>
+X-Original-To: root@milkcocoa.info
+Delivered-To: root@milkcocoa.info
+Received: from localhost (localhost [127.0.0.1])
+	by mail.milkcocoa.info (Postfix) with ESMTP id AF74C40046
+	for <root@milkcocoa.info>; Mon,  7 Oct 2024 12:07:20 +0000 (UTC)
+Received: from mail.milkcocoa.info ([127.0.0.1])
+	by localhost (mail.milkcocoa.info [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id c49Gd37MxXCT for <root@milkcocoa.info>;
+	Mon,  7 Oct 2024 12:07:19 +0000 (UTC)
+Received: from linkmasters.ru (localhost [127.0.0.1])
+	by mail.milkcocoa.info (Postfix) with ESMTPS id 052BA40045
+	for <root@milkcocoa.info>; Mon,  7 Oct 2024 12:07:18 +0000 (UTC)
+Message-ID: <a45016bf4b46df2d0ea0399266f3a9a3956d04a2@artstation.com>
+From: Manuel Ruiz <info@artstation.com>
+```
+:::
