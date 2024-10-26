@@ -20,6 +20,11 @@ const socialLinks: Menu[] = [
         text: "ブログ",
         to: "/blog"
     },
+    {
+        id: randomUUID().toString(),
+        text: "GPG Key",
+        to: "/gpg"
+    },
 ]
 
 export const Header: React.FC = () => {
