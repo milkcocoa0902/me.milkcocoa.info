@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
         <Flex
             zIndex={"1000"}
             justifyContent={["space-around", "left"]}
-            flexDir={['column', 'row']}
+            flexDir={['row']}
             alignItems={"center"}
             bg={"#333333"}
             position={"sticky"}
