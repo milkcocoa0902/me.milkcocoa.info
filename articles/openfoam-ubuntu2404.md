@@ -13,7 +13,7 @@ published: true
 
 
 こんにちは、ここあです。  
-今回、流体解析ソフトウェアであるOpenCFDを導入したので、備忘録的にまとめていきます。  
+今回、流体解析ソフトウェアであるOpenFOAMを導入したので、備忘録的にまとめていきます。  
 
 
 ## 環境
@@ -81,10 +81,10 @@ Build  : 12-6aa359dae696
 Exec   : checkMesh
 Date   : Nov 10 2024
 Time   : 17:13:14
-Host   : "ubuntu-milkcocoa-info"
+Host   : 
 PID    : 3828920
 I/O    : uncollated
-Case   : /mnt/Cocoa/portfolio/OpenFOAM_Foundation/pitzDailySteady
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady
 nProcs : 1
 sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
@@ -137,10 +137,10 @@ Build  : 12-6aa359dae696
 Exec   : foamRun
 Date   : Nov 10 2024
 Time   : 17:14:55
-Host   : "ubuntu-milkcocoa-info"
+Host   : 
 PID    : 3830702
 I/O    : uncollated
-Case   : /mnt/Cocoa/portfolio/OpenFOAM_Foundation/pitzDailySteady
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady
 nProcs : 1
 sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
 fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
@@ -542,7 +542,7 @@ Build  : 12-6aa359dae696
 Exec   : foamRun -solver incompressibleFluid -parallel
 Date   : Nov 10 2024
 Time   : 18:07:53
-Host   : "ubuntu-milkcocoa-info"
+Host   : 
 PID    : 3885262
 I/O    : uncollated
 Case   : /....../OpenFOAM_Foundation/pitzDailySteady
