@@ -448,7 +448,7 @@ method          simple;
 // 分割
 simpleCoeffs
 {
-    n           (3 2 1);  // 各方向での分割数 (例: 2x2x1) = 4                                                                                                                                                                     
+    n           (2 2 1);  // 各方向での分割数 (例: 2x2x1) = 4                                                                                                                                                                     
     delta       0.001;
 };
 ```
@@ -471,12 +471,6 @@ decomposePar
 ```
 
 今回は4分割をしたので、プロジェクトディレクトリには **processor0** ~ **processor3** までのディレクトリが生成されていると思います。　
-
-::: message
-12000セルのメッシュを4分割しましたが、デタラメに分割したのできれいに3000セルごとに別れているわけではありません。  
-実際にはscotchなどを使用して等分されるようにしたり、たぶん配分されたセルを確認できるはずなので、負荷に偏りがないかを確認した方が良いでしょう
-::: 
-
 
 :::: details 分割後の様子
 
@@ -518,6 +512,207 @@ tree -L 2
     ├── fvSolution
 ```
 ::::
+
+
+
+では、どのように配分されたのかを確認してみましょう。  
+確認するには、各ディレクトリで `checkMesh`を実行します。  
+
+:::: details Processor0の配分
+```
+checkMesh 
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 12-6aa359dae696
+Exec   : checkMesh
+Date   : Nov 10 2024
+Time   : 20:58:50
+Host   : 
+PID    : 4061619
+I/O    : uncollated
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady/processor0
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = 0
+
+Time = 0s
+
+Mesh stats
+    points:           6368
+    internal points:  0
+    faces:            12291
+    internal faces:   5925
+    cells:            3036
+    faces per cell:   6
+    boundary patches: 7
+    point zones:      0
+    face zones:       0
+    cell zones:       0
+
+```
+::::
+:::: details Processor1の配分
+```
+checkMesh 
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 12-6aa359dae696
+Exec   : checkMesh
+Date   : Nov 10 2024
+Time   : 21:01:24
+Host   : 
+PID    : 4064378
+I/O    : uncollated
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady/processor1
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = 0
+
+Time = 0s
+
+Mesh stats
+    points:           6432
+    internal points:  0
+    faces:            12446
+    internal faces:   6016
+    cells:            3077
+    faces per cell:   6
+    boundary patches: 7
+    point zones:      0
+    face zones:       0
+    cell zones:       0
+
+Overall number of cells of each type:
+    hexahedra:     3077
+    prisms:        0
+    wedges:        0
+    pyramids:      0
+    tet wedges:    0
+    tetrahedra:    0
+    polyhedra:     0
+
+```
+::::
+:::: details Processor2の配分
+```
+checkMesh 
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 12-6aa359dae696
+Exec   : checkMesh
+Date   : Nov 10 2024
+Time   : 21:02:11
+Host   : 
+PID    : 4065201
+I/O    : uncollated
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady/processor2
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = 0
+
+Time = 0s
+
+Mesh stats
+    points:           6444
+    internal points:  0
+    faces:            12452
+    internal faces:   6010
+    cells:            3077
+    faces per cell:   6
+    boundary patches: 7
+    point zones:      0
+    face zones:       0
+    cell zones:       0
+
+Overall number of cells of each type:
+    hexahedra:     3077
+    prisms:        0
+    wedges:        0
+    pyramids:      0
+    tet wedges:    0
+    tetrahedra:    0
+    polyhedra:     0
+```
+::::
+:::: details Processor3の配分
+```
+checkMesh 
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+Build  : 12-6aa359dae696
+Exec   : checkMesh
+Date   : Nov 10 2024
+Time   : 21:03:09
+Host   : 
+PID    : 4066277
+I/O    : uncollated
+Case   : /....../OpenFOAM_Foundation/pitzDailySteady/processor3
+nProcs : 1
+sigFpe : Enabling floating point exception trapping (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 10)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Create polyMesh for time = 0
+
+Time = 0s
+
+Mesh stats
+    points:           6344
+    internal points:  0
+    faces:            12276
+    internal faces:   5934
+    cells:            3035
+    faces per cell:   6
+    boundary patches: 7
+    point zones:      0
+    face zones:       0
+    cell zones:       0
+```
+::::
+
+デタラメに分割したにしては、あまり偏りのない配分ができました。
+
 
 ### 解析の実行
 続いて、解析を実行します。
@@ -709,13 +904,15 @@ paraFoam
 ::::
 
 :::: message
-今回は `snappyHexMesh`を用いた細分化は行いませんでしたが、ここでも並列にやりたいケースがあるかと思います。  
-その場合、 `decomposePar` をして割り振った後に `snappyHexMesh` をすることになると思うので、ここで僅かな誤差を含む可能性があることに注意してください。  
-わずかな誤差を許容しない場合には、`snappyHexMesh`を単独で実行した後に `decomposePar`で割り振ることになるかと思います。  
-
-このあたりは速度と精度のトレードオフになりますが、ほとんどの場合は気にするほどの誤差にならないかと思っています。（素人）
-※実際、motorBikeのチュートリアルでも、分配後に細分化しています。
+今回は実行しませんでしたが、`refineMesh`や`snappyHexMesh`を用いてメッシュを細分化する際、並列で実行する場合には`decomposePar`でそれぞれに割り振られたものに対して細分化されることになります。  
+つまり、`blockMesh`で粗分解し、`decomposePar`で配分して、それぞれで`snappyHexMesh`を実行するということです。  
+これは、`blockMesh`で粗分解し、`snappyHexMesh`で細分化して`decomposePar`をするのと結果が微妙に変わることに注意が必要そうです。  
+とはいえ、基本的には誤差が少なくなるように動くはずなので、特に精度を気にする場合でなければ、許容できそうです。
 ::::
+
+
+
+
 
 ## さいごに
 今回は導入して適当に遊んで終わりましたが、次はNvidiaが出しているAmgXと連携して、GPGPUを用いた解析をしてみたいと思います。
