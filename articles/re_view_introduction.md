@@ -7,7 +7,7 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - ReVIEW
   - 技術書執筆
-published: false
+published: true
 ---
 
 こんばんは、ここあです。  
@@ -232,7 +232,7 @@ jobs:
           name: generated-pdf
           path: ./book.pdf
 ```
-:::
+::::
 
 これをGitHubにpushすると、`textlint`が失敗し、勝手にPDFが出力されました。
 
