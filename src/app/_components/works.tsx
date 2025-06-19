@@ -5,7 +5,7 @@ import React, {Suspense} from "react";
 import { Card } from "./card";
 
 import {BiLeftArrow, BiRightArrow, BiSolidLeftArrow, BiSolidRightArrow} from "react-icons/bi";
-import {workCount, WorkItem, workItems} from "@/lib/works";
+import {workCount, WorkItem, workItems} from "../../lib/works";
 
 
 export const Works: React.FC = () => {
