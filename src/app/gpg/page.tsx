@@ -1,17 +1,15 @@
 // 投稿一覧画面
 
-import {getAllArticles} from "../../lib/api";
 import {Footer} from "../_common/footer";
 import {Header} from "../_common/header";
 import {ContentContainer} from "../_common/contentContainer";
 import {Main} from "../_common/main";
-import {Box, Button, Flex, Heading, Text, VStack} from "@kuma-ui/core";
+import {Box, Flex, Heading, Text, VStack} from "@kuma-ui/core";
 import {Metadata} from "next";
 
 import * as openpgp from "openpgp";
 import {readFileSync} from "fs";
 import {FaKey} from "react-icons/fa";
-import {FaK} from "react-icons/fa6";
 
 export async function generateMetadata(): Promise<Metadata> {
     // templateを設定しているので、サイト名は自動で付く
@@ -57,7 +55,7 @@ export default async function GPGKey() {
                                 .map(((c, idx) => {return { index: idx, c: c }}))
                                 .sort(() => Math.random() - 0.5)
                                 .map((obj) =>{
-                                    return (<Text as={"h4"} style={{order: obj.index, userSelect: "none"}} p={"0"} m={"10px 0"}> {obj.c}</Text>)
+                                    return (<Text as={"h4"} style={{order: obj.index, userSelect: "none"}} p={"0"} m={"10px 0"} key={obj.index}> {obj.c}</Text>)
                                 })
                         }
                     </Flex>

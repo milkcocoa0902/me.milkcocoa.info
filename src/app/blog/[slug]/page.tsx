@@ -9,7 +9,11 @@ import { ContentContainer } from "../../_common/contentContainer";
 import { Main } from "../../_common/main";
 import type { Metadata } from 'next'
 
-export const generateStaticParams = async () => {
+type ArticlePageProps = {
+    params: Promise<{ slug: string }>
+}
+
+export const generateStaticParams = async  () => {
     const articles = await getAllArticles()
 
     return articles.map((article) => ({
@@ -23,16 +27,17 @@ function convertToDateString(date: Date){
     return `${y}-${mo.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const article = await getArticle(params.slug)
+export async function generateMetadata({ params }: ArticlePageProps ): Promise<Metadata> {
+    const slug = (await params).slug
+    const article = await getArticle(slug)
     return {
         title: article?.title ?? "",
         openGraph: {
             title: article?.title,
             description: article?.description,
-            url: `https://me.milkcocoa.info/blog/${params.slug}`,
+            url: `https://me.milkcocoa.info/blog/${slug}`,
             images: {
-                url: `https://me.milkcocoa.info/images/${params.slug}/og.webp`,
+                url: `https://me.milkcocoa.info/images/${slug}/og.webp`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -44,7 +49,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             card: "summary_large_image",
             description: article?.description,
             images: {
-                url: `https://me.milkcocoa.info/images/${params.slug}/og.webp`,
+                url: `https://me.milkcocoa.info/images/${slug}/og.webp`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -56,8 +61,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 
 
-export default async function Article({ params }: { params: { slug: string } }) {
-    const article = await getArticle(params.slug)
+export default async function Article({params}: ArticlePageProps ) {
+    const slug = (await params).slug
+    const article = await getArticle(slug)
     if (!article) {
         notFound()
     }

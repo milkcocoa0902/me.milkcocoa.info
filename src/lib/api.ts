@@ -15,7 +15,7 @@ function getBlogOnlyPostSlugs(){
 }
 
 
-export function getAllArticles(): Article[] {
+export async function getAllArticles(): Promise<Article[]> {
     const blogOnlyArticles = getBlogOnlyPostSlugs().map(slug => {
         const realSlug = slug.replace(/\.md$/, '')
         const fullPath = join(blogOnlyPostsDirectory, `${realSlug}.md`)
@@ -59,7 +59,7 @@ export function getAllArticles(): Article[] {
         .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
 }
 
-export function getArticle(slug: String) {
+export async function getArticle(slug: String) {
     const realSlug = slug.replace(/\.md$/, '')
     const fullPath = join(blogOnlyPostsDirectory, `${realSlug}.md`)
 
