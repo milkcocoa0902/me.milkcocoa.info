@@ -9,40 +9,41 @@ import { Footer } from ".//_common/footer";
 import { Header } from ".//_common/header";
 import { ContentContainer } from ".//_common/contentContainer";
 import { Main } from ".//_common/main";
+import {Skills} from "@/app/_components/skills";
 export default function Home() {
-  return (
-      <ContentContainer>
-        <Header />
-        {/* main content */}
-        <Main>
-          <Box bgColor={"white"} p={"16px 16px"} m={"16px 0"} borderRadius={"16px"}>
-            <VStack m={16} p={8} bg="#e6e6e6" color="#333333" gap={8}>
-              <Heading as="h2" color="black" fontSize="24px"> Profile
-              </Heading>
-              <HStack alignItems="center" gap={16}>
-                  <RiAccountCircleFill size={32} color={'#000'} />
-                ここあ
-              </HStack>
-              <HStack alignItems="center" gap={16}>
-                  <HiBuildingOffice2 size={32} color={'#000'} />
-                  Cocoa Tech. Lab
-              </HStack>
-              <HStack alignItems="center" gap={16}>
-                  <FaBirthdayCake size={32} color={'#000'} />
-                SEP.2, 1996
-              </HStack>
-              <HStack alignItems="center" gap={16}>
-                  <HiMail size={32} color={'#000'} />
-                developer@milkcocoa.info
-              </HStack>
-            </VStack>
-            <Achievements />
-            <Works />
-          </Box>
-        </Main>
+    return (
+        <ContentContainer>
+            <Header/>
+            {/* main content */}
+            <Main>
+                <Box bgColor={"white"} p={"16px 16px"} m={"16px 0"} borderRadius={"16px"}>
+                    <VStack m={16} p={8} bg="#e6e6e6" color="#333333" gap={8}>
+                        <Heading as="h2" color="black" fontSize="24px"> Profile
+                        </Heading>
+                        <HStack alignItems="center" gap={16}>
+                            <RiAccountCircleFill size={32} color={'#000'}/>
+                            ここあ
+                        </HStack>
+                        <HStack alignItems="center" gap={16}>
+                            <HiBuildingOffice2 size={32} color={'#000'}/>
+                            Cocoa Tech. Lab
+                        </HStack>
+                        <HStack alignItems="center" gap={16}>
+                            <FaBirthdayCake size={32} color={'#000'}/>
+                            SEP.2, 1996
+                        </HStack>
+                        <HStack alignItems="center" gap={16}>
+                            <HiMail size={32} color={'#000'}/>
+                            developer@milkcocoa.info
+                        </HStack>
+                    </VStack>
+                    <Skills/>
+                    <Works/>
+                </Box>
+            </Main>
 
-        {/* footer */}
-        <Footer />
-      </ContentContainer>
-  );
+            {/* footer */}
+            <Footer/>
+        </ContentContainer>
+    );
 };

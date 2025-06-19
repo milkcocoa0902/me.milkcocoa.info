@@ -47,6 +47,11 @@ const items: Items[] = [
         date: "2023, MAR.",
         caption: "ぺったんを公開",
     },
+    {
+        id: randomUUID().toString(),
+        date: "2025, FEB.",
+        caption: "Colotokを公開",
+    },
 ]
 
 import { Box, VStack, Text, Heading, HStack } from "@kuma-ui/core";

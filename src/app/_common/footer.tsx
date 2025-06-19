@@ -14,7 +14,7 @@ type SocialLink = {
 const socialLinks: SocialLink[] = [
     {
         id: randomUUID().toString(),
-        url: "https://github.com/koron0902",
+        url: "https://github.com/milkcocoa0902",
         icon: FaGithub
     },
     {
