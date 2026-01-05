@@ -2,11 +2,11 @@
 title: "【Next.js】OG画像を自動で生成したい"
 description: ''
 date: ''
-emoji: "👋"
+emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
     - Nextjs
-published: false
+published: true
 ---
 
 ## この記事はなに？
@@ -28,10 +28,10 @@ root
 ├─ next.config.js
 ├─ package.json
 ├─ app
-│    ├─ layout.tsx
+│    ├─ ___layout.tsx
 │    ├─ page.tsx
 │    └─ [slug]
-│    　　　├─ layout.tsx
+│    　　　├─ ___layout.tsx
 │         ├─ ogpengraph-image.tsx
 │         └─ page.tsx
 └─ articles
@@ -41,11 +41,11 @@ root
 
 
 ## OG画像を返す
-さて、フォルダ構成を眺めていると目に見えてわかるのですが、 `opengraph-image.tsx`を設置することで、OG画像をレンダリングして返すことができるようになります。
+さて、フォルダ構成を眺めていると目に見えてわかるのですが、 `page.tsx`を設置することで、OG画像をレンダリングして返すことができるようになります。
 おおよそ実装は次のようになります。(長いので折りたたみます)
 
 :::details OG画像を返す実装
-``` tsx : opengraph-image.tsx
+``` tsx : page.tsx
 import { ImageResponse } from "next/server";
 export const revalidate = "force-cache";
 export const runtime = "nodejs";

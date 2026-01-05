@@ -18,7 +18,7 @@ const socialLinks: Menu[] = [
     {
         id: randomUUID().toString(),
         text: "ブログ",
-        to: "/blog"
+        to: "/blog/p/1"
     },
     {
         id: randomUUID().toString(),

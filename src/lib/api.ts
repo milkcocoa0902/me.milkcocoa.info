@@ -1,45 +1,19 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
-import { Article, ZennArticle, BlogOnlyArticle, ArticleDetail } from '@/interface/article'
+import {Article, ZennArticle, BlogOnlyArticle, ArticleDetail, ArticleList} from '@/interface/article'
 
-const postsDirectory = join(process.cwd(), 'articles')
-const blogOnlyPostsDirectory = join(process.cwd(), 'articles', 'blog')
+const articlesDirectory = join(process.cwd(), 'articles')
 
 export function getPostSlugs() {
-    return fs.readdirSync(postsDirectory)
-}
-
-function getBlogOnlyPostSlugs(){
-    return fs.readdirSync(blogOnlyPostsDirectory)
+    return fs.readdirSync(articlesDirectory)
 }
 
 
-export async function getAllArticles(): Promise<Article[]> {
-    const blogOnlyArticles = getBlogOnlyPostSlugs().map(slug => {
+export async function getArticles(limit: number, offset: number): Promise<ArticleList> {
+    const articles = getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
         const realSlug = slug.replace(/\.md$/, '')
-        const fullPath = join(blogOnlyPostsDirectory, `${realSlug}.md`)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-        const { data, content } = matter(fileContents)
-
-
-        return {
-            type: "blog",
-            title: data['title'],
-            slug: realSlug,
-            date: data['date'],
-            cover: typeof data['cover'] !== "undefined" ? data['cover']: null,
-            description: data['description'],
-            emoji: data["emoji"],
-            published: Boolean(data["published"]),
-            tags: data['topics'] || []
-        } as BlogOnlyArticle
-    })
-
-
-    const zennArticles = getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
-        const realSlug = slug.replace(/\.md$/, '')
-        const fullPath = join(postsDirectory, `${realSlug}.md`)
+        const fullPath = join(articlesDirectory, `${realSlug}.md`)
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data, content } = matter(fileContents)
 
@@ -54,14 +28,42 @@ export async function getAllArticles(): Promise<Article[]> {
         } as ZennArticle
     })
 
+    return {
+        articles: Array().concat(articles).concat(articles).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+            .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
+            .slice(offset, offset + limit),
+        totalCount: articles.length
+    }
+}
 
-    return Array().concat(zennArticles).concat(blogOnlyArticles).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+
+export async function getAllArticles(): Promise<Article[]> {
+    const articles = getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
+        const realSlug = slug.replace(/\.md$/, '')
+        const fullPath = join(articlesDirectory, `${realSlug}.md`)
+        const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const { data, content } = matter(fileContents)
+
+        return {
+            type: "zenn",
+            title: data['title'],
+            slug: realSlug,
+            date: data['date'],
+            emoji: data["emoji"],
+            published: Boolean(data["published"]),
+            tags: data['topics'] || []
+        } as ZennArticle
+    })
+
+    return Array().concat(articles).concat(articles).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
         .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
 }
 
-export async function getArticle(slug: String) {
+
+
+export async function getArticle(slug: String): Promise<ArticleDetail | null> {
     const realSlug = slug.replace(/\.md$/, '')
-    const fullPath = join(blogOnlyPostsDirectory, `${realSlug}.md`)
+    const fullPath = join(articlesDirectory, `${realSlug}.md`)
 
     if(!fs.existsSync(fullPath)) return null
 
@@ -77,5 +79,6 @@ export async function getArticle(slug: String) {
         content: content,
         description: data['description'],
         emoji: data["emoji"],
+        topics: data['topics'] || [],
     } as ArticleDetail
 }

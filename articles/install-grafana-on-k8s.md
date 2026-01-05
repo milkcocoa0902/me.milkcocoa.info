@@ -2,7 +2,7 @@
 title: "k8sにGrafanaとかをインストールして監視できるようにする"
 description: ''
 date: '2024-06-17T23:33:00.000+09:00'
-emoji: "📈"
+emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
     - k8s

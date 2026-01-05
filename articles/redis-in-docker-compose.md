@@ -2,7 +2,7 @@
 title: "DockerでRedisをカスタム設定で使用する"
 description: ''
 date: ''
-emoji: "🐥"
+emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
     - Docker

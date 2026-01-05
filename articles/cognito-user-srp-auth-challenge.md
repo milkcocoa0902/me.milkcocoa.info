@@ -2,7 +2,7 @@
 title: "CognitoのUSER_SRP_AUTHを突破したい"
 description: ''
 date: '2022-11-11T00:00:00.000Z'
-emoji: "📑"
+emoji: "🔐"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - AWS

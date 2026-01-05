@@ -2,7 +2,7 @@
 title: "Kotlinでロギング用ツールを実装した"
 description: ''
 date: '2023-10-09T10:30:00.000+09:00'
-emoji: "☃"
+emoji: "💬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
   - Kotlin

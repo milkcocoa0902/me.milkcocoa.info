@@ -1,6 +1,6 @@
 ---
 title: "KMP向けロギングライブラリ「Colotok」をアップデートしました"
-emoji: "😺"
+emoji: "💬"
 description: ''
 date: '2025-06-23T23:55:00.000+09:00'
 type: "tech" # tech: 技術記事 / idea: アイデア

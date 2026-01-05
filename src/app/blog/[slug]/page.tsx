@@ -1,13 +1,10 @@
 // 投稿詳細画面
 import { notFound } from "next/navigation";
-import {Heading, Text, k, Box, Image} from '@kuma-ui/core'
-import { getAllArticles, getArticle } from "../../../lib/api";
+import {Heading, Text, k, Box, Image, HStack} from '@kuma-ui/core'
+import {getArticle, getAllArticles} from "../../../lib/api";
 import { BlogMainContent } from "./_lib/content";
-import { Header } from "../../_common/header";
-import { Footer } from "../../_common/footer";
-import { ContentContainer } from "../../_common/contentContainer";
-import { Main } from "../../_common/main";
 import type { Metadata } from 'next'
+import React from "react";
 
 type ArticlePageProps = {
     params: Promise<{ slug: string }>
@@ -37,7 +34,7 @@ export async function generateMetadata({ params }: ArticlePageProps ): Promise<M
             description: article?.description,
             url: `https://me.milkcocoa.info/blog/${slug}`,
             images: {
-                url: `https://me.milkcocoa.info/images/${slug}/og.webp`,
+                url: `https://me.milkcocoa.info/blog/${slug}/opengraph-image`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -49,7 +46,7 @@ export async function generateMetadata({ params }: ArticlePageProps ): Promise<M
             card: "summary_large_image",
             description: article?.description,
             images: {
-                url: `https://me.milkcocoa.info/images/${slug}/og.webp`,
+                url: `https://me.milkcocoa.info/blog/${slug}/opengraph-image`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -68,9 +65,7 @@ export default async function Article({params}: ArticlePageProps ) {
         notFound()
     }
     return (
-        <ContentContainer>
-            <Header />
-            <Main>
+        <React.Fragment>
                 <Box
                     m={"32px 0 0 0 "}
                     p={"auto"}
@@ -100,14 +95,25 @@ export default async function Article({params}: ArticlePageProps ) {
                     </Text>
                 </Box>
                 <Box bgColor={"white"} p={"16px 64px"} m={"16px 0"} borderRadius={"16px"}>
+                    <HStack justifyContent={"start"} alignItems={"center"} gap={8} alignContent={"center"}>
+                        {
+                            article.topics.map((topic) => (
+                                <React.Fragment key={topic}>
+                                    <Box bgColor={"aliceblue"} borderRadius={"20px"} padding={"4px 12px"}>
+                                        <Text as={"span"} fontSize="14px" color="#666666">
+                                        {topic}
+                                        </Text>
+                                    </Box>
+                                </React.Fragment>
+                            ))
+                        }
+                    </HStack>
                     <BlogMainContent
                         article={article}
                     />
 
                 </Box>
-            </Main>
-            <Footer />
-        </ContentContainer>
+        </React.Fragment>
 
     )
 }

@@ -1,6 +1,6 @@
 ---
 title: "DataBiningの解放漏れからの脱却"
-emoji: "🔥"
+emoji: "🤖"
 type: "tech"
 topics:
 - Kotlin

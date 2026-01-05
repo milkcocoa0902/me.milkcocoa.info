@@ -2,7 +2,7 @@
 title: "ペット関連のアプリをリリースした話（宣伝）"
 description: ''
 date: '2023-07-06T23:39:00.000+09:00'
-emoji: "🐱"
+emoji: "🐈"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
   - 個人開発

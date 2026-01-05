@@ -1,3 +1,4 @@
+
 export interface Article {
     slug: string,
     title: string,
@@ -25,4 +26,10 @@ export type ArticleDetail = {
     date: string,
     content: string,
     emoji: string,
+    topics: string[],
+}
+
+export interface ArticleList {
+    articles: Article[],
+    totalCount: number
 }

@@ -2,7 +2,7 @@
 title: "Ktorを利用したWebSocketライブラリ"
 description: ''
 date: '2025-04-30T21:55:00.000+09:00'
-emoji: "🌊"
+emoji: "🧵"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - Ktor

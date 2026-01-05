@@ -30,27 +30,26 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     tags = [],
     emoji = null,
     width = 350,
-    height = 250,
+    height = 100,
     background = "white",
     borderRadius = 8 }) => {
     if (!slug) {
         notFound()
     }
     return (
-        <VStack
+        <HStack
             zIndex={8}
             p={8}
             background={"white"}
             boxShadow={"4px 4px 2px 1px rgba(0, 0, 0, .2)"}
             borderRadius={borderRadius}
-            height={height}
             width={width}
-            style={{ textDecoration: "none" }}
+            style={{textDecoration: "none"}}
         >
             <Box
                 background={background}
-                width={"100%"}
-                height={"45%"}
+                width={"80px"}
+                height={"80px"}
                 m={"0"}
                 p={"auto"}
                 display={"flex"}
@@ -68,54 +67,36 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                     alt={emoji ?? ''}
                 />
             </Box>
-
-            <Flex
-                margin={"10px 0px"}
-                gap={"5px 10px"}
-                justifyContent={"start"}
-                justify={"flex-start"}
-                flexWrap={"wrap"}
+            <VStack
+                p={"4px"}
+                w={"calc(100% - 80px)"}
             >
-                {
-                    tags.map((tag) => (
-                        <
-                            Text
-                            padding={"3px 10px"}
-                            margin={0}
-                            background={"#a4d8ed"}
-                            key={tag}
-                            borderRadius={5}
-                            color={"#666666"}
-                        >
-                            {tag}
-                        </Text>
-                    ))
-                }
-            </Flex>
 
-            {
-            (()=>{
-                let date = new Date(published_at);
-                return (
                 <
-                    Text
-                    margin={"4px 0px"}
-                    padding={0}
-                    style={{ textDecoration: "none" }}
+                    Heading
+                    as="h4"
+                    m={"0"}
+                    style={{textDecoration: "none"}}
                 >
-                    {convertToDateString(date)}
-                </Text>)
-            })()
-            }
-            <
-                Heading
-                as="h4"
-                m={"0"}
-                style={{ textDecoration: "none" }}
-            >
-                {title}
-            </Heading>
-            {caption}
-        </VStack>
+                    {title}
+                </Heading>
+
+                {
+                    (() => {
+                        let date = new Date(published_at);
+                        return (
+                            <
+                                Text
+                                margin={"4px 0px"}
+                                padding={0}
+                                style={{textDecoration: "none"}}
+                            >
+                                {convertToDateString(date)}
+                            </Text>)
+                    })()
+                }
+            </VStack>
+
+        </HStack>
     )
 }

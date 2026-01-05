@@ -5,7 +5,7 @@ date: '2022-11-11T00:00:00.000Z'
 author:
   name: ここあ
   picture: '/assets/blog/authors/milkcocoa.png'
-emoji: "🐙"
+emoji: "🗃️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - Kotlin

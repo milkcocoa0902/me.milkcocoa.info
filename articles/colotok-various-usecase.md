@@ -1,6 +1,6 @@
 ---
 title: "Kotlin向けロギングライブラリ「Colotok」の様々なユースケース"
-emoji: "💭"
+emoji: "💬"
 description: ''
 date: '2025-07-08T21:25:00.000+09:00'
 type: "tech" # tech: 技術記事 / idea: アイデア

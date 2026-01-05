@@ -1,4 +1,10 @@
 import { KumaRegistry } from "@kuma-ui/next-plugin/registry"
+import {Header} from "@/app/_common/header";
+import {Footer} from "@/app/_common/footer";
+import { ContentContainer } from "./_common/contentContainer";
+import {Box} from "@kuma-ui/core";
+import React from "react";
+import {MainContent} from "@/app/_common/mainContent";
 
 
 
@@ -46,7 +52,18 @@ export default function RootLayout({
   return (
       <html>
       <body style={{ margin: 0, padding: 0 }}>
-      <KumaRegistry>{children}</KumaRegistry>
+      <KumaRegistry>
+          <ContentContainer>
+              <Header/>
+              {/* main content */}
+              <MainContent>
+                      {children}
+              </MainContent>
+
+              {/* footer */}
+              <Footer/>
+          </ContentContainer>
+              </KumaRegistry>
       </body>
       </html>
   );

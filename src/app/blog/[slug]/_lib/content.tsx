@@ -22,7 +22,7 @@ const connectToFileWatcher = (router: AppRouterInstance) =>{
     script.integrity = "sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+"
     script.crossOrigin = "anonymous"
     script.src = "https://cdn.socket.io/4.6.0/socket.io.min.js";
-    document.body.append(script);
+    document.body.appendChild(script);
 
     script.onerror = () => {
         console.log('Hot reload disabled.');

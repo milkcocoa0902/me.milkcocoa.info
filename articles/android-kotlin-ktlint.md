@@ -2,7 +2,7 @@
 title: "ktlintでAndroidのコードを静的解析する(Kotlin)"
 description: ''
 date: ''
-emoji: "🍣"
+emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [Android, Kotlin]
 published: false

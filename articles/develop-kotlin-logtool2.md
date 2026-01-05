@@ -2,7 +2,7 @@
 title: "Kotlinでログツールを作っている話2"
 description: ''
 date: '2023-12-28T17:30:00.000+09:00'
-emoji: "🌊"
+emoji: "💬"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
 - Kotlin

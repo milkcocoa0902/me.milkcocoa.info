@@ -2,7 +2,7 @@
 title: "OpenFOAMで並列演算を試してみる"
 description: ''
 date: '2024-11-13T01:11:30.000+09:00'
-emoji: "😸"
+emoji: "🛫"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - CFD

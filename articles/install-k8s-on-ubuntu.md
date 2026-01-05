@@ -2,7 +2,7 @@
 title: "k8s構築奮闘記"
 description: ''
 date: '2024-06-12T19:39:00.000+09:00'
-emoji: "💭"
+emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
     - k8s

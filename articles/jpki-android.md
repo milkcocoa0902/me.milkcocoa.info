@@ -2,7 +2,7 @@
 title: "Androidでマイナンバーカードを操作してみる"
 description: ''
 date: '2023-12-17T21:33:00.000+09:00'
-emoji: "💭"
+emoji: "🔐"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [Android, Kotlin, マイナンバーカード]
 published: true

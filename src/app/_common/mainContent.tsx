@@ -1,7 +1,7 @@
 import { Box, VStack, Text, Heading, HStack, Flex, Grid, k, Link } from "@kuma-ui/core";
 import React from "react";
 
-export function Main({
+export function MainContent({
     children,
 }: {
     children: React.ReactNode

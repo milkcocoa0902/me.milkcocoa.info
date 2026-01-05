@@ -7,14 +7,10 @@ import { Works } from ".//_components/works";
 import { Footer } from ".//_common/footer";
 import { Header } from ".//_common/header";
 import { ContentContainer } from ".//_common/contentContainer";
-import { Main } from ".//_common/main";
+import { MainContent } from "./_common/mainContent";
 import {Skills} from ".//_components/skills";
 export default function Home() {
     return (
-        <ContentContainer>
-            <Header/>
-            {/* main content */}
-            <Main>
                 <Box bgColor={"white"} p={"16px 16px"} m={"16px 0"} borderRadius={"16px"}>
                     <VStack m={16} p={8} bg="#e6e6e6" color="#333333" gap={8}>
                         <Heading as="h2" color="black" fontSize="24px"> Profile
@@ -39,10 +35,5 @@ export default function Home() {
                     <Skills/>
                     <Works/>
                 </Box>
-            </Main>
-
-            {/* footer */}
-            <Footer/>
-        </ContentContainer>
     );
 };

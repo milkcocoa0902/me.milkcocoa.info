@@ -2,7 +2,7 @@
 title: "デジタルアドレスAPIライブラリを実装している話"
 description: ''
 date: '2025-06-15T16:45:00.000+09:00'
-emoji: "📘"
+emoji: "🏣"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
   - Kotlin

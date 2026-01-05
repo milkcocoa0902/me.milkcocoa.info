@@ -5,23 +5,25 @@
   "scripts": {
     "vercel-build": "next build",
     "watch:article": "npm --prefix ./tools run watch:article",
-    "next:dev": "next dev --port 3000",
+    "next:dev": "next dev --webpack",
     "dev": "run-p watch:article next:dev",
-    "next:build": "next build",
+    "build": "next build",
     "next:start": "next start",
     "next:lint": "next lint",
-    "next:export": "next build; next export"
+    "next:export": "next build; next export",
+    "cf:preview": "next build --webpack && wrangler dev",
+    "cf:deploy": "next build --webpack && wrangler deploy"
   },
   "dependencies": {
-    "@kuma-ui/core": "^1.5.9",
-    "@kuma-ui/next-plugin": "^1.3.3",
+    "@kuma-ui/core": "^1.6.0",
+    "@opennextjs/cloudflare": "^1.14.7",
     "@tailwindcss/postcss": "^4.1.10",
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.1.0",
-    "next": "^15.5.9",
+    "next": "^16.1.1",
     "openpgp": "^6.1.1",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
     "tailwindcss": "^4.1.10",
     "typescript": "^5.8.3",
@@ -31,14 +33,16 @@
     "zenn-markdown-html": "^0.1.161"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.12.1",
     "@cloudflare/workers-types": "^4.20240712.0",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "15.3.3",
+    "@kuma-ui/next-plugin": "^1.4.0",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^22.19.3",
+    "@types/react": "^18.3.27",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.1.1",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.5.6"
+    "postcss": "^8.5.6",
+    "wrangler": "^4.54.0"
   }
 }

@@ -2,7 +2,7 @@
 title: "技術書典19参加レポート"
 description: ""
 date: '2025-12-03T22:00:00+0900'
-emoji: "💭"
+emoji: "📖"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics:
     - Ktor

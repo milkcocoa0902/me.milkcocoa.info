@@ -2,7 +2,7 @@
 title: "メールサーバが不正利用されたぽいので改めて対策をした"
 description: ''
 date: '2024-10-07T01:59:00.000+09:00'
-emoji: "💭"
+emoji: "📨"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:
   - Postfix

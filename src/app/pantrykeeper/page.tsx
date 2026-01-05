@@ -1,10 +1,10 @@
 // 投稿一覧画面
 
-import {getAllArticles} from "../../lib/api";
+import {getArticles} from "../../lib/api";
 import {Footer} from "../_common/footer";
 import {Header} from "../_common/header";
 import {ContentContainer} from "../_common/contentContainer";
-import {Main} from "../_common/main";
+import {MainContent} from "../_common/mainContent";
 import {Metadata} from "next";
 import MarkdownIt from "markdown-it";
 import {Box} from "@kuma-ui/core";
@@ -23,13 +23,13 @@ export default async function PrivacyPolicy() {
     return (
         <ContentContainer>
             <Header/>
-            <Main>
+            <MainContent>
                 <Box bgColor={"white"} p={"16px 64px"} m={"16px 0"} height={"100vh%"} borderRadius={"16px"}
                      dangerouslySetInnerHTML={{
                          __html: MarkdownIt().render(PKPrivacyPolicy)
                      }}>
                 </Box>
-            </Main>
+            </MainContent>
             <Footer/>
         </ContentContainer>
     )
