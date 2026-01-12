@@ -11,7 +11,7 @@ export function ContentContainer({
 }) {
     return (
         <KumaRegistry>
-                    <Script strategy="beforeInteractive" src="https://embed.zenn.studio/js/listen-embed-event.js"></Script>
+            <Script strategy="beforeInteractive" src="https://embed.zenn.studio/js/listen-embed-event.js"></Script>
             <Box color={"white"} minHeight={"100vh"} background={"#cccccc"} p={0} m={0}>
                 {children}
             </Box>

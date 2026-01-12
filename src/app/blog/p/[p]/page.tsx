@@ -1,12 +1,9 @@
 // 投稿一覧画面
 
 import {getArticles} from "../../../../lib/api";
-import {Box, Flex, Text, VStack} from "@kuma-ui/core";
-import {Grid, k} from "@kuma-ui/core";
 import {Article, BlogOnlyArticle, ZennArticle} from "../../../../interface/article";
 import {ArticleCard} from '../../_components/articleCard'
 import {Metadata} from "next";
-import {Link} from '@kuma-ui/core'
 import React from "react";
 import PageNavigation from "@/app/blog/_components/pageNavigation";
 
@@ -43,18 +40,17 @@ export default async function Articles({ params }: ArticleListPageProps) {
 
     return (
         <React.Fragment>
-                <Grid
-                    gridTemplateColumns={"repeat(auto-fit, minmax(350px, 31%))"}
-                    columnGap={"4%"}
-                    justifyContent={"center"}>
+                <div
+                    className="grid gap-y-2 gap-x-2 justify-center"
+                    style={{ gridTemplateColumns: "repeat(auto-fit, minmax(350px, 31%))" }}
+                >
                     {
                         articles.articles.map((article: Article) => {
                             return (
-                                <Box m={["8px 8px"]} key={article.slug}>
-                                    <Link
+                                <div className="m-2" key={article.slug}>
+                                    <a
                                         href={`/blog/${article.slug}`}
-                                        style={{textDecoration: "none"}}
-                                        color={"#333333"}
+                                        className="no-underline text-[#333333]"
                                     >
                                         <ArticleCard
                                             slug={article.slug}
@@ -64,15 +60,15 @@ export default async function Articles({ params }: ArticleListPageProps) {
                                             background="#87ede5"
                                             tags={article.tags}
                                         />
-                                    </Link>
-                                </Box>
+                                    </a>
+                                </div>
                             )
                         })
                     }
-                </Grid>
-            <Flex justifyContent={"center"} flexDirection={"column"} alignContent={"center"} alignItems={"center"} m={"16px 0"}>
+                </div>
+            <div className="flex flex-col justify-center items-center my-4">
                 <PageNavigation current={page} isLastPage={page === totalPage}/>
-            </Flex>
+            </div>
         </React.Fragment>
     )
 }

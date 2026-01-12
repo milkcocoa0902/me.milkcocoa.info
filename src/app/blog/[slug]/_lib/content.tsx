@@ -1,13 +1,6 @@
 // 投稿詳細画面
 "use client"
 import { useRouter } from "next/navigation";
-
-import { notFound } from "next/navigation";
-import markdownHtml from 'zenn-markdown-html';
-import 'zenn-content-css';
-import {Box, k} from '@kuma-ui/core'
-
-import { ArticleDetail } from "../../../../interface/article";
 import React, { useEffect } from "react";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
@@ -43,18 +36,9 @@ const connectToFileWatcher = (router: AppRouterInstance) =>{
     }
 }
 
-export const BlogMainContent: React.FC<{ article: ArticleDetail }> = (params) => {
-    if (!params.article) {
-        notFound()
-    }
+export const BlogMainContent: React.FC<{ html: string }> = (params) => {
     const router = useRouter()
-
-    // embedOriginは必須？？？
-    const html = markdownHtml(params.article?.content, {
-        embedOrigin: "https://embed.zenn.studio",
-    })
     useEffect(() => {
-        import('zenn-embed-elements');
         let ignore = false;
         
         if (process.env.NODE_ENV !== "production") {
@@ -67,12 +51,12 @@ export const BlogMainContent: React.FC<{ article: ArticleDetail }> = (params) =>
         }
     }, []);
     return (
-        <Box className="znc"
+        <div
+            className={"prose prose-slate max-w-none mx-auto prose-h1:text-4xl prose-h2:text-3xl prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600 prose-pre:bg-transparent prose-pre:px-4"}
             dangerouslySetInnerHTML={{
-                __html: html
-            }}
-        >
-        </Box>
+            __html: params.html
+        }}>
+        </div>
 
     )
 }

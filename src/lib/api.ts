@@ -26,19 +26,18 @@ export async function getArticles(limit: number, offset: number): Promise<Articl
             published: Boolean(data["published"]),
             tags: data['topics'] || []
         } as ZennArticle
-    })
+    }).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+        .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
 
     return {
-        articles: Array().concat(articles).concat(articles).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-            .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
-            .slice(offset, offset + limit),
+        articles: articles.slice(offset, offset + limit),
         totalCount: articles.length
     }
 }
 
 
 export async function getAllArticles(): Promise<Article[]> {
-    const articles = getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
+    return  getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
         const realSlug = slug.replace(/\.md$/, '')
         const fullPath = join(articlesDirectory, `${realSlug}.md`)
         const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -53,9 +52,7 @@ export async function getAllArticles(): Promise<Article[]> {
             published: Boolean(data["published"]),
             tags: data['topics'] || []
         } as ZennArticle
-    })
-
-    return Array().concat(articles).concat(articles).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+    }).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
         .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
 }
 

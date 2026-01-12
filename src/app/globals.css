@@ -1,33 +1,77 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer theme {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --foreground-rgb: 255, 255, 255;
+      --background-start-rgb: 0, 0, 0;
+      --background-end-rgb: 0, 0, 0;
+    }
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+        to bottom,
+        transparent,
+        rgb(var(--background-end-rgb))
+      )
+      rgb(var(--background-start-rgb));
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+
+.shiki .line.diff {
+  @apply inline-block w-[calc(100%+theme(spacing.4)*2)] relative -ml-4 pl-4;
+}
+
+.shiki .line.diff::before {
+  @apply inline-block absolute left-1;
+}
+
+.shiki .line.diff span {
+  @apply bg-transparent;
+}
+
+.shiki .line.diff.remove {
+  @apply bg-red-500/20;
+}
+
+.shiki .line.diff.remove::before {
+  @apply content-["-"] text-red-700 dark:text-red-300;
+}
+
+.shiki .line.diff.add {
+  @apply bg-green-500/20;
+}
+
+.shiki .line.diff.add::before {
+  @apply content-["+"] text-green-700 dark:text-green-300;
+}
+
+.code-block-container {
+  @apply relative my-6;
+}
+
+.code-block-filename {
+  @apply absolute -top-3 left-4 bg-[#121212] text-[#dbd7caad] text-xs px-2 py-1 rounded border border-[#2e2e2e] z-10 font-mono m-0!;
+}
+
+.code-block-container .shiki {
+  @apply mt-0 pt-6! m-0!;
 }

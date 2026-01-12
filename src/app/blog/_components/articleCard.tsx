@@ -1,7 +1,5 @@
-import {Box, VStack, Text, Heading, HStack, Image, k, Grid, Flex} from "@kuma-ui/core";
 import React from "react";
 import { notFound } from "next/navigation";
-import {Card} from "@/app/_components/card";
 
 type ArticleCardProps = {
     slug: string,
@@ -36,67 +34,48 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     if (!slug) {
         notFound()
     }
+    
+    // background が Kuma UI の色名（例: "#87ede5"）などの場合、インラインスタイルで対応
+    // borderRadius も数値で渡されるためインラインスタイルで対応
+
     return (
-        <HStack
-            zIndex={8}
-            p={8}
-            background={"white"}
-            boxShadow={"4px 4px 2px 1px rgba(0, 0, 0, .2)"}
-            borderRadius={borderRadius}
-            width={width}
-            style={{textDecoration: "none"}}
+        <div
+            className="flex items-center gap-2 p-2 bg-white shadow-[4px_4px_2px_1px_rgba(0,0,0,0.2)] z-[8] no-underline"
+            style={{ 
+                width: width ? `${width}px` : "350px",
+                borderRadius: `${borderRadius}px`
+            }}
         >
-            <Box
-                background={background}
-                width={"80px"}
-                height={"80px"}
-                m={"0"}
-                p={"auto"}
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"center"}
-                borderRadius={borderRadius}>
-
-                <Image
-                    background={background}
-                    m={"auto"}
-                    textAlign={"center"}
-                    src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/svg/${(emoji ?? "📝").codePointAt(0)?.toString(16)}.svg`}
-                    width={"64px"}
-                    height={"64px"}
-                    alt={emoji ?? ''}
-                />
-            </Box>
-            <VStack
-                p={"4px"}
-                w={"calc(100% - 80px)"}
+            <div
+                className="flex items-center justify-center shrink-0 w-20 h-24 m-0"
+                style={{ 
+                    backgroundColor: background,
+                    borderRadius: `${borderRadius}px`
+                }}
             >
-
-                <
-                    Heading
-                    as="h4"
-                    m={"0"}
-                    style={{textDecoration: "none"}}
-                >
+                <img
+                    className="m-auto text-center w-16 h-16"
+                    src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/svg/${(emoji ?? "📝").codePointAt(0)?.toString(16)}.svg`}
+                    alt={emoji ?? ''}
+                    style={{ backgroundColor: background }}
+                />
+            </div>
+            <div className="flex flex-col p-1 w-[calc(100%-80px)]">
+                <h4 className="m-0 text-base font-bold no-underline text-black">
                     {title}
-                </Heading>
+                </h4>
 
                 {
                     (() => {
                         let date = new Date(published_at);
                         return (
-                            <
-                                Text
-                                margin={"4px 0px"}
-                                padding={0}
-                                style={{textDecoration: "none"}}
-                            >
+                            <p className="my-1 p-0 text-sm no-underline text-gray-600">
                                 {convertToDateString(date)}
-                            </Text>)
+                            </p>
+                        )
                     })()
                 }
-            </VStack>
-
-        </HStack>
+            </div>
+        </div>
     )
 }

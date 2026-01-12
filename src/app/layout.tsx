@@ -5,6 +5,7 @@ import { ContentContainer } from "./_common/contentContainer";
 import {Box} from "@kuma-ui/core";
 import React from "react";
 import {MainContent} from "@/app/_common/mainContent";
+import "./globals.css"
 
 
 
@@ -51,19 +52,22 @@ export default function RootLayout({
 }) {
   return (
       <html>
-      <body style={{ margin: 0, padding: 0 }}>
-      <KumaRegistry>
-          <ContentContainer>
-              <Header/>
-              {/* main content */}
-              <MainContent>
-                      {children}
-              </MainContent>
+      <body style={{ margin: 0, padding: 0 }} >
+      {/*<KumaRegistry>*/}
+      {/*    <ContentContainer>*/}
 
-              {/* footer */}
-              <Footer/>
-          </ContentContainer>
-              </KumaRegistry>
+      <Box color={"white"} minHeight={"100vh"} background={"#cccccc"} p={0} m={0}>
+          <Header/>
+          {/* main content */}
+          <MainContent>
+              {children}
+          </MainContent>
+
+          {/* footer */}
+          <Footer/>
+      </Box>
+          {/*</ContentContainer>*/}
+              {/*</KumaRegistry>*/}
       </body>
       </html>
   );

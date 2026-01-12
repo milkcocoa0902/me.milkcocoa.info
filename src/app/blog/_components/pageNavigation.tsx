@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import {Box, Flex, Link} from "@kuma-ui/core";
 
 export default function PageNavigation(
     props: {
@@ -11,46 +10,38 @@ export default function PageNavigation(
 ) {
     return (
         <React.Fragment>
-            <Flex flexDirection={"row"} justifyContent={"center"} alignItems={"center"} m={"8px 0px"} gap={64}>
-                <Link
+            <div className="flex flex-row justify-center items-center my-2 gap-16">
+                <a
                     href={(props.current === 1) ? undefined : `/blog/p/${props.current - 1}`}
                     aria-disabled={props.current === 1}
-                    style={{
-                        textDecoration: "none",
-                        cursor: (props.current === 1) ? "not-allowed" : "pointer",
-                    }}
+                    className={`no-underline ${props.current === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
                 >
-                    <Box
-                        borderRadius={"16px"}
-                        bg={(props.current === 1) ? "lightslategray" : "#EAEAEA"}
-                        borderColor={(props.current === 1) ? "lightslategray" : "darkblue"}
-                        borderStyle={"solid"}
-                        color={"#333333"}
-                        p={"2px 16px"}
+                    <div
+                        className={`rounded-2xl border-solid border px-4 py-0.5 text-[#333333] ${
+                            props.current === 1 
+                            ? "bg-slate-400 border-slate-400" 
+                            : "bg-[#EAEAEA] border-blue-900"
+                        }`}
                     >
                         &lt; 前のページ
-                    </Box>
-                </Link>
-                <Link
+                    </div>
+                </a>
+                <a
                     href={props.isLastPage ? undefined : `/blog/p/${props.current + 1}`}
                     aria-disabled={props.isLastPage}
-                    style={{
-                        textDecoration: "none",
-                        cursor: props.isLastPage ? "not-allowed" : "pointer",
-                    }}
+                    className={`no-underline ${props.isLastPage ? "cursor-not-allowed" : "cursor-pointer"}`}
                 >
-                    <Box
-                        borderRadius={"20px"}
-                        bg={props.isLastPage ? "lightslategray" : "#EAEAEA"}
-                        borderColor={props.isLastPage ? "lightslategray" : "darkblue"}
-                        borderStyle={"solid"}
-                        color={"#333333"}
-                        p={"2px 16px"}
+                    <div
+                        className={`rounded-2xl border-solid border px-4 py-0.5 text-[#333333] ${
+                            props.isLastPage 
+                            ? "bg-slate-400 border-slate-400" 
+                            : "bg-[#EAEAEA] border-blue-900"
+                        }`}
                     >
                         次のページ &gt;
-                    </Box>
-                </Link>
-            </Flex>
+                    </div>
+                </a>
+            </div>
         </React.Fragment>
     )
 }
