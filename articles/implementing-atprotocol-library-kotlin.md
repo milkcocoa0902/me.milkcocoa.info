@@ -1,6 +1,6 @@
 ---
 title: "ATProtocol用のKotlinライブラリを実装している話【1】"
-description: ''
+description: 'Bluesky等で採用されているATProtocolをKotlinから利用するための自作ライブラリ「milkyway」の開発状況と、認証やタイムライン取得の基本的な仕組みについて触れています。'
 date: '2023-09-19T21:33:00.000+09:00'
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア

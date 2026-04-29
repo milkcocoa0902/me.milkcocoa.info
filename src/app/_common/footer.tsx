@@ -30,7 +30,7 @@ const socialLinks: SocialLink[] = [
 
 export const Footer: React.FC = () => {
     return (
-        <div className="flex flex-col text-white bg-[#333333] sticky top-[100vh] p-[8px_16px]">
+        <div className="flex flex-col text-white bg-[#020e1f] sticky top-[100vh] p-[8px_16px]">
             <div className="flex flex-col md:flex-row justify-center items-center gap-4">
                 {
                     socialLinks.map((sl: SocialLink) => {

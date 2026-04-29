@@ -1,5 +1,6 @@
 ---
 title: "権限リクエストを待機可能にする"
+description: 'Androidの権限リクエスト結果をsuspendCancellableCoroutineを利用してコルーチンで待機可能にするための、ユーティリティクラスの実装方法を解説します。'
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [Android]

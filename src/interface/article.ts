@@ -7,16 +7,7 @@ export interface Article {
     published: boolean,
     tags: string[],
     type: string,
-}
-
-export interface BlogOnlyArticle extends Article{
-    type: 'blog',
     description: string,
-    cover: string
-}
-
-export interface ZennArticle extends Article{
-    type: 'zenn',
 }
 
 export type ArticleDetail = {

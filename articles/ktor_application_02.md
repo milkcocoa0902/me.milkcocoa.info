@@ -1,6 +1,6 @@
 ---
 title: "Kotlinでつくるサーバサイドアプリケーション【02】"
-description: ''
+description: 'Ktor入門の第2回として、Resourcesプラグインを用いた型安全なルーティングの定義方法と、ContentNegotiationを活用したJSONデータの受け渡し（シリアライズ・デシリアライズ）について解説しています。'
 date: '2023-08-15T14:33:00.000+09:00'
 emoji: "🧵"
 type: "tech" # tech: 技術記事 / idea: アイデア

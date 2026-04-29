@@ -1,6 +1,6 @@
 ---
 title: "【Next.js】OG画像を自動で生成したい"
-description: ''
+description: 'Next.jsのApp Routerにおいて、SSGと動的ルートを併用する際に生じるOG画像生成の課題と、それを解決するための実装方法について解説します。'
 date: ''
 emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア

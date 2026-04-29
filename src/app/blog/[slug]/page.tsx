@@ -20,7 +20,7 @@ export const generateStaticParams = async  () => {
 
 
 function convertToDateString(date: Date){
-    const [y, mo, d] = [date.getFullYear(), date.getMonth() + 1, date.getDay()]
+    const [y, mo, d] = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
     return `${y}-${mo.toString().padStart(2,'0')}-${d.toString().padStart(2,'0')}`
 }
 
@@ -69,45 +69,46 @@ export default async function Article({params}: ArticlePageProps ) {
 
     return (
         <React.Fragment>
-            <div className="mt-8 mb-0 flex items-center justify-center">
-                <img
-                    className="m-auto"
-                    src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/svg/${article.emoji.codePointAt(0)?.toString(16)}.svg`}
-                    width="64"
-                    height="64"
-                    alt=""
-                />
-            </div>
-            <div className="m-8">
-                <h1 className="text-center text-4xl font-bold">
-                    {article.title}
-                </h1>
-                <p className="text-center text-base text-[#666666]">
-                    {
-                        (() => {
-                            let date = new Date(article.date);
-                            return `${convertToDateString(date)} に公開`;
-                        })()
-                    }
-                </p>
-            </div>
-            <div className="bg-white p-4 my-4 rounded-2xl">
-                <div className="flex justify-start items-center gap-2 overflow-x-auto mb-4">
-                    {
-                        article.topics.map((topic) => (
-                            <React.Fragment key={topic}>
-                                <div className="bg-blue-50 rounded-2xl px-3 py-1 shrink-0">
-                                    <span className="text-sm text-[#666666]">
-                                        {topic}
-                                    </span>
-                                </div>
-                            </React.Fragment>
-                        ))
-                    }
+            <div
+                className="mx-auto my-6 w-full max-w-4xl rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 md:p-6">
+                <div className="mt-2 mb-0 flex items-center justify-center">
+                    <img
+                        className="m-auto"
+                        src={`https://cdnjs.cloudflare.com/ajax/libs/twemoji/12.0.4/2/svg/${article.emoji.codePointAt(0)?.toString(16)}.svg`}
+                        width="64"
+                        height="64"
+                        alt=""
+                    />
                 </div>
-                <BlogMainContent
-                    html={renderedContent}
-                />
+                <div className="mt-4 mb-6 border-b border-slate-600/80 pb-4">
+                    <h1 className="text-center text-4xl font-bold text-white">
+                        {article.title}
+                    </h1>
+                    <p className="mt-2 text-center text-sm text-slate-300">
+                        {
+                            (() => {
+                                let date = new Date(article.date);
+                                return `${convertToDateString(date)} に公開`;
+                            })()
+                        }
+                    </p>
+                </div>
+                <div className="my-2 px-4 md:px-6">
+                    <div className="my-4 flex w-full min-h-6 flex-wrap gap-1.5">
+                        {article.topics.map((tag) => (
+                            <span
+                                key={`${slug}-${tag}`}
+                                className="inline-flex items-center shrink-0 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-xs text-cyan-200"
+                            >
+                            #{tag}
+                        </span>
+                        ))}
+                    </div>
+
+                    <BlogMainContent
+                        html={renderedContent}
+                    />
+                </div>
             </div>
         </React.Fragment>
     )

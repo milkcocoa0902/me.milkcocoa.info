@@ -1,6 +1,6 @@
 ---
 title: "ペットSNS「ぺったん」を支える技術（バックエンド編）"
-description: ''
+description: '自作ペットSNS「ぺったん」のバックエンド技術構成として、Ktor, Exposed, Redis, 各種Firebaseサービス（Auth, Storage, Messaging）の活用方法を詳しく解説しています。'
 date: '2023-07-19T23:39:00.000+09:00'
 emoji: "🐈"
 type: "tech" # tech: 技術記事 / idea: アイデア

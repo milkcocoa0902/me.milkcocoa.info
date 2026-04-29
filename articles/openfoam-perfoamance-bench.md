@@ -1,6 +1,6 @@
 ---
 title: "OpenFOAMで並列演算を試してみる"
-description: ''
+description: '流体解析ソフトOpenFOAMのmotorBikeチュートリアルを用い、シングルプロセスと複数パターンの並列化手法（scotch等による領域分割）で解析速度やセル数の違いを比較検証した記録です。'
 date: '2024-11-13T01:11:30.000+09:00'
 emoji: "🛫"
 type: "tech" # tech: 技術記事 / idea: アイデア

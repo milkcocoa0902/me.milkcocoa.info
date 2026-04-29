@@ -1,18 +1,11 @@
 // 投稿一覧画面
 
 import {getArticles} from "../../../../lib/api";
-import {Article, BlogOnlyArticle, ZennArticle} from "../../../../interface/article";
+import {Article} from "../../../../interface/article";
 import {ArticleCard} from '../../_components/articleCard'
 import {Metadata} from "next";
 import React from "react";
 import PageNavigation from "@/app/blog/_components/pageNavigation";
-
-function isBlogOnlyArticle(arg: any) : arg is BlogOnlyArticle {
-    return arg !== null && typeof arg === "object" && arg.type=="blog"
-}
-function isZennArticle(arg: any) : arg is ZennArticle {
-    return arg !== null && typeof arg === "object" && arg.type=="zenn"
-}
 
 export async function generateMetadata(): Promise<Metadata> {
     // templateを設定しているので、サイト名は自動で付く
@@ -39,15 +32,13 @@ export default async function Articles({ params }: ArticleListPageProps) {
     const totalPage = Math.ceil(articles.totalCount / PAGE_LIMIT)
 
     return (
-        <React.Fragment>
-            <div
-                className="grid gap-y-2 gap-x-2 justify-center"
-                style={{gridTemplateColumns: "repeat(auto-fit, minmax(350px, 31%))"}}
-            >
+        <div className="my-4 rounded-2xl p-4 text-white">
+            <h1 className="border-b border-slate-600/80 pb-2 text-4xl font-bold">Articles</h1>
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
                 {
                     articles.articles.map((article: Article) => {
                         return (
-                            <div className="m-2" key={article.slug}>
+                            <div key={article.slug}>
                                 <a
                                     href={`/blog/${article.slug}`}
                                     className="no-underline text-[#333333]"
@@ -59,6 +50,7 @@ export default async function Articles({ params }: ArticleListPageProps) {
                                         published_at={article.date}
                                         background="#87ede5"
                                         tags={article.tags}
+                                        caption={article.description}
                                     />
                                 </a>
                             </div>
@@ -69,6 +61,6 @@ export default async function Articles({ params }: ArticleListPageProps) {
             <div className="flex flex-col justify-center items-center my-4">
                 <PageNavigation current={page} isLastPage={page === totalPage}/>
             </div>
-        </React.Fragment>
+        </div>
     )
 }

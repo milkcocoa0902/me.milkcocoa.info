@@ -1,6 +1,6 @@
 ---
 title: "技術書典19参加レポート"
-description: ""
+description: "技術書典19のオンライン参加レポートとして、Ktor/Exposed本の執筆背景、販売結果（25冊・20,000円）とSNS発信による伸び、今後の執筆方針を振り返ります。"
 date: '2025-12-03T22:00:00+0900'
 emoji: "📖"
 type: "idea" # tech: 技術記事 / idea: アイデア

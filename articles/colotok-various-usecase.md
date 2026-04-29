@@ -1,7 +1,7 @@
 ---
 title: "Kotlin向けロギングライブラリ「Colotok」の様々なユースケース"
 emoji: "💬"
-description: ''
+description: 'KMP対応ロギングライブラリColotokの活用例として、SLF4Jバックエンド連携、AWS CloudWatch出力、Grafana Loki出力の設定と実装例を紹介します。'
 date: '2025-07-08T21:25:00.000+09:00'
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:

@@ -1,6 +1,6 @@
 ---
 title: "デジタルアドレスAPIライブラリを実装している話"
-description: ''
+description: '日本郵便のデジタルアドレスAPIや郵便番号APIをKotlin Multiplatformから利用するためのライブラリ「Latte」の紹介と、トークン管理、住所検索、プロキシサーバーの活用方法について解説しています。'
 date: '2025-06-15T16:45:00.000+09:00'
 emoji: "🏣"
 type: "tech" # tech: 技術記事 / idea: アイデア

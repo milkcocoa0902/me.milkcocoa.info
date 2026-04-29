@@ -1,7 +1,7 @@
 ---
 title: "KMP向けロギングライブラリ「Colotok」をアップデートしました"
 emoji: "💬"
-description: ''
+description: 'Kotlin Multiplatform (KMP) 対応のロギングライブラリ「Colotok」のアップデート内容として、出力先やフォーマットのカスタム機能、SLF4J連携、MDC対応などの特徴と使い方を解説しています。'
 date: '2025-06-23T23:55:00.000+09:00'
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics:

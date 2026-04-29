@@ -1,6 +1,6 @@
 ---
 title: "ktlintでAndroidのコードを静的解析する(Kotlin)"
-description: ''
+description: 'Androidプロジェクトにktlintを導入し、Kotlinのコード規約に沿った静的解析や自動整形を行うための設定手順と実行方法を解説しています。'
 date: ''
 emoji: "🤖"
 type: "tech" # tech: 技術記事 / idea: アイデア

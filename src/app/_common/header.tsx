@@ -10,13 +10,18 @@ type Menu = {
 const socialLinks: Menu[] = [
     {
         id: randomUUID().toString(),
-        text: "ホーム",
+        text: "About",
         to: "/"
     },
     {
         id: randomUUID().toString(),
-        text: "ブログ",
+        text: "Articles",
         to: "/blog/p/1"
+    },
+    {
+        id: randomUUID().toString(),
+        text: "Works",
+        to: "/works"
     },
     {
         id: randomUUID().toString(),
@@ -27,7 +32,7 @@ const socialLinks: Menu[] = [
 
 export const Header: React.FC = () => {
     return (
-        <div className="z-[1000] flex flex-row items-center bg-[#333333] sticky top-0 p-[8px_16px] justify-around md:justify-start">
+        <div className="z-[1000] flex flex-row items-center bg-[#020e1f] sticky top-0 p-[8px_16px] justify-around md:justify-start">
             {
                 socialLinks.map((menu: Menu) => {
                     return (

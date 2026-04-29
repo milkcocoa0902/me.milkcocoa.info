@@ -134,21 +134,21 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                         if (og) {
                             const title = og.title || url;
                             const description = og.description || "";
-                            const image = og.image ? `<div class="flex-none w-48 h-24 sm:w-64 sm:h-32 bg-gray-100"><img src="${og.image}" alt="${title}" class="w-full h-full object-cover m-0!" /></div>` : "";
-                            const siteName = og.siteName ? `<span class="text-xs text-gray-500">${og.siteName}</span>` : "";
+                            const image = og.image ? `<div class="flex-none w-48 h-24 sm:w-64 sm:h-32 bg-slate-800/60"><img src="${og.image}" alt="${title}" class="w-full h-full object-cover m-0!" /></div>` : "";
+                            const siteName = og.siteName ? `<span class="text-xs text-slate-400">${og.siteName}</span>` : "";
                             const favicon = og.favicon ? `<img src="${og.favicon}" class="w-3 h-3 inline-block mr-1 m-0!" />` : "";
 
                             return `
 <div class="not-prose my-6">
-  <a href="${url}" target="_blank" rel="noopener noreferrer" class="flex border border-gray-200 rounded-xl overflow-hidden hover:bg-gray-50 transition-colors no-underline!">
+  <a href="${url}" target="_blank" rel="noopener noreferrer" class="flex rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden no-underline! transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40">
     <div class="flex-1 p-4 flex flex-col justify-between min-w-0">
       <div class="min-w-0">
-        <div class="text-base font-bold text-gray-900 truncate mb-1">${title}</div>
-        <div class="text-sm text-gray-600 line-clamp-2 mb-2">${description}</div>
+        <div class="text-base font-bold text-teal-300 truncate mb-1">${title}</div>
+        <div class="text-sm text-slate-200 line-clamp-2 mb-2">${description}</div>
       </div>
       <div class="flex items-center min-w-0">
         ${favicon}
-        ${siteName || `<span class="text-xs text-gray-500 truncate">${url}</span>`}
+        ${siteName || `<span class="text-xs text-slate-400 truncate">${url}</span>`}
       </div>
     </div>
     ${image}
@@ -156,7 +156,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
 </div><!--`;
                         }
 
-                        return `<div class="not-prose my-4"><a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${url}</a></div><!--`;
+                        return `<div class="not-prose my-4"><a href="${url}" target="_blank" rel="noopener noreferrer" class="text-cyan-300 hover:text-cyan-200 hover:underline">${url}</a></div><!--`;
                     }
                 }
             }
@@ -172,16 +172,16 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                 const token = tokens[index];
                 const info = token.info.trim().slice(7).trim(); // "message" の後ろを取得
 
-                let style = "bg-blue-50 border-blue-200 text-blue-800";
+                let style = "border-sky-400/50 bg-sky-500/10 text-sky-100";
                 let title = "情報";
 
                 if (info === "warning" || info.startsWith("warning ")) {
-                    style = "bg-yellow-50 border-yellow-200 text-yellow-800";
+                    style = "border-amber-400/50 bg-amber-500/10 text-amber-100";
                     title = "注意";
                     const customTitle = info.slice(7).trim();
                     if (customTitle) title = customTitle;
                 } else if (info === "alert" || info.startsWith("alert ")) {
-                    style = "bg-red-50 border-red-200 text-red-800";
+                    style = "border-rose-400/50 bg-rose-500/10 text-rose-100";
                     title = "警告";
                     const customTitle = info.slice(5).trim();
                     if (customTitle) title = customTitle;
@@ -189,7 +189,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                     if (info) title = info;
                 }
 
-                return `<div class="mt-8 mb-4 p-2 px-4 border-l-4 rounded ${style}">\n<div class="font-bold mb-1">${title}</div>\n`;
+                return `<div class="mt-8 mb-4 rounded-xl border border-l-4 px-4 py-3 ${style}">\n<div class="mb-1 font-bold">${title}</div>\n`;
             },
         })
         .use(container, {

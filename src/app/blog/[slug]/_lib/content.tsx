@@ -52,7 +52,7 @@ export const BlogMainContent: React.FC<{ html: string }> = (params) => {
     }, []);
     return (
         <div
-            className={"prose prose-slate max-w-none mx-auto prose-h1:text-4xl prose-h2:text-3xl prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600 prose-pre:bg-transparent prose-pre:px-4"}
+            className={"prose prose-invert max-w-none mx-auto prose-headings:text-white prose-h1:text-4xl prose-h2:text-3xl prose-headings:underline prose-p:text-slate-200 prose-strong:text-slate-100 prose-li:text-slate-200 prose-a:text-cyan-300 hover:prose-a:text-cyan-200 prose-pre:bg-transparent prose-pre:px-4"}
             dangerouslySetInnerHTML={{
             __html: params.html
         }}>

@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
-import {Article, ZennArticle, BlogOnlyArticle, ArticleDetail, ArticleList} from '@/interface/article'
+import {Article, ArticleDetail, ArticleList} from '@/interface/article'
 
 const articlesDirectory = join(process.cwd(), 'articles')
 
@@ -11,23 +11,7 @@ export function getPostSlugs() {
 
 
 export async function getArticles(limit: number, offset: number): Promise<ArticleList> {
-    const articles = getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
-        const realSlug = slug.replace(/\.md$/, '')
-        const fullPath = join(articlesDirectory, `${realSlug}.md`)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
-        const { data, content } = matter(fileContents)
-
-        return {
-            type: "zenn",
-            title: data['title'],
-            slug: realSlug,
-            date: data['date'],
-            emoji: data["emoji"],
-            published: Boolean(data["published"]),
-            tags: data['topics'] || []
-        } as ZennArticle
-    }).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
-        .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
+    const articles = await getAllArticles()
 
     return {
         articles: articles.slice(offset, offset + limit),
@@ -50,8 +34,9 @@ export async function getAllArticles(): Promise<Article[]> {
             date: data['date'],
             emoji: data["emoji"],
             published: Boolean(data["published"]),
-            tags: data['topics'] || []
-        } as ZennArticle
+            tags: data['topics'] || [],
+            description: data['description'] || ''
+        } as Article
     }).sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
         .filter((article) => (process.env.NODE_ENV === "production") ? article.published: true)
 }

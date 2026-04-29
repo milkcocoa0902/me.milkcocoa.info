@@ -1,6 +1,6 @@
 ---
 title: "メールサーバが不正利用されたぽいので改めて対策をした"
-description: ''
+description: '運用中のメールサーバがスパム送信に悪用された経験から、Postfixの送信・受信制限の強化、SPF検証、コンテンツフィルタ（Amavis, SpamAssassin）の導入など、具体的なセキュリティ対策をまとめています。'
 date: '2024-10-07T01:59:00.000+09:00'
 emoji: "📨"
 type: "tech" # tech: 技術記事 / idea: アイデア

@@ -8,38 +8,32 @@ export default function PageNavigation(
         isLastPage: boolean,
     }
 ) {
+    const buttonBaseClass = "inline-flex items-center rounded-2xl border px-4 py-1.5 text-sm font-semibold no-underline transition duration-200";
+
     return (
         <React.Fragment>
-            <div className="flex flex-row justify-center items-center my-2 gap-16">
+            <div className="my-2 flex flex-row items-center justify-center gap-4 sm:gap-6">
                 <a
                     href={(props.current === 1) ? undefined : `/blog/p/${props.current - 1}`}
                     aria-disabled={props.current === 1}
-                    className={`no-underline ${props.current === 1 ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    className={`${buttonBaseClass} ${
+                        props.current === 1
+                            ? "cursor-not-allowed border-slate-700/60 bg-slate-800/50 text-slate-500"
+                            : "cursor-pointer border-slate-700/70 bg-slate-900/40 text-teal-300 hover:-translate-y-0.5 hover:border-slate-500/80 hover:text-teal-200 hover:shadow-lg hover:shadow-slate-950/40"
+                    }`}
                 >
-                    <div
-                        className={`rounded-2xl border-solid border px-4 py-0.5 text-[#333333] ${
-                            props.current === 1 
-                            ? "bg-slate-400 border-slate-400" 
-                            : "bg-[#EAEAEA] border-blue-900"
-                        }`}
-                    >
-                        &lt; 前のページ
-                    </div>
+                    &lt; 前のページ
                 </a>
                 <a
                     href={props.isLastPage ? undefined : `/blog/p/${props.current + 1}`}
                     aria-disabled={props.isLastPage}
-                    className={`no-underline ${props.isLastPage ? "cursor-not-allowed" : "cursor-pointer"}`}
+                    className={`${buttonBaseClass} ${
+                        props.isLastPage
+                            ? "cursor-not-allowed border-slate-700/60 bg-slate-800/50 text-slate-500"
+                            : "cursor-pointer border-slate-700/70 bg-slate-900/40 text-teal-300 hover:-translate-y-0.5 hover:border-slate-500/80 hover:text-teal-200 hover:shadow-lg hover:shadow-slate-950/40"
+                    }`}
                 >
-                    <div
-                        className={`rounded-2xl border-solid border px-4 py-0.5 text-[#333333] ${
-                            props.isLastPage 
-                            ? "bg-slate-400 border-slate-400" 
-                            : "bg-[#EAEAEA] border-blue-900"
-                        }`}
-                    >
-                        次のページ &gt;
-                    </div>
+                    次のページ &gt;
                 </a>
             </div>
         </React.Fragment>

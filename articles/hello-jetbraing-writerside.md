@@ -1,6 +1,6 @@
 ---
 title: "JetBrainsのWritersideを試してみた"
-description: ''
+description: 'JetBrainsのドキュメント執筆用ツール「Writerside」を試用し、プロジェクト作成からトピックの執筆、引用やタブなどの独自記法、HTMLビルド機能までの使い勝手をまとめています。'
 date: '2023-10-27T21:33:00.000+09:00'
 emoji: "📖"
 type: "tech" # tech: 技術記事 / idea: アイデア

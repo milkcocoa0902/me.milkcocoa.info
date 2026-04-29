@@ -1,6 +1,6 @@
 ---
 title: "Kotlinでファイルを圧縮/展開する"
-description: ''
+description: 'Kotlinを用いてAndroidでファイルをZip圧縮・展開するための、ZipOutputStreamおよびZipInputStreamを活用した実装コード例を紹介します。'
 date: '2022-11-11T00:00:00.000Z'
 author:
   name: ここあ

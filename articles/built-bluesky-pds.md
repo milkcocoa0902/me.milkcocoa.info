@@ -1,6 +1,6 @@
 ---
 title: "【Bluesky】PDSを建てた"
-description: ''
+description: 'BlueskyのPDS（Personal Data Server）を自前で構築する際の手順や、Nginxへの置き換え、Cloudflare Zero Trustとの連携、ストレージ構成の変更などのカスタマイズ方法を記録しています。'
 date: ''
 emoji: "🦋"
 type: "tech" # tech: 技術記事 / idea: アイデア

@@ -1,6 +1,6 @@
 ---
 title: "Node.jsとDenoのPING/PONGの差分に関して"
-description: ''
+description: 'Node.jsとDenoにおけるWebSocketサーバのPING/PONGフレームの挙動の違いを比較し、接続維持やタイムアウト制御の仕様差について解説します。'
 date: '2023-11-13T23:39:00.000+09:00'
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア

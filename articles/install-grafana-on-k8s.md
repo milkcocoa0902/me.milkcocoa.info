@@ -1,6 +1,6 @@
 ---
 title: "k8sにGrafanaとかをインストールして監視できるようにする"
-description: ''
+description: 'Kubernetes環境にHelmを使用してGrafanaとPrometheusを導入し、MetalLBやNginx-ingressを組み合わせてLAN内からホスト名でダッシュボードにアクセス可能にする設定手順を解説しています。'
 date: '2024-06-17T23:33:00.000+09:00'
 emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア

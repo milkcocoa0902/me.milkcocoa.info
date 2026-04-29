@@ -1,6 +1,6 @@
 ---
 title: "Ktorを利用したWebSocketライブラリ"
-description: ''
+description: 'KtorのWebSocketを型安全かつ便利に利用するために開発している、TinderのScarletにインスパイアされたライブラリ「Crimson」の実装例を紹介します。'
 date: '2025-04-30T21:55:00.000+09:00'
 emoji: "🧵"
 type: "tech" # tech: 技術記事 / idea: アイデア

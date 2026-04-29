@@ -1,7 +1,7 @@
 ---
 title: "Ubuntu 24.04でOpenFOAMを利用する"
 emoji: "🛫"
-description: ''
+description: 'Ubuntu 24.04上にOpenFOAMを導入する手順と、標準のチュートリアルを用いた試運転、さらにOpenMPIを活用した並列演算による解析時間の短縮効果について解説しています。'
 date: '2024-11-09T19:18:00.000+09:00'
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

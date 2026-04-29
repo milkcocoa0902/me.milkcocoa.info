@@ -1,6 +1,6 @@
 ---
 title: "CognitoのUSER_SRP_AUTHを突破したい"
-description: ''
+description: 'AWS Cognitoの`USER_SRP_AUTH`認証フローをPython(boto3)で実装する際、SRPアルゴリズムに基づいた署名計算（SRP_A, u, x, s, hkdf等）を自前で行う手順を詳しく解説しています。'
 date: '2022-11-11T00:00:00.000Z'
 emoji: "🔐"
 type: "tech" # tech: 技術記事 / idea: アイデア

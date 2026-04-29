@@ -1,6 +1,6 @@
 ---
 title: "PythonでPDFにパスワードをかける"
-description: ''
+description: 'PythonのPyPDF2ライブラリを使用して、PDFファイルにパスワード保護（暗号化）をかける機能を実装する方法を簡潔に紹介しています。'
 date: '2022-11-11T00:00:00.000Z'
 author:
   name: ここあ

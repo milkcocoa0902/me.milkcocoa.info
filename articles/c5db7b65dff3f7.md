@@ -1,5 +1,6 @@
 ---
 title: "DataBiningの解放漏れからの脱却"
+description: 'Android開発におけるDataBindingの解放漏れを防ぐためのボイラープレートコードを削減し、`databinding-ktx`ライブラリを活用して簡潔に記述する方法を紹介しています。'
 emoji: "🤖"
 type: "tech"
 topics:

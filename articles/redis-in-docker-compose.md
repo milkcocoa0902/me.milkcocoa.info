@@ -1,6 +1,6 @@
 ---
 title: "DockerでRedisをカスタム設定で使用する"
-description: ''
+description: 'Docker ComposeでRedisを構築する際に、ホスト側からの接続を許可するための設定（bind address）やパフォーマンスチューニングのポイントを解説します。'
 date: ''
 emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア

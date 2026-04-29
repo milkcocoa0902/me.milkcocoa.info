@@ -8,82 +8,99 @@ import Petlog from "../../public/assets/works/petlog.png";
 import LatteIcon from "../../public/assets/works/latte.png"
 import CrimsonIcon from "../../public/assets/works/Crimson.png"
 import ColotokIcon from "../../public/assets/works/Colotok.png"
-export type WorkItem = {
-    id: string,
-    title: string,
-    description: string,
-    image: StaticImageData,
-    href: string
+
+type Work = {
+    title: string
+    description: string
+    stack: string[]
+    href?: string
+    image: StaticImageData
 }
 
-const items: WorkItem[] = [
+type WorkInternal = Work & {
+    id: number
+}
+
+const items: WorkInternal[] = [
     {
-        id: crypto.randomUUID().toString(),
-        title: 'CocoaDiskInfo',
-        description: 'Simple S.M.A.R.T. viewer for Linux',
-        image: CocoaDiskInfo,
-        href: 'https://github.com/koron0902/CocoaDiskInfo',
-    },
-    {
-        id: crypto.randomUUID().toString(),
-        title: '離乳食手帳',
-        description: '日々の離乳食を記録するためのAndroidアプリ',
-        image: NoteForBabyFood,
-        href: 'https://play.google.com/store/apps/details?id=com.milkcocoa.info.goodbyemilk',
-    },
-    {
-        id: crypto.randomUUID().toString(),
-        title: 'CocoaZip',
-        description: 'python製のZIPアーカイバ',
-        image: CocoaZip,
-        href: 'https://github.com/koron0902/CocoaZip',
-    },
-    {
-        id: crypto.randomUUID().toString(),
-        title: 'CocoaTweet',
-        description: 'C++ユーザのためのパワフルで使いやすいTwitter API Library',
-        image: CocoaTweet,
-        href: 'https://github.com/koron0902/CocoaTweet',
-    },
-    {
-        id: crypto.randomUUID().toString(),
-        title: 'くらもり',
-        description: '食材管理の決定版アプリ',
-        image: PantoryKeeper,
-        href: 'https://play.google.com/store/apps/details?id=com.milkcocoa.info.pantrykeeper',
-    },
-    {
-        id: crypto.randomUUID().toString(),
-        title: 'ぺったん',
-        description: 'ペット飼い向けSNSアプリ',
-        image: Petlog,
-        href: 'https://petlog.milkcocoa.info',
-    },
-    {
-        id: crypto.randomUUID().toString(),
+        id: 0,
         title: 'Colotok',
-        description: 'Kotlin向けログライブラリ',
+        description: 'Powerful logging library for Kotlin Multiplatform',
+        stack: ['Kotlin', 'KMP', 'Logging'],
         image: ColotokIcon,
         href: 'https://github.com/milkcocoa0902/Colotok',
     },
     {
-        id: crypto.randomUUID().toString(),
-        title: 'Crimson',
-        description: 'Kotlin/Ktor向けのWebSocketライブラリ',
-        image: CrimsonIcon,
-        href: 'https://github.com/milkcocoa0902/Crimson',
+        id: 1,
+        title: 'CocoaDiskInfo',
+        description: 'Simple S.M.A.R.T. viewer for Linux',
+        stack: ['C++', 'Linux', 'S.M.A.R.T'],
+        image: CocoaDiskInfo,
+        href: 'https://github.com/koron0902/CocoaDiskInfo',
     },
     {
-        id: crypto.randomUUID().toString(),
+        id: 2,
         title: 'Latte',
-        description: '日本郵政デジタルアドレスAPIのKotlinライブラリ',
+        description: 'Kotlin library for Japanese postal digital address API',
+        stack: ['Kotlin', 'API'],
         image: LatteIcon,
         href: 'https://github.com/milkcocoa0902/Latte',
     },
+    {
+        id: 3,
+        title: '離乳食手帳',
+        description: '日々の離乳食を記録するためのAndroidアプリ',
+        stack: ['Android', 'Kotlin'],
+        image: NoteForBabyFood,
+        href: 'https://play.google.com/store/apps/details?id=com.milkcocoa.info.goodbyemilk',
+    },
+    {
+        id: 4,
+        title: 'CocoaZip',
+        description: 'python製のZIPアーカイバ',
+        stack: ['Python', 'Zip'],
+        image: CocoaZip,
+        href: 'https://github.com/koron0902/CocoaZip',
+    },
+    {
+        id: 5,
+        title: 'CocoaTweet',
+        description: 'C++ユーザのためのパワフルで使いやすいTwitter API Library',
+        stack: ['C++', 'Twitter', 'API'],
+        image: CocoaTweet,
+        href: 'https://github.com/koron0902/CocoaTweet',
+    },
+    {
+        id: 6,
+        title: 'くらもり',
+        description: '食材管理の決定版アプリ',
+        stack: ['Android', 'Kotlin'],
+        image: PantoryKeeper,
+        href: 'https://play.google.com/store/apps/details?id=com.milkcocoa.info.pantrykeeper',
+    },
+    {
+        id: 7,
+        title: 'ぺったん',
+        description: 'ペット飼い向けSNSアプリ',
+        stack: ['Android', 'Kotlin'],
+        image: Petlog,
+        href: 'https://petlog.milkcocoa.info',
+    },
+    {
+        id: 8,
+        title: 'Crimson',
+        description: 'Kotlin/Ktor向けのWebSocketライブラリ',
+        stack: ['Kotlin', 'Ktor', 'WebSocket'],
+        image: CrimsonIcon,
+        href: 'https://github.com/milkcocoa0902/Crimson',
+    },
 ]
 
-export const workItems = (limit: number, offset: number) => {
-    return items.toReversed().slice(offset, offset + limit)
+export const workItems = (limit: number, offset: number): Work[] => {
+    return items
+        .toSorted((a, b) => a.id - b.id)
+        .slice(offset, offset + limit)
+        .map((item) => ({ ...item }))
 }
 
 export const workCount = () => {

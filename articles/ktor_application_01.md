@@ -1,6 +1,6 @@
 ---
 title: "Kotlinでつくるサーバサイドアプリケーション【01】"
-description: ''
+description: 'Kotlin製の軽量WebフレームワークKtorの入門編として、プロジェクトの作成からHello Worldの実行、モジュール化、外部設定ファイルの使用、基本的なリクエストの受け取り方までを紹介しています。'
 date: '2023-07-17T21:45:00.000+09:00'
 emoji: "🧵"
 type: "tech" # tech: 技術記事 / idea: アイデア

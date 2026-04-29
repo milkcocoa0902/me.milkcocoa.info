@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
       <html>
       <body className="m-0 p-0" >
-      <div className={"min-h-dvh bg-[#cccccc] p-0 m-0 text-white"}>
+      <div className={"min-h-dvh p-0 m-0 text-white"}>
           <Header/>
           {/* main content */}
           <MainContent>

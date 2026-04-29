@@ -1,6 +1,6 @@
 ---
 title: "【Next.js】Markdownの変更を検出してリロードする"
-description: ''
+description: 'Next.jsでブログを構築する際、chokidarとSocket.ioを使用してMarkdownファイルの変更を監視し、保存時にブラウザを自動リロードさせて即座に反映させる仕組みの実装方法を解説しています。'
 date: '2023-10-23T23:36:20.000+09:00'
 author:
  name: ここあ

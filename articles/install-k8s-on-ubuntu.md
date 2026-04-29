@@ -1,6 +1,6 @@
 ---
 title: "k8s構築奮闘記"
-description: ''
+description: 'Ubuntu Server上でk8s環境を構築する際に直面した、CNIの不具合やノードがReadyにならない問題などのトラブルシューティングと、containerdのアップデートによる解決の記録です。'
 date: '2024-06-12T19:39:00.000+09:00'
 emoji: "🐋"
 type: "tech" # tech: 技術記事 / idea: アイデア

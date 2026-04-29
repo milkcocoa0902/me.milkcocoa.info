@@ -1,5 +1,6 @@
 ---
 title: "Kotlin.RPCを試してみる"
+description: 'JetBrainsからリリースされたKotlinのRPCライブラリ「kotlinx-rpc」の基本的な使い方と、将来的なgRPCサポートへの期待について試行した備忘録です。'
 emoji: "🙌"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

@@ -1,6 +1,6 @@
 ---
 title: "Re:VIEWに入門する"
-description: ''
+description: 'Dockerを利用して技術書執筆ツール「Re:VIEW」の環境を爆速で構築し、textlintによる校正やGitHub Actionsでの自動PDF出力を設定する方法を紹介します。'
 date: '2024-11-23T23:25:40.000+09:00'
 emoji: "📖"
 type: "tech" # tech: 技術記事 / idea: アイデア

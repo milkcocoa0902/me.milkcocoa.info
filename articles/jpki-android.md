@@ -1,6 +1,6 @@
 ---
 title: "Androidでマイナンバーカードを操作してみる"
-description: ''
+description: 'Android端末のNFC機能を利用して、マイナンバーカードのICチップから公的個人認証（JPKI）の証明書を読み出したり、PIN照合や署名を行ったりするためのプロトコルと実装方法を詳しく解説しています。'
 date: '2023-12-17T21:33:00.000+09:00'
 emoji: "🔐"
 type: "tech" # tech: 技術記事 / idea: アイデア

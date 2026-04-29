@@ -1,6 +1,6 @@
 ---
 title: "Kotlin Serializationで値をマスクする"
-description: ''
+description: '`kotlinx-serialization`を使用してデータをJSONシリアライズする際に、特定の機密フィールド（パスワードなど）をカスタムシリアライザを用いてマスク（アスタリスク置換）する方法を紹介しています。'
 cover: '/assets/cover/cover.jpg'
 date: '2024-01-08T21:43:00.000+09:00'
 author:
