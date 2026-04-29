@@ -54,35 +54,29 @@ const items: Items[] = [
     },
 ]
 
-import { Box, VStack, Text, Heading, HStack } from "@kuma-ui/core";
 import React from "react";
 export const Achievements: React.FC = () => {
     return (
-        <VStack m={"8px 16px"} p={"2px 8px"} bg="#e6e6e6" color="#333333" >
-            <Heading as="h2" color="black" fontSize="24px">
+        <div className="flex flex-col m-[8px_16px] p-[2px_8px] bg-[#e6e6e6] text-[#333333]">
+            <h2 className="text-black text-[24px] font-bold">
                 Achievement
-            </Heading>
+            </h2>
             {
                 items.map((item: Items) => {
                     return (
-                        <Box p={"1px 0px"} key={item.id}>
-                            <HStack alignItems="center" gap={16}
-                                _hover={{
-                                    opacity: 0.8,
-                                    color: "blue",
-                                }}>
-
-                                <Text width={150} margin={"8px 0px"}>
+                        <div className="p-[1px_0px]" key={item.id}>
+                            <div className="flex items-center gap-4 hover:opacity-80 hover:text-blue-600">
+                                <div className="w-[150px] my-2 shrink-0">
                                     {item.date}
-                                </Text>
-                                <Text margin={"8px 0px"}>
+                                </div>
+                                <div className="my-2">
                                     {item.caption}
-                                </Text>
-                            </HStack>
-                        </Box>
+                                </div>
+                            </div>
+                        </div>
                     )
                 })
             }
-        </VStack>
+        </div>
     )
 }

@@ -6,7 +6,7 @@ emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 
     - Nextjs
-published: true
+published: false
 ---
 
 ## この記事はなに？

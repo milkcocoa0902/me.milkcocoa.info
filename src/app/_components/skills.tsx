@@ -1,6 +1,4 @@
-import {Box, Grid, Heading, HStack, Text, VStack, Image} from "@kuma-ui/core";
 import React from "react";
-import {Card} from "@/app/_components/card";
 import {randomUUID} from "node:crypto";
 
 
@@ -111,23 +109,26 @@ const skillStack: SkillStack[] = [
 
 export const Skills = () => {
   return (
-      <VStack m={"8px 16px"} p={"2px 8px"} bg="#e6e6e6" color="#333333" >
-          <Heading as="h2" color="black" fontSize="24px">
+      <div className="flex flex-col m-2 px-2 py-0.5 bg-[#e6e6e6] text-[#333333]">
+          <h2 className="text-black text-2xl font-bold">
               Skills
-          </Heading>
-          <Grid  gridTemplateColumns={"repeat(auto-fit, minmax(300px, 20%))"} columnGap={"4.3333%"} justifyContent={"center"}>
+          </h2>
+          <div 
+            className="grid gap-x-[4.3333%] justify-center"
+            style={{ gridTemplateColumns: "repeat(auto-fit, minmax(300px, 20%))" }}
+          >
               {
                   skillStack.map((stack: SkillStack) => (
-                      <VStack alignItems={"center"} m={["8px 8px"]} key={stack.id}>
-                          <Heading as="h3" color="black" fontSize="18px">
+                      <div className="flex flex-col items-center m-2" key={stack.id}>
+                          <h3 className="text-black text-lg font-bold">
                               {stack.category}
-                          </Heading>
+                          </h3>
                           {
                               stack.skills.map((skill: Skill) => (
-                                  <HStack m={["8px 8px"]} key={skill.id} alignItems={"center"} gap={8}>
+                                  <div className="flex items-center m-2 gap-2" key={skill.id}>
                                       {
                                           skill.image && (
-                                              <Image
+                                              <img
                                                   width={20}
                                                   height={20}
                                                   src={skill.image}
@@ -136,13 +137,13 @@ export const Skills = () => {
                                           )
                                       }
                                       {skill.name}
-                                  </HStack>
+                                  </div>
                               ))
                           }
-                      </VStack>
+                      </div>
                   ))
               }
-          </Grid>
-      </VStack>
+          </div>
+      </div>
   )
 };

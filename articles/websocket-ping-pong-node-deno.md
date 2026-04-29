@@ -78,7 +78,7 @@ const s = serve(handler, { port: 5001 })
 めんどうなので、画面も何も作らず、Activityにベタッとクライアントを貼って終わりです。今回の目的は挙動が確かめたいだけなので。  
 ライブラリは `org.java-websocket:Java-WebSocket:1.5.4`を使っています。 `OkHttp3`を使っても良かったのですが、 PING/PONGのフレームが可視化できなかったので。
 
-```Kotlin : MainActivity.kt
+```kotlin : MainActivity.kt
 class MainActivity: AppCompatActivity() {
  override fun onCreate(savedInstanceState: Bundle?) {
   super.onCreate(savedInstanceState)

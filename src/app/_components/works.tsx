@@ -1,6 +1,5 @@
 "use client"
 
-import { Box, VStack, Text, Heading, HStack, Flex, Grid, k } from "@kuma-ui/core";
 import React, {Suspense} from "react";
 import { Card } from "./card";
 
@@ -16,18 +15,21 @@ export const Works: React.FC = () => {
     }, [])
 
     return (
-        <VStack m={16} p={8} bg="#e6e6e6" color="#333333" gap={16}>
-            <Heading as="h2" color="black" fontSize="24px">
+        <div className="flex flex-col m-2 px-2 py-0.5 bg-[#e6e6e6] text-[#333333] gap-4">
+            <h2 className="text-black text-2xl font-bold">
                 Works
-            </Heading>
-            <Grid  gridTemplateColumns={"repeat(auto-fit, 316px)"} gap={"24px"} justifyContent={"center"}>
+            </h2>
+            <div 
+                className="grid gap-6 justify-center"
+                style={{ gridTemplateColumns: "repeat(auto-fit, 316px)" }}
+            >
                 {
                     workItems(
                         itemsPerPage,
                         itemsPerPage * currentPage,
                     ).map((item: WorkItem) => {
                         return (
-                            <Box m={["8px 8px"]} key={item.id}>
+                            <div className="m-2" key={item.id}>
                                 <Card
                                     title={item.title}
                                     caption={item.description}
@@ -36,18 +38,19 @@ export const Works: React.FC = () => {
                                     image={item.image}
                                     background="#f0f0f0"
                                 />
-                            </Box>
+                            </div>
                         )
                     })
                 }
-            </Grid>
-            <HStack justifyContent={"center"}>
+            </div>
+            <div className="flex justify-center gap-4">
 
                 <BiSolidLeftArrow
                     size={24}
                     color={
                         currentPage === 0 ? "lightgray" : "black"
                     }
+                    className={currentPage === 0 ? "cursor-not-allowed" : "cursor-pointer"}
                     aria-disabled={currentPage === 0}
                     onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                 />
@@ -56,19 +59,11 @@ export const Works: React.FC = () => {
                     color={
                         currentPage === maxPage ? "lightgray" : "black"
                     }
+                    className={currentPage === maxPage ? "cursor-not-allowed" : "cursor-pointer"}
                     aria-disabled={currentPage === maxPage}
                     onClick={() => setCurrentPage(Math.min(maxPage, currentPage + 1))}
                 />
-            </HStack>
-            {/* <Flex justify={"start"} alignItems={"center"} flexWrap={"wrap"} flexDirection={"row"} gap={16} m={0}>
-            {
-                items.map((item: Items) => {
-                    return (
-                        <Card title={item.title} caption={item.description} width={300} height={280} image={item.image} background="#f0f0f0"/>
-                    )
-                })
-            }
-            </Flex> */}
-        </VStack>
+            </div>
+        </div>
     )
 }

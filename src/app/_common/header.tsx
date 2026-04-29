@@ -1,7 +1,5 @@
-import { Box, VStack, Text, Heading, HStack, Flex, Grid, k, Link } from "@kuma-ui/core";
 import React from "react";
 import {randomUUID} from "node:crypto";
-
 
 type Menu = {
     id: string,
@@ -29,30 +27,21 @@ const socialLinks: Menu[] = [
 
 export const Header: React.FC = () => {
     return (
-        <Flex
-            zIndex={"1000"}
-            justifyContent={["space-around", "left"]}
-            flexDir={['row']}
-            alignItems={"center"}
-            bg={"#333333"}
-            position={"sticky"}
-            top={"0"}
-            p={"8px 16px"}
-        >
+        <div className="z-[1000] flex flex-row items-center bg-[#333333] sticky top-0 p-[8px_16px] justify-around md:justify-start">
             {
                 socialLinks.map((menu: Menu) => {
                     return (
-                        <Box
-                            p={"0px 16px"}
+                        <div
+                            className="p-[0px_16px]"
                             key={menu.id}
                         >
-                            <Link href={menu.to} style={{ textDecoration: "none" }}>
-                                <Heading as="h2" color={"white"}>{menu.text}</Heading>
-                            </Link>
-                        </Box>
+                            <a href={menu.to} className="no-underline">
+                                <h2 className="text-white text-xl font-bold">{menu.text}</h2>
+                            </a>
+                        </div>
                     )
                 })
             }
-        </Flex>
+        </div>
     )
 }

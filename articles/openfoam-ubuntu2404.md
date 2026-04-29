@@ -916,7 +916,9 @@ paraFoam
 
 ## さいごに
 今回は導入して適当に遊んで終わりましたが、次はNvidiaが出しているAmgXと連携して、GPGPUを用いた解析をしてみたいと思います。
+
 https://developer.nvidia.com/amgx
 
 また別件で`PyFR`というツールも触ってみたので、こちらについても導入をいつかまとめます。  
+
 https://pyfr.readthedocs.io/en/latest/

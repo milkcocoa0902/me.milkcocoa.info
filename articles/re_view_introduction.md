@@ -84,7 +84,7 @@ docker run -t --user $(id -u):$(id -g) -w /book --rm -v $(pwd):/book node:23.3.0
 
 `.textlintrc.json`が生成されています。
 
-```json:.textlintrc.json
+```json :.textlintrc.json
 {
   "plugins": {
     "review": true
@@ -107,7 +107,7 @@ wget -O prh/ruleset.yml https://raw.githubusercontent.com/TechBooster/ReVIEW-Tem
 
 そしたら、`.textlintrc.json`にルールを追加してあげます。
 
-```diff: .textlintrc.json
+```diff : .textlintrc.json
 {
   "plugins": {
     "review": true
@@ -127,7 +127,7 @@ wget -O prh/ruleset.yml https://raw.githubusercontent.com/TechBooster/ReVIEW-Tem
 
 `textlint`を試す前に、もともと存在している原稿を修正しておきます。
 
-```diff: sample.re
+```diff : sample.re
 + = テスト
 +
 +ファイアウォール
@@ -135,7 +135,7 @@ wget -O prh/ruleset.yml https://raw.githubusercontent.com/TechBooster/ReVIEW-Tem
 ```
 
 そしたら、`textlint`を実行してみます。
-```
+```bash
 docker run -t --user $(id -u):$(id -g) -w /book --rm -v $(pwd):/book node:23.3.0-alpine3.20 /bin/sh -ci "npx textlint **/*.re"
 
 /book/articles/sample.re
@@ -172,7 +172,7 @@ mkdir .github/workflows
 そしたら、 `.github/workflows/main.yml`に枠フローを書いていきます。
 
 :::: details ワークフローの中身
-```yaml: main.yml
+```yaml : main.yml
 name: Lint and Build Workflow
 
 on:

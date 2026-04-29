@@ -16,6 +16,7 @@ published: true
 以前、Kotlinでロギングツールを作成した話をしていたのですが、覚えておいででしょうか？
 
 https://zenn.dev/milkcocoa0902/articles/develop-kotlin-logtool
+
 https://zenn.dev/milkcocoa0902/articles/develop-kotlin-logtool2
 
 これらの記事を書いてからそれなりに経過しましたが、最近ちょこちょことアップデートをしています。  
@@ -80,7 +81,7 @@ logger.info("accessed")
 
 基本的な使い方は今までと変わりません。  
 
-```kotlin: LoggerSample.kt 
+```kotlin :LoggerSample.kt 
 val logger = ColotokLoggerFactory()
     .addProvider(ConsoleProvider{
         this.formatter = SimpleTextFormatter
@@ -99,7 +100,7 @@ logger.error("something error")
 ### 出力フォーマットのカスタム
 また、出力フォーマットを変えたいときには以下のようにします。  
 
-```kotlin: LoggerSample.kt
+```kotlin :LoggerSample.kt
 val logger = ColotokLoggerFactory()
     .addProvider(ConsoleProvider{
         this.formatter = object: TextFormatter("""
@@ -123,7 +124,7 @@ logger.error("something error")
 ### 構造化ログの出力
 また、構造化されたログも出力できます。
 
-```kotlin: LoggerSample.kt
+```kotlin :LoggerSample.kt
 val logger = ColotokLoggerFactory()
     .addProvider(ConsoleProvider{
         this.formatter = SimpleStructureFormatter
@@ -158,7 +159,7 @@ logger.debug(Credential(
 ### MDCの利用
 MDCを利用するには、 `Element.CUSTOM`を使用してフォーマッタを構築します。
 
-```kotlin: LoggerSample.kt
+```kotlin :LoggerSample.kt
 val logger = ColotokLoggerFactory()
     .addProvider(ConsoleProvider{
         this.formatter = object: TextFormatter("""

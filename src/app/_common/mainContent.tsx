@@ -1,4 +1,3 @@
-import { Box, VStack, Text, Heading, HStack, Flex, Grid, k, Link } from "@kuma-ui/core";
 import React from "react";
 
 export function MainContent({
@@ -7,20 +6,8 @@ export function MainContent({
     children: React.ReactNode
 }) {
     return (
-        // <KumaRegistry>
-        <Box color={"black"} maxWidth={[
-            // ~ 600px
-            "550px",
-            // 600px ~ 960px
-            "550px",
-            // 960px ~ 1264px
-            "850px",
-            // 1264px ~ 1904px
-            "1180px",
-            // 1904px ~ 
-            "1600px"]} m={"auto"}>
-                {children}
-            </Box>
-        // {/* </KumaRegistry> */}
+        <div className="text-black mx-auto w-[550px] md:w-[550px] lg:w-[850px] xl:w-[1180px] 2xl:w-[1600px] max-w-full">
+            {children}
+        </div>
     )
 }

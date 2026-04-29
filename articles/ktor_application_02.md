@@ -14,6 +14,7 @@ published: true
 ## この記事はなに？
 
 以下の記事の続きです  
+
 https://zenn.dev/milkcocoa0902/articles/ktor_application_01
 
 ## 今回の内容
@@ -54,7 +55,7 @@ fun Application.module{
 
 ひとまず、こんな感じでしょうか
 
-``` Kotlin: /src/main/TypeSafeRoutes.kt
+``` kotlin :/src/main/TypeSafeRoutes.kt
 import io.ktor.resources.Resource
 import io.ktor.server.application.*
 import io.ktor.server.resources.get

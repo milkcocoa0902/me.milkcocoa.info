@@ -3,7 +3,6 @@ import { ImageResponse } from 'next/og';
 import {getAllArticles, getArticle} from "@/lib/api";
 import React from "react";
 import {notFound} from "next/navigation";
-import {Heading, Text, k, Box, Image, HStack} from '@kuma-ui/core'
 
 // Image metadata
 export const size = {

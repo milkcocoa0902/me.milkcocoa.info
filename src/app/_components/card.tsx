@@ -1,4 +1,3 @@
-import { Box, VStack, Text, Heading, HStack, Image } from "@kuma-ui/core";
 import React from "react";
 import { StaticImageData } from "next/image";
 
@@ -21,22 +20,23 @@ export const Card: React.FC<CardProps> = ({
     background = "white",
     borderRadius = 8}) => {
     return (
-        <VStack zIndex={8} p={8} boxShadow={"4px 4px 2px 1px rgba(0, 0, 0, .2)"} bg={background} borderRadius={borderRadius} height={height} width={width}>
-            {image ? <Image src={image.src} width={width} height={200} borderRadius={borderRadius} alt={title}/> : <></>}
-            <Heading
-                as="h3"
-                padding={"4px 0px"}
-                margin={0}
-            >
+        <div 
+            className="flex flex-col z-[8] p-2 shadow-[4px_4px_2px_1px_rgba(0,0,0,0.2)]" 
+            style={{ 
+                backgroundColor: background, 
+                borderRadius: `${borderRadius}px`,
+                height: height ? `${height}px` : "400px",
+                width: width ? `${width}px` : "350px"
+            }}
+        >
+            {image ? <img src={image.src} className="w-full h-[180px] object-cover" style={{ borderRadius: `${borderRadius}px` }} alt={title}/> : <></>}
+            <h3 className="py-1 m-0 text-xl font-bold">
                 {title}
-            </Heading>
-            <Text
-                padding={0}
-                margin={0}
-            >
+            </h3>
+            <p className="p-0 m-0">
                 {caption}
-            </Text>
-        </VStack>
+            </p>
+        </div>
         
     )
 }

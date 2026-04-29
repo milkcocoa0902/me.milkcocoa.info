@@ -16,6 +16,7 @@ published: true
 
 ## この記事はなに？
 前回紹介したKotlin製ログツールの、もう一歩踏み込んだ使い方紹介みたいな感じのなにかです。
+
 https://zenn.dev/milkcocoa0902/articles/develop-kotlin-logtool
 
 
@@ -32,7 +33,7 @@ SlackではIncomming Webhookを使って、HTTP経由で投稿をすることが
 ### 導入する
 さて、まずは必要な依存関係を解決していきます。
 
-```Kotlin: build.gradle.kts
+```kotlin :build.gradle.kts
 plugins {
     kotlin("jvm") version "1.9.21"
     // 追加
@@ -75,7 +76,7 @@ dependencies {
 便宜上、`SlackProvider`と呼ぶことにします。その実装はおおよそ以下のようになります。
 
 :::: details SlackProviderの実装
-```Kotlin: SlackProvider
+```kotlin :SlackProvider
 class SlackProvider(config: SlackProviderConfig): Provider {
 
     constructor(config: SlackProviderConfig.() -> Unit): this(SlackProviderConfig().apply(config))
@@ -137,7 +138,7 @@ class SlackProvider(config: SlackProviderConfig): Provider {
 コンフィグとは、以下の部分を指します。
 
 :::: details コンフィグの実装
-```Kotlin: SlackProvider.kt#SlackProviderConfig
+```kotlin :SlackProvider.kt#SlackProviderConfig
 class SlackProviderConfig() : ProviderConfig {
     var webhook_url: String = ""
 
@@ -164,7 +165,7 @@ class SlackProviderConfig() : ProviderConfig {
 テキストログも構造化ログもだいたい同じような内容になるので、片方だけ抽出すると、以下のようになります。
 
 :::: details Slackに投稿する部分の実装
-```Kotlin: SlackProvider.kt#write()
+```kotlin :SlackProvider.kt#write()
 // テキストログ用のフォーマッタを指定したときに呼び出される
 override fun write(name: String, msg: String, level: LogLevel) {
     if(level.isEnabledFor(logLevel).not()){
@@ -196,7 +197,7 @@ override fun write(name: String, msg: String, level: LogLevel) {
 ここでは、`DEBUG`レベル以上のログをコンソールに、`WARN`レベル以上であればSlackにも流すようにしてみます。
 
 :::: details 使い方
-```Kotlin: Main.kt
+```kotlin :Main.kt
 
 fun main(){
     val logger = LoggerFactory()
@@ -239,9 +240,11 @@ fun main(){
 ## さいごに
 
 今回のサンプルはこちらにおいています。
+
 https://github.com/milkcocoa0902/colotok_slack_integration_sample
 
 ツールはまだまだ開発途上ですが、よかったらスターをいただけると嬉しいです。
+
 https://github.com/milkcocoa0902/colotok
 
 開発のモチベーションは、**コードベースでログの設定が書けると嬉しいなぁ** です。

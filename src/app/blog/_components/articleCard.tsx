@@ -61,9 +61,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
                 />
             </div>
             <div className="flex flex-col p-1 w-[calc(100%-80px)]">
-                <h4 className="m-0 text-base font-bold no-underline text-black">
+                <h5 className="m-0 text-base font-bold no-underline text-black line-clamp-2 overflow-hidden">
                     {title}
-                </h4>
+                </h5>
 
                 {
                     (() => {

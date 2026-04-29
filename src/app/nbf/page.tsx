@@ -1,15 +1,6 @@
-// 投稿一覧画面
-
-import {getArticles} from "../../lib/api";
-import {Footer} from "../_common/footer";
-import {Header} from "../_common/header";
-import {ContentContainer} from "../_common/contentContainer";
-import {MainContent} from "../_common/mainContent";
 import {Metadata} from "next";
 import MarkdownIt from "markdown-it";
-import {Box} from "@kuma-ui/core";
 import React from "react";
-import {BlogMainContent} from "@/app/blog/[slug]/_lib/content";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -21,17 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function PrivacyPolicy() {
     return (
-        <ContentContainer>
-            <Header/>
-            <MainContent>
-                <Box bgColor={"white"} p={"16px 64px"} m={"16px 0"} height={"100vh%"} borderRadius={"16px"}
-                     dangerouslySetInnerHTML={{
-                         __html: MarkdownIt().render(PKPrivacyPolicy)
-                     }}>
-                </Box>
-            </MainContent>
-            <Footer/>
-        </ContentContainer>
+        <div
+            className={"bg-white px-4 py-4 prose prose-slate max-w-none mx-auto my-8 prose-h1:text-4xl prose-h2:text-3xl prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600 prose-pre:bg-transparent prose-pre:px-4 rounded-2xl"}
+            dangerouslySetInnerHTML={{
+                __html: MarkdownIt().render(PKPrivacyPolicy)
+            }}>
+        </div>
     )
 }
 
@@ -106,6 +92,6 @@ const PKPrivacyPolicy = `
 
 住所：  
 社名：Cocoa Tech Lab  
-担当：関口 恵太  
+担当：  
 Eメールアドレス：developer@milkcocoa.info  
 `

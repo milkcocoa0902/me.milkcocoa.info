@@ -75,3 +75,8 @@
 .code-block-container .shiki {
   @apply mt-0 pt-6! m-0!;
 }
+
+/* Details arrow removal for Safari */
+summary::-webkit-details-marker {
+  display: none;
+}

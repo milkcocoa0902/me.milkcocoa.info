@@ -1,10 +1,3 @@
-// 投稿一覧画面
-
-import {Footer} from "../_common/footer";
-import {Header} from "../_common/header";
-import {ContentContainer} from "../_common/contentContainer";
-import {MainContent} from "../_common/mainContent";
-import {Box, Flex, Heading, Text, VStack} from "@kuma-ui/core";
 import {Metadata} from "next";
 
 import * as openpgp from "openpgp";
@@ -26,29 +19,27 @@ export default async function GPGKey() {
 
     const key = await openpgp.readKey({armoredKey: readFileSync(`${process.cwd()}/milkcocoa0902_public_key.asc`).toString()})
     return (
-        <VStack p={"0 10px"}>
+        <div className="flex flex-col px-[10px] py-0">
 
-            <Flex justify={"center"} alignContent={"center"} alignItems={"center"}>
-                <Box outline={"cadetblue"} outlineStyle={"solid"} borderRadius={"100px"} m={"10px"} p={"30px"}
-                     background={"white"}>
+            <div className="flex justify-center content-center items-center">
+                <div className="outline-[cadetblue] outline-solid border-none rounded-[100px] m-[10px] p-[30px] bg-white">
                     <FaKey size={"64px"} color={"cadetblue"}/>
-                </Box>
-            </Flex>
+                </div>
+            </div>
 
-            <Flex justify={"center"} alignContent={"center"} alignItems={"center"}>
-                <Box>
-                    <Text as={"h2"} m={"10px 0"}>Public GPG Key</Text>
-                </Box>
-            </Flex>
+            <div className="flex justify-center content-center items-center">
+                <div>
+                    <h2 className="my-[10px] mx-0 text-black">Public GPG Key</h2>
+                </div>
+            </div>
 
-            <Heading as={"h3"} p={"0"} m={"5px 0 5px 0"}>鍵ID</Heading>
-            <Box outline={"cadetblue"} outlineStyle={"solid"} p={"4px 8px"} backgroundColor={"white"}>
-                <Text as={"h4"} p={"0"} m={"10px"}> {key.getKeyID().toHex().toUpperCase()} </Text>
-            </Box>
+            <h3 className="p-0 mt-[5px] mb-[5px] mx-0 font-bold">鍵ID</h3>
+            <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
+                <h4 className="p-0 m-[10px] font-bold　overflow-x-scroll"> {key.getKeyID().toHex().toUpperCase()} </h4>
+            </div>
 
-            <Heading as={"h3"} p={"0"} m={"15px 0 5px 0"}>ユーザID</Heading>
-            <Flex flexDirection={"row"} outline={"cadetblue"} outlineStyle={"solid"} p={"4px 8px"}
-                  backgroundColor={"white"}>
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">ユーザID</h3>
+            <div className="flex flex-row outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
                 {
                     Array.from(key.getUserIDs()[0])
                         .map(((c, idx) => {
@@ -56,29 +47,29 @@ export default async function GPGKey() {
                         }))
                         .sort(() => Math.random() - 0.5)
                         .map((obj) => {
-                            return (<Text as={"h4"} style={{order: obj.index, userSelect: "none"}} p={"0"} m={"10px 0"}
-                                          key={obj.index}> {obj.c}</Text>)
+                            return (<h4 className="p-0 my-[10px] mx-0 font-bold" style={{order: obj.index, userSelect: "none"}}
+                                          key={obj.index}> {obj.c}</h4>)
                         })
                 }
-            </Flex>
+            </div>
 
-            <Heading as={"h3"} p={"0"} m={"15px 0 5px 0"}>指紋</Heading>
-            <Box outline={"cadetblue"} outlineStyle={"solid"} p={"4px 8px"} backgroundColor={"white"}>
-                <Text as={"h4"} p={"0"} m={"10px"}> <pre>{
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">指紋</h3>
+            <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
+                <h4 className="p-0 m-[10px] font-bold"> <pre>{
                     chunk(Array.from(key.getFingerprint().toUpperCase()), 4)
                         .map((c) => c.join(""))
                         .reduce((a, b) => `${a} ${b}`, "")
                         .trim()
                 }</pre>
-                </Text>
-            </Box>
+                </h4>
+            </div>
 
-            <Heading as={"h3"} p={"0"} m={"15px 0 5px 0"}>公開鍵</Heading>
-            <Box outline={"cadetblue"} outlineStyle={"solid"} p={"4px 8px"} backgroundColor={"white"}>
-                <Text as={"h4"} p={"0"} m={"10px"}>
-                    <pre>{key.armor()}</pre>
-                </Text>
-            </Box>
-        </VStack>
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">公開鍵</h3>
+            <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
+                <h4 className="p-0 m-[10px] font-bold">
+                    <pre className="whitespace-pre-wrap break-all">{key.armor()}</pre>
+                </h4>
+            </div>
+        </div>
     )
 }

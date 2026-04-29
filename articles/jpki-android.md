@@ -154,7 +154,7 @@ data class CommandAdpu(
 
 ::: details Response ADPUの実装
 
-```Kotlin : ResponseAdpu.kt
+```kotlin : ResponseAdpu.kt
 data class ResponseAdpu(val rawData: ByteArray) {
     lateinit var data: ByteArray
     var SW1: Byte = 0x00
@@ -214,7 +214,7 @@ data class ResponseAdpu(val rawData: ByteArray) {
 あとは、ADPU本体ですね。通信処理と、バリデーションを任せているだけです。
 ::: details ADPUの実装
 
-```Kotlin : Adpu.kt```
+```kotlin : Adpu.kt```
 class Adpu(val isoDep: IsoDep) {
     fun transceive(command: CommandAdpu, sw1: Byte = 0x90.toByte(), sw2: Byte = 0x00, validate: Boolean = true): ResponseAdpu{
         val response = isoDep.transceive(command.toAdpu())
@@ -236,7 +236,7 @@ class Adpu(val isoDep: IsoDep) {
 ### JPKI APの選択
 だいたい以下のような実装になります。
 
-```Kotlin 
+```kotlin 
 fun selectJpki(tag: Tag){
     val isoDep = IsoDep.get(tag)
     val selectFileAdpu = CommandAdpu(
@@ -253,7 +253,7 @@ fun selectJpki(tag: Tag){
 
 ### 認証用証明書の選択
 続いて、認証用証明書を選択します。
-```Kotlin 
+```kotlin 
 fun selectCertificateAuth(tag: Tag){
     val isoDep = IsoDep.get(tag)
     val selectFileAdpu = CommandAdpu(
@@ -271,7 +271,7 @@ fun selectCertificateAuth(tag: Tag){
 ### 認証用証明書の読み出し
 認証用証明書の読み出しは、だいたい以下のような感じです。
 
-```Kotlin
+```kotlin
 fun readCertificateAuth(tag: Tag): X509Certificate{
     selectJpki(tag)
     selectCertificateAuth(tag)
@@ -311,7 +311,7 @@ fun readCertificateAuth(tag: Tag): X509Certificate{
 ざっくり、以下のような形になります。  
 `Pin`には4桁のPINコードが入っていると思ってください。
 
-```Kotlin 
+```kotlin 
 fun verifyAuth(tag: Tag?, pin: Pin){
     val isoDep = IsoDep.get(tag)
     val adpu = Adpu(isoDep)
@@ -329,7 +329,7 @@ fun verifyAuth(tag: Tag?, pin: Pin){
 ロックがかかると役所に持っていって解除してもらう必要がある、らしいです。  
 ということで、残回数知りたいですよね。
 
-```Kotlin 
+```kotlin 
 fun verifyCountRemains(tag: Tag): Int{
     val isoDep = IsoDep.get(tag)
     val selectFile = CommandAdpu(CLA = 0x00, INS = 0xA4.toByte(), P1 = 0x02, P2 = 0x0C, Lc = byteArrayOf(0x02), DF = byteArrayOf(0x00, 0x18))
@@ -364,6 +364,7 @@ fun verifyCountRemains(tag: Tag): Int{
 記事にしながらコードを見直しているのですが、ちょいちょい揺れていたり、変な実装がところどころあるので磨いていこうかなと思います。
 
 ちなみに、一旦供養のために用意したリポジトリは以下です。
+
 https://github.com/milkcocoa0902/Jpki
 
 

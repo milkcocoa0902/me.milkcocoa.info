@@ -40,32 +40,32 @@ export default async function Articles({ params }: ArticleListPageProps) {
 
     return (
         <React.Fragment>
-                <div
-                    className="grid gap-y-2 gap-x-2 justify-center"
-                    style={{ gridTemplateColumns: "repeat(auto-fit, minmax(350px, 31%))" }}
-                >
-                    {
-                        articles.articles.map((article: Article) => {
-                            return (
-                                <div className="m-2" key={article.slug}>
-                                    <a
-                                        href={`/blog/${article.slug}`}
-                                        className="no-underline text-[#333333]"
-                                    >
-                                        <ArticleCard
-                                            slug={article.slug}
-                                            title={article.title}
-                                            emoji={article.emoji}
-                                            published_at={article.date}
-                                            background="#87ede5"
-                                            tags={article.tags}
-                                        />
-                                    </a>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+            <div
+                className="grid gap-y-2 gap-x-2 justify-center"
+                style={{gridTemplateColumns: "repeat(auto-fit, minmax(350px, 31%))"}}
+            >
+                {
+                    articles.articles.map((article: Article) => {
+                        return (
+                            <div className="m-2" key={article.slug}>
+                                <a
+                                    href={`/blog/${article.slug}`}
+                                    className="no-underline text-[#333333]"
+                                >
+                                    <ArticleCard
+                                        slug={article.slug}
+                                        title={article.title}
+                                        emoji={article.emoji}
+                                        published_at={article.date}
+                                        background="#87ede5"
+                                        tags={article.tags}
+                                    />
+                                </a>
+                            </div>
+                        )
+                    })
+                }
+            </div>
             <div className="flex flex-col justify-center items-center my-4">
                 <PageNavigation current={page} isLastPage={page === totalPage}/>
             </div>
