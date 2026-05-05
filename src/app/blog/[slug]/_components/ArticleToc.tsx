@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { TocItem } from "@/lib/toc";
+import { RiMenuFoldLine, RiMenuUnfoldLine } from "react-icons/ri";
 
 interface ArticleTocProps {
   items: TocItem[];
@@ -9,6 +10,7 @@ interface ArticleTocProps {
 
 export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
   const [activeId, setActiveId] = useState<string>("");
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     const headings = items
@@ -57,11 +59,29 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
     return null;
   }
 
+  const handleLinkClick = () => {
+    if (window.innerWidth < 1024) {
+      setIsExpanded(false);
+    }
+  };
+
   return (
-    <nav className="w-full lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-      <div className="rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 lg:p-4">
-        <h2 className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Table of Contents</h2>
-        <ul className="space-y-2 text-sm">
+    <nav className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
+      <div className="rounded-2xl border border-slate-700/70 bg-slate-900/70 backdrop-blur-md p-4 lg:bg-slate-900/40">
+        <div className="flex items-center justify-between border-b border-slate-700 pb-2 mb-2 lg:mb-4">
+          <h2 className="text-lg font-bold text-white">Table of Contents</h2>
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="lg:hidden p-1 text-slate-400 hover:text-white transition-colors"
+            aria-label="Toggle Table of Contents"
+          >
+            {isExpanded ? <RiMenuFoldLine size={24} /> : <RiMenuUnfoldLine size={24} />}
+          </button>
+        </div>
+        
+        <ul className={`space-y-2 text-sm overflow-hidden transition-all duration-300 ease-in-out ${
+          isExpanded ? "max-h-[70vh] opacity-100 py-2 overflow-y-auto" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"
+        }`}>
           {items.map((item) => (
             <li
               key={item.id}
@@ -69,7 +89,8 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
             >
               <a
                 href={`#${item.id}`}
-                className={`block transition-colors duration-200 hover:text-teal-300 ${
+                onClick={handleLinkClick}
+                className={`block transition-colors duration-200 hover:text-teal-300 py-1 ${
                   activeId === item.id
                     ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
                     : "text-slate-400"

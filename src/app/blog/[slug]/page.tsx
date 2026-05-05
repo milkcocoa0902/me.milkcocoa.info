@@ -114,7 +114,7 @@ export default async function Article({params}: ArticlePageProps ) {
                         />
                     </div>
                 </div>
-                <aside className="order-1 lg:order-2">
+                <aside className="order-1 lg:order-2 sticky top-14 lg:top-24 z-40 self-start">
                     <ArticleToc items={tocItems} />
                 </aside>
             </div>
