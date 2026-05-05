@@ -9,6 +9,9 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     color: rgb(var(--foreground-rgb));
     background: linear-gradient(
@@ -18,6 +21,11 @@
       )
       var(--background);
   }
+}
+
+/* Scroll margin for sticky header */
+.prose h2, .prose h3, .prose h4 {
+  scroll-margin-top: 5rem;
 }
 
 @layer utilities {

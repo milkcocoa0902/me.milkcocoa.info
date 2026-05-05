@@ -18,6 +18,8 @@ import themeViteSse from "shiki/themes/vitesse-dark.mjs"
 
 import { container } from "@mdit/plugin-container";
 import {fetchOgMetadata, OgMetadata} from "@/lib/ogp";
+import anchor from 'markdown-it-anchor'
+import slugify from '@sindresorhus/slugify'
 
 const engine = await createOnigurumaEngine(shikiWasm)
 const highlighter = await createHighlighterCore({
@@ -110,7 +112,12 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
         }
     })
 
-    md.use((md) => {
+    md.use(anchor, {
+        level: [2, 3],
+        slugify: (s) => slugify(s),
+        permalink: false,
+    })
+    .use((md) => {
         const defaultRender = md.renderer.rules.paragraph_open || ((tokens, idx, options, env, self) => {
             return self.renderToken(tokens, idx, options);
         });
@@ -203,14 +210,14 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
             name: "details",
             openRender: (tokens, index, _options) => {
                 const info = tokens[index].info.trim().slice(7).trim();
-                return `<details class="my-4 border border-gray-200 rounded-lg overflow-hidden group">
-<summary class="p-4 bg-gray-50 cursor-pointer font-bold list-none flex items-center justify-between hover:bg-gray-100 transition-colors">
+                return `<details class="my-4 rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden group">
+<summary class="p-4 cursor-pointer font-bold list-none flex items-center justify-between text-teal-200 hover:bg-slate-800/40 transition-colors">
   <span>${info || "Details"}</span>
-  <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <svg class="w-5 h-5 text-slate-300 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
   </svg>
 </summary>
-<div class="p-4 border-t border-gray-200">`;
+<div class="p-4 border-t border-slate-700/70 text-slate-100">`;
             },
             closeRender: () => `</div></details>\n`
         });
