@@ -29,16 +29,16 @@ export default async function GPGKey() {
 
             <div className="flex justify-center content-center items-center">
                 <div>
-                    <h2 className="my-[10px] mx-0 text-black">Public GPG Key</h2>
+                    <h2 className="my-[10px] mx-0 text-white text-2xl font-extrabold">Public GPG Key</h2>
                 </div>
             </div>
 
-            <h3 className="p-0 mt-[5px] mb-[5px] mx-0 font-bold">鍵ID</h3>
+            <h3 className="p-0 mt-[5px] mb-[5px] mx-0 font-bold text-white">鍵ID</h3>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
                 <h4 className="p-0 m-[10px] font-bold　overflow-x-scroll"> {key.getKeyID().toHex().toUpperCase()} </h4>
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">ユーザID</h3>
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">ユーザID</h3>
             <div className="flex flex-row outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
                 {
                     Array.from(key.getUserIDs()[0])
@@ -53,7 +53,7 @@ export default async function GPGKey() {
                 }
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">指紋</h3>
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">指紋</h3>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
                 <h4 className="p-0 m-[10px] font-bold"> <pre>{
                     chunk(Array.from(key.getFingerprint().toUpperCase()), 4)
@@ -64,7 +64,7 @@ export default async function GPGKey() {
                 </h4>
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold">公開鍵</h3>
+            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">公開鍵</h3>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
                 <h4 className="p-0 m-[10px] font-bold">
                     <pre className="whitespace-pre-wrap break-all">{key.armor()}</pre>

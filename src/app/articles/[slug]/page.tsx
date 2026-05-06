@@ -1,7 +1,7 @@
 // 投稿詳細画面
 import { notFound } from "next/navigation";
 import {getArticle, getAllArticles} from "../../../lib/api";
-import { BlogMainContent } from "./_lib/content";
+import { ArticleBody } from "./_components/ArticleMainContent";
 import type { Metadata } from 'next'
 import React from "react";
 import {renderArticle} from "@/lib/md";
@@ -34,9 +34,9 @@ export async function generateMetadata({ params }: ArticlePageProps ): Promise<M
         openGraph: {
             title: article?.title,
             description: article?.description,
-            url: `https://me.milkcocoa.info/blog/${slug}`,
+            url: `https://me.milkcocoa.info/articles/${slug}`,
             images: {
-                url: `https://me.milkcocoa.info/blog/${slug}/opengraph-image`,
+                url: `https://me.milkcocoa.info/articles/${slug}/opengraph-image`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: ArticlePageProps ): Promise<M
             card: "summary_large_image",
             description: article?.description,
             images: {
-                url: `https://me.milkcocoa.info/blog/${slug}/opengraph-image`,
+                url: `https://me.milkcocoa.info/articles/${slug}/opengraph-image`,
                 alt: article?.title,
                 width: 1200,
                 height: 630,
@@ -109,12 +109,12 @@ export default async function Article({params}: ArticlePageProps ) {
                             ))}
                         </div>
 
-                        <BlogMainContent
+                        <ArticleBody
                             html={renderedContent}
                         />
                     </div>
                 </div>
-                <aside className="order-1 lg:order-2 sticky top-14 lg:top-24 z-40 self-start">
+                <aside className="order-1 lg:order-2 sticky top-14 lg:top-24 z-[2000] lg:z-auto self-start">
                     <ArticleToc items={tocItems} />
                 </aside>
             </div>

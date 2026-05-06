@@ -21,16 +21,23 @@ export async function getArticles(limit: number, offset: number): Promise<Articl
 
 
 export async function getAllArticles(): Promise<Article[]> {
-    return  getPostSlugs().filter((slug => slug !== "blog")).map((slug) => {
+    return  getPostSlugs().map((slug) => {
         const realSlug = slug.replace(/\.md$/, '')
-        const fullPath = join(articlesDirectory, `${realSlug}.md`)
-        const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const articlePath =  join(articlesDirectory, `${realSlug}.md`)
+
+        return {
+            realSlug: realSlug,
+            articlePath: articlePath
+        }
+    }).filter((s) => fs.existsSync(s.articlePath))
+        .map((s)=>{
+        const fileContents = fs.readFileSync(s.articlePath, 'utf8')
         const { data, content } = matter(fileContents)
 
         return {
             type: "zenn",
             title: data['title'],
-            slug: realSlug,
+            slug: s.realSlug,
             date: data['date'],
             emoji: data["emoji"],
             published: Boolean(data["published"]),

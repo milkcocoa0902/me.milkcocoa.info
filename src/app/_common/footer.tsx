@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
                 }
             </div>
             <div className="text-center md:text-end">
-                <div>&copy; 2019 - {new Date().getFullYear()} ここあ</div>
+                <div>&copy; 2019 - {new Date().getFullYear()} ここあ(milkcocoa0902)</div>
             </div>
         </div>
     )

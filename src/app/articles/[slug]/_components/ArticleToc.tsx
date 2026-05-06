@@ -10,7 +10,6 @@ interface ArticleTocProps {
 
 export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
   const [activeId, setActiveId] = useState<string>("");
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   useEffect(() => {
     const headings = items
@@ -21,7 +20,6 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
       (entries) => {
         const visible = entries
           .filter((e) => e.isIntersecting)
-          // 最も上にある要素、または最も交差している要素を選ぶ
           .sort((a, b) => {
               if (a.intersectionRatio !== b.intersectionRatio) {
                   return b.intersectionRatio - a.intersectionRatio;
@@ -41,7 +39,6 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
 
     headings.forEach((h) => observer.observe(h));
     
-    // スクロール位置がトップに近い場合は activeId をクリアする
     const handleScroll = () => {
         if (window.scrollY < 100) {
             setActiveId("");
@@ -59,29 +56,57 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
     return null;
   }
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent) => {
+    // details要素を閉じる (モバイルのみ)
     if (window.innerWidth < 1024) {
-      setIsExpanded(false);
+      const details = e.currentTarget.closest('details');
+      if (details) {
+        details.removeAttribute('open');
+      }
     }
   };
 
   return (
-    <nav className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
-      <div className="rounded-2xl border border-slate-700/70 bg-slate-900/70 backdrop-blur-md p-4 lg:bg-slate-900/40">
-        <div className="flex items-center justify-between border-b border-slate-700 pb-2 mb-2 lg:mb-4">
-          <h2 className="text-lg font-bold text-white">Table of Contents</h2>
-          <button 
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="lg:hidden p-1 text-slate-400 hover:text-white transition-colors"
-            aria-label="Toggle Table of Contents"
+    <nav className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto relative z-[2001]">
+      {/* モバイル用: details/summaryを使用 */}
+      <div className="lg:hidden">
+        <details className="rounded-2xl border border-slate-700/70 bg-slate-900/95 backdrop-blur-md overflow-hidden group">
+          <summary 
+            className="flex items-center justify-between p-4 cursor-pointer list-none touch-manipulation"
           >
-            {isExpanded ? <RiMenuFoldLine size={24} /> : <RiMenuUnfoldLine size={24} />}
-          </button>
-        </div>
-        
-        <ul className={`space-y-2 text-sm overflow-hidden transition-all duration-300 ease-in-out ${
-          isExpanded ? "max-h-[70vh] opacity-100 py-2 overflow-y-auto" : "max-h-0 opacity-0 lg:max-h-none lg:opacity-100"
-        }`}>
+            <h2 className="text-lg font-bold text-white">Table of Contents</h2>
+            <div className="text-slate-400 p-1">
+              <RiMenuUnfoldLine className="group-open:hidden" size={24} />
+              <RiMenuFoldLine className="hidden group-open:block" size={24} />
+            </div>
+          </summary>
+          <ul className="px-4 pb-4 space-y-2 text-sm max-h-[70vh] overflow-y-auto border-t border-slate-700 pt-2">
+            {items.map((item) => (
+              <li
+                key={item.id}
+                style={{ paddingLeft: `${(item.level - 2) * 1}rem` }}
+              >
+                <a
+                  href={`#${item.id}`}
+                  onClick={handleLinkClick}
+                  className={`block transition-colors duration-200 hover:text-teal-300 py-1 ${
+                    activeId === item.id
+                      ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
+                      : "text-slate-400"
+                  }`}
+                >
+                  {item.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </div>
+
+      {/* デスクトップ用: 常に表示 */}
+      <div className="hidden lg:block rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4">
+        <h2 className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Table of Contents</h2>
+        <ul className="space-y-2 text-sm">
           {items.map((item) => (
             <li
               key={item.id}
@@ -89,7 +114,6 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
             >
               <a
                 href={`#${item.id}`}
-                onClick={handleLinkClick}
                 className={`block transition-colors duration-200 hover:text-teal-300 py-1 ${
                   activeId === item.id
                     ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"

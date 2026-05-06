@@ -4,7 +4,7 @@ description: 'Next.jsでブログを構築する際、chokidarとSocket.ioを使
 date: '2023-10-23T23:36:20.000+09:00'
 author:
  name: ここあ
- picture: '/assets/blog/authors/milkcocoa.png'
+ picture: '/assets/articles/authors/milkcocoa.png'
 emoji: "⚛️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: 

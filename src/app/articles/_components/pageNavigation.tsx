@@ -14,7 +14,7 @@ export default function PageNavigation(
         <React.Fragment>
             <div className="my-2 flex flex-row items-center justify-center gap-4 sm:gap-6">
                 <a
-                    href={(props.current === 1) ? undefined : `/blog/p/${props.current - 1}`}
+                    href={(props.current === 1) ? undefined : `/articles/p/${props.current - 1}`}
                     aria-disabled={props.current === 1}
                     className={`${buttonBaseClass} ${
                         props.current === 1
@@ -25,7 +25,7 @@ export default function PageNavigation(
                     &lt; 前のページ
                 </a>
                 <a
-                    href={props.isLastPage ? undefined : `/blog/p/${props.current + 1}`}
+                    href={props.isLastPage ? undefined : `/articles/p/${props.current + 1}`}
                     aria-disabled={props.isLastPage}
                     className={`${buttonBaseClass} ${
                         props.isLastPage

@@ -5,7 +5,7 @@ import {Article} from "../../../../interface/article";
 import {ArticleCard} from '../../_components/articleCard'
 import {Metadata} from "next";
 import React from "react";
-import PageNavigation from "@/app/blog/_components/pageNavigation";
+import PageNavigation from "../../_components/pageNavigation";
 
 export async function generateMetadata(): Promise<Metadata> {
     // templateを設定しているので、サイト名は自動で付く
@@ -40,7 +40,7 @@ export default async function Articles({ params }: ArticleListPageProps) {
                         return (
                             <div key={article.slug}>
                                 <a
-                                    href={`/blog/${article.slug}`}
+                                    href={`/articles/${article.slug}`}
                                     className="no-underline text-[#333333]"
                                 >
                                     <ArticleCard

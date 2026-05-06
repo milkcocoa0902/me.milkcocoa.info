@@ -36,7 +36,7 @@ const connectToFileWatcher = (router: AppRouterInstance) =>{
     }
 }
 
-export const BlogMainContent: React.FC<{ html: string }> = (params) => {
+export const ArticleBody: React.FC<{ html: string }> = (params) => {
     const router = useRouter()
     useEffect(() => {
         let ignore = false;

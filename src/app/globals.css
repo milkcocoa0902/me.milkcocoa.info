@@ -11,6 +11,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scrollbar-color: #3a4b66 #0b1f3b;
+    scrollbar-width: thin;
   }
   body {
     color: rgb(var(--foreground-rgb));
@@ -21,6 +23,26 @@
       )
       var(--background);
   }
+}
+
+/* Dark tone scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b1f3b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a4b66;
+  border-radius: 9999px;
+  border: 2px solid #0b1f3b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4d6284;
 }
 
 /* Scroll margin for sticky header */

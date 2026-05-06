@@ -21,6 +21,27 @@ import {fetchOgMetadata, OgMetadata} from "@/lib/ogp";
 import anchor from 'markdown-it-anchor'
 import slugify from '@sindresorhus/slugify'
 
+const createHeadingSlug = (value: string): string => {
+    const normalized = value.trim().normalize("NFKC");
+    if (!normalized) {
+        return "section";
+    }
+
+    const unicodeSlug = normalized
+        .toLowerCase()
+        .replace(/[\s　]+/g, "-")
+        .replace(/[^\p{Letter}\p{Number}-]/gu, "")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+
+    if (unicodeSlug) {
+        return unicodeSlug;
+    }
+
+    const latinSlug = slugify(normalized);
+    return latinSlug || "section";
+}
+
 const engine = await createOnigurumaEngine(shikiWasm)
 const highlighter = await createHighlighterCore({
     themes: [themeViteSse],
@@ -114,7 +135,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
 
     md.use(anchor, {
         level: [2, 3],
-        slugify: (s) => slugify(s),
+        slugify: createHeadingSlug,
         permalink: false,
     })
     .use((md) => {
