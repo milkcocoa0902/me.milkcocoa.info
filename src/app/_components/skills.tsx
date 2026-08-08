@@ -128,6 +128,9 @@ export const Skills = () => {
                                   <div className="flex items-center m-2 gap-2" key={skill.id}>
                                       {
                                           skill.image && (
+                                              // These tiny third-party logos are already fixed at 20px and
+                                              // intentionally bypass the site image optimizer.
+                                              // eslint-disable-next-line @next/next/no-img-element
                                               <img
                                                   width={20}
                                                   height={20}

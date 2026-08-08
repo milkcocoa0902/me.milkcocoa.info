@@ -4,6 +4,23 @@ import {workCount, workItems} from "@/lib/works";
 
 export const metadata: Metadata = {
     title: "Works",
+    description: "milkcocoaが開発したKotlinライブラリ、Androidアプリ、デスクトップツールなどの制作物一覧。",
+    alternates: {
+        canonical: "/works",
+    },
+    openGraph: {
+        title: "Works - ここあさんの倉庫",
+        description: "milkcocoaが開発したKotlinライブラリ、Androidアプリ、デスクトップツールなどの制作物一覧。",
+        url: "/works",
+        type: "website",
+        locale: "ja_JP",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Works - ここあさんの倉庫",
+        description: "milkcocoaが開発したKotlinライブラリ、Androidアプリ、デスクトップツールなどの制作物一覧。",
+        creator: "@milkcocoa0902",
+    },
 };
 
 export default function WorksPage() {
@@ -12,8 +29,12 @@ export default function WorksPage() {
     const works = workItems(workCount(), 0);
 
     return (
-        <div className="my-4 rounded-2xl p-4 text-white">
+        <article className="my-4 rounded-2xl p-1 text-white sm:p-4">
             <h1 className="border-b border-slate-600/80 pb-2 text-4xl font-bold">Works</h1>
+
+            <p className="mt-4 max-w-3xl leading-7 text-slate-200">
+                Kotlinライブラリ、Androidアプリ、デスクトップツールを中心とした制作物を紹介します。
+            </p>
 
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
                 {works.map((item) => (
@@ -28,6 +49,7 @@ export default function WorksPage() {
                             <Image
                                 src={item.image}
                                 alt={item.title}
+                                sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
                                 className="h-48 w-full rounded-xl object-cover"
                             />
 
@@ -53,6 +75,7 @@ export default function WorksPage() {
                             <Image
                                 src={item.image}
                                 alt={item.title}
+                                sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
                                 className="h-48 w-full rounded-xl object-cover"
                             />
 
@@ -73,6 +96,6 @@ export default function WorksPage() {
                     )
                 ))}
             </div>
-        </div>
+        </article>
     );
 }

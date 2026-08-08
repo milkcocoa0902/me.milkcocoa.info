@@ -21,6 +21,14 @@ import {fetchOgMetadata, OgMetadata} from "@/lib/ogp";
 import anchor from 'markdown-it-anchor'
 import slugify from '@sindresorhus/slugify'
 
+const escapeHtml = (value: string): string => value.replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+}[character] ?? character))
+
 const createHeadingSlug = (value: string): string => {
     const normalized = value.trim().normalize("NFKC");
     if (!normalized) {
@@ -101,7 +109,6 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
         // or '' if the source string is not changed and should be escaped externally.
         // If result starts with <pre... internal wrapper is skipped.
         highlight: function (str, lang, attrs): string {
-            console.log(lang, " - ", attrs)
             let filename = "";
             if (attrs.includes(":")) {
                 const parts = attrs.split(":");
@@ -127,7 +134,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
             }
 
             if (filename) {
-                return `<div class="code-block-container"><div class="code-block-filename bg-slate-700">${filename}</div>${codeHtml}</div>`;
+                return `<div class="code-block-container"><div class="code-block-filename bg-slate-700">${escapeHtml(filename)}</div>${codeHtml}</div>`;
             }
             return codeHtml;
         }
@@ -160,15 +167,16 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                         tokens[idx + 2].type = "link_card_close";
 
                         if (og) {
-                            const title = og.title || url;
-                            const description = og.description || "";
-                            const image = og.image ? `<div class="flex-none w-48 h-24 sm:w-64 sm:h-32 bg-slate-800/60"><img src="${og.image}" alt="${title}" class="w-full h-full object-cover m-0!" /></div>` : "";
-                            const siteName = og.siteName ? `<span class="text-xs text-slate-400">${og.siteName}</span>` : "";
-                            const favicon = og.favicon ? `<img src="${og.favicon}" class="w-3 h-3 inline-block mr-1 m-0!" />` : "";
+                            const title = escapeHtml(og.title || url);
+                            const description = escapeHtml(og.description || "");
+                            const safeUrl = escapeHtml(url);
+                            const image = og.image ? `<div class="flex-none w-48 h-24 sm:w-64 sm:h-32 bg-slate-800/60"><img src="${escapeHtml(og.image)}" alt="${title}" width="256" height="128" loading="lazy" decoding="async" class="w-full h-full object-cover m-0!" /></div>` : "";
+                            const siteName = og.siteName ? `<span class="text-xs text-slate-400">${escapeHtml(og.siteName)}</span>` : "";
+                            const favicon = og.favicon ? `<img src="${escapeHtml(og.favicon)}" alt="" width="12" height="12" loading="lazy" decoding="async" class="w-3 h-3 inline-block mr-1 m-0!" />` : "";
 
                             return `
 <div class="not-prose my-6">
-  <a href="${url}" target="_blank" rel="noopener noreferrer" class="flex rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden no-underline! transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40">
+  <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="flex rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden no-underline! transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300">
     <div class="flex-1 p-4 flex flex-col justify-between min-w-0">
       <div class="min-w-0">
         <div class="text-base font-bold text-teal-300 truncate mb-1">${title}</div>
@@ -176,7 +184,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
       </div>
       <div class="flex items-center min-w-0">
         ${favicon}
-        ${siteName || `<span class="text-xs text-slate-400 truncate">${url}</span>`}
+        ${siteName || `<span class="text-xs text-slate-400 truncate">${safeUrl}</span>`}
       </div>
     </div>
     ${image}
@@ -184,7 +192,8 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
 </div><!--`;
                         }
 
-                        return `<div class="not-prose my-4"><a href="${url}" target="_blank" rel="noopener noreferrer" class="text-cyan-300 hover:text-cyan-200 hover:underline">${url}</a></div><!--`;
+                        const safeUrl = escapeHtml(url);
+                        return `<div class="not-prose my-4"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="text-cyan-300 hover:text-cyan-200 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300">${safeUrl}</a></div><!--`;
                     }
                 }
             }
@@ -207,14 +216,14 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                     style = "border-amber-400/50 bg-amber-500/10 text-amber-100";
                     title = "注意";
                     const customTitle = info.slice(7).trim();
-                    if (customTitle) title = customTitle;
+                    if (customTitle) title = escapeHtml(customTitle);
                 } else if (info === "alert" || info.startsWith("alert ")) {
                     style = "border-rose-400/50 bg-rose-500/10 text-rose-100";
                     title = "警告";
                     const customTitle = info.slice(5).trim();
-                    if (customTitle) title = customTitle;
+                    if (customTitle) title = escapeHtml(customTitle);
                 } else {
-                    if (info) title = info;
+                    if (info) title = escapeHtml(info);
                 }
 
                 return `<div class="mt-8 mb-4 rounded-xl border border-l-4 px-4 py-3 ${style}">\n<div class="mb-1 font-bold">${title}</div>\n`;
@@ -224,7 +233,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
             name: "hint",
             openRender: (tokens, index, _options) => {
                 const info = tokens[index].info.trim().slice(4).trim();
-                return `<div class="my-4 p-4 bg-gray-100 border-l-4 border-gray-400 text-gray-700 rounded">\n<div class="font-bold mb-2">${info || "Hint"}</div>\n`;
+                return `<div class="my-4 p-4 bg-gray-100 border-l-4 border-gray-400 text-gray-700 rounded">\n<div class="font-bold mb-2">${escapeHtml(info || "Hint")}</div>\n`;
             }
         })
         .use(container, {
@@ -233,8 +242,8 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
                 const info = tokens[index].info.trim().slice(7).trim();
                 return `<details class="my-4 rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden group">
 <summary class="p-4 cursor-pointer font-bold list-none flex items-center justify-between text-teal-200 hover:bg-slate-800/40 transition-colors">
-  <span>${info || "Details"}</span>
-  <svg class="w-5 h-5 text-slate-300 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <span>${escapeHtml(info || "Details")}</span>
+  <svg aria-hidden="true" class="w-5 h-5 text-slate-300 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
   </svg>
 </summary>

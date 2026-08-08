@@ -5,8 +5,22 @@ import {readFileSync} from "fs";
 import {FaKey} from "react-icons/fa";
 
 export async function generateMetadata(): Promise<Metadata> {
-    // templateを設定しているので、サイト名は自動で付く
-    return {title: 'GPG Key'};
+    const description = 'milkcocoaの公開GPG鍵、鍵ID、フィンガープリント。';
+    return {
+        title: 'GPG Key',
+        description,
+        alternates: {canonical: '/gpg'},
+        openGraph: {
+            title: 'GPG Key',
+            description,
+            url: '/gpg',
+        },
+        twitter: {
+            card: 'summary',
+            title: 'GPG Key',
+            description,
+        },
+    };
 }
 
 function chunk<T>(array: T[], size: number): T[][] {
@@ -19,26 +33,26 @@ export default async function GPGKey() {
 
     const key = await openpgp.readKey({armoredKey: readFileSync(`${process.cwd()}/milkcocoa0902_public_key.asc`).toString()})
     return (
-        <div className="flex flex-col px-[10px] py-0">
+        <article className="flex flex-col px-[10px] py-0">
 
             <div className="flex justify-center content-center items-center">
                 <div className="outline-[cadetblue] outline-solid border-none rounded-[100px] m-[10px] p-[30px] bg-white">
-                    <FaKey size={"64px"} color={"cadetblue"}/>
+                    <FaKey aria-hidden="true" size={"64px"} color={"cadetblue"}/>
                 </div>
             </div>
 
             <div className="flex justify-center content-center items-center">
                 <div>
-                    <h2 className="my-[10px] mx-0 text-white text-2xl font-extrabold">Public GPG Key</h2>
+                    <h1 className="my-[10px] mx-0 text-2xl font-extrabold text-white">Public GPG Key</h1>
                 </div>
             </div>
 
-            <h3 className="p-0 mt-[5px] mb-[5px] mx-0 font-bold text-white">鍵ID</h3>
+            <h2 className="p-0 mt-[5px] mb-[5px] mx-0 font-bold text-white">鍵ID</h2>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
-                <h4 className="p-0 m-[10px] font-bold　overflow-x-scroll"> {key.getKeyID().toHex().toUpperCase()} </h4>
+                <code className="m-[10px] block overflow-x-auto p-0 font-bold">{key.getKeyID().toHex().toUpperCase()}</code>
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">ユーザID</h3>
+            <h2 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">ユーザID</h2>
             <div className="flex flex-row outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
                 {
                     Array.from(key.getUserIDs()[0])
@@ -47,29 +61,26 @@ export default async function GPGKey() {
                         }))
                         .sort(() => Math.random() - 0.5)
                         .map((obj) => {
-                            return (<h4 className="p-0 my-[10px] mx-0 font-bold" style={{order: obj.index, userSelect: "none"}}
-                                          key={obj.index}> {obj.c}</h4>)
+                            return (<span className="my-[10px] p-0 font-bold" style={{order: obj.index, userSelect: "none"}}
+                                          key={obj.index}>{obj.c}</span>)
                         })
                 }
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">指紋</h3>
+            <h2 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">指紋</h2>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white overflow-x-scroll">
-                <h4 className="p-0 m-[10px] font-bold"> <pre>{
+                <pre className="m-[10px] p-0 font-bold" tabIndex={0}><code>{
                     chunk(Array.from(key.getFingerprint().toUpperCase()), 4)
                         .map((c) => c.join(""))
                         .reduce((a, b) => `${a} ${b}`, "")
                         .trim()
-                }</pre>
-                </h4>
+                }</code></pre>
             </div>
 
-            <h3 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">公開鍵</h3>
+            <h2 className="p-0 mt-[15px] mb-[5px] mx-0 font-bold text-white">公開鍵</h2>
             <div className="outline-[cadetblue] outline-solid p-[4px_8px] bg-white">
-                <h4 className="p-0 m-[10px] font-bold">
-                    <pre className="whitespace-pre-wrap break-all">{key.armor()}</pre>
-                </h4>
+                <pre className="m-[10px] whitespace-pre-wrap break-all p-0 font-bold" tabIndex={0}><code>{key.armor()}</code></pre>
             </div>
-        </div>
+        </article>
     )
 }

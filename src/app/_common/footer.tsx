@@ -1,50 +1,54 @@
-import { FaXTwitter, FaGithub } from 'react-icons/fa6'
-import { SiZenn } from 'react-icons/si'
-import { IconType } from "react-icons";
-import React from "react";
-import {randomUUID} from "node:crypto";
+import {FaGithub, FaXTwitter} from "react-icons/fa6";
+import {SiZenn} from "react-icons/si";
+import type {IconType} from "react-icons";
 
 type SocialLink = {
-    id: string
+    label: string
     url: string
     icon: IconType
 }
 
 const socialLinks: SocialLink[] = [
     {
-        id: randomUUID().toString(),
+        label: "GitHub",
         url: "https://github.com/milkcocoa0902",
-        icon: FaGithub
+        icon: FaGithub,
     },
     {
-        id: randomUUID().toString(),
+        label: "X",
         url: "https://twitter.com/milkcocoa0902",
-        icon: FaXTwitter
+        icon: FaXTwitter,
     },
     {
-        id: randomUUID().toString(),
+        label: "Zenn",
         url: "https://zenn.dev/milkcocoa0902",
-        icon: SiZenn
+        icon: SiZenn,
     },
 ]
 
-export const Footer: React.FC = () => {
+export function Footer() {
     return (
-        <div className="flex flex-col text-white bg-[#020e1f] sticky top-[100vh] p-[8px_16px]">
-            <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                {
-                    socialLinks.map((sl: SocialLink) => {
-                        return (
-                            <a className="m-[4px_16px] no-underline" href={ sl.url } target="_blank" key={sl.id} rel="noopener noreferrer">
-                                <sl.icon size={"32"} color={"white"}/>
+        <footer className="mt-auto flex flex-col bg-[#020e1f] p-4 text-white">
+            <nav aria-label="ソーシャルリンク">
+                <ul className="flex justify-center gap-3">
+                    {socialLinks.map((socialLink) => (
+                        <li key={socialLink.url}>
+                            <a
+                                className="flex min-h-11 min-w-11 items-center justify-center rounded-lg text-white no-underline transition-colors hover:bg-slate-800 hover:text-teal-200"
+                                href={socialLink.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${socialLink.label}（新しいタブで開く）`}
+                            >
+                                <socialLink.icon size={32} aria-hidden="true" />
                             </a>
-                        )
-                    })
-                }
-            </div>
-            <div className="text-center md:text-end">
-                <div>&copy; 2019 - {new Date().getFullYear()} ここあ(milkcocoa0902)</div>
-            </div>
-        </div>
-    )
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+            <p className="mt-2 text-center text-sm text-slate-200 md:text-end">
+                &copy; 2019 - {new Date().getFullYear()} ここあ (milkcocoa0902)
+            </p>
+        </footer>
+    );
 }

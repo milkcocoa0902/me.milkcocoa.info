@@ -67,18 +67,18 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
   };
 
   return (
-    <nav className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto relative z-[2001]">
+    <nav aria-label="目次" className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto relative z-[2001]">
       {/* モバイル用: details/summaryを使用 */}
       <div className="lg:hidden">
         <details className="rounded-2xl border border-slate-700/70 bg-slate-900/95 backdrop-blur-md overflow-hidden group">
           <summary 
-            className="flex items-center justify-between p-4 cursor-pointer list-none touch-manipulation"
+            className="flex items-center justify-between p-4 cursor-pointer list-none touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-teal-300"
           >
-            <h2 className="text-lg font-bold text-white">Table of Contents</h2>
-            <div className="text-slate-400 p-1">
-              <RiMenuUnfoldLine className="group-open:hidden" size={24} />
-              <RiMenuFoldLine className="hidden group-open:block" size={24} />
-            </div>
+            <span className="text-lg font-bold text-white">Table of Contents</span>
+            <span className="text-slate-400 p-1" aria-hidden="true">
+              <RiMenuUnfoldLine className="group-open:hidden" size={24} aria-hidden="true" />
+              <RiMenuFoldLine className="hidden group-open:block" size={24} aria-hidden="true" />
+            </span>
           </summary>
           <ul className="px-4 pb-4 space-y-2 text-sm max-h-[70vh] overflow-y-auto border-t border-slate-700 pt-2">
             {items.map((item) => (
@@ -89,7 +89,7 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
                 <a
                   href={`#${item.id}`}
                   onClick={handleLinkClick}
-                  className={`block transition-colors duration-200 hover:text-teal-300 py-1 ${
+                  className={`block rounded-sm transition-colors duration-200 hover:text-teal-300 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
                     activeId === item.id
                       ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
                       : "text-slate-400"
@@ -105,7 +105,7 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
 
       {/* デスクトップ用: 常に表示 */}
       <div className="hidden lg:block rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4">
-        <h2 className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Table of Contents</h2>
+        <p className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Table of Contents</p>
         <ul className="space-y-2 text-sm">
           {items.map((item) => (
             <li
@@ -114,7 +114,7 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
             >
               <a
                 href={`#${item.id}`}
-                className={`block transition-colors duration-200 hover:text-teal-300 py-1 ${
+                className={`block rounded-sm transition-colors duration-200 hover:text-teal-300 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
                   activeId === item.id
                     ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
                     : "text-slate-400"

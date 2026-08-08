@@ -1,15 +1,33 @@
-import Image, {StaticImageData} from "next/image";
+import type {Metadata} from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {workItems} from "@/lib/works";
 import { FaBuilding, FaLocationDot, FaUserTie } from "react-icons/fa6";
 
-type TechStack = {
-    category: string
-    language: string[]
-    framework: string[]
-    middleware: string[]
-    infra?: string[]
-}
+const description = "Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開するmilkcocoaのポートフォリオ。";
+
+export const metadata: Metadata = {
+    title: {
+        absolute: "ここあさんの倉庫",
+    },
+    description,
+    alternates: {
+        canonical: "/",
+    },
+    openGraph: {
+        title: "ここあさんの倉庫",
+        description,
+        url: "/",
+        type: "website",
+        locale: "ja_JP",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "ここあさんの倉庫",
+        description,
+        creator: "@milkcocoa0902",
+    },
+};
 
 type TechCategoryChipTone = "language" | "framework" | "library" | "tools" | "infra" | "service"
 
@@ -154,48 +172,45 @@ export default function Home() {
 
 
     return (
-        <div className="text-white p-4 my-4 rounded-2xl">
-            <div className={"pb-4"}>
-                <div>
-                {/*  profile image  */}
-                </div>
+        <div className="my-4 rounded-2xl p-1 text-white sm:p-4">
+            <header className="pb-6">
                 <div>
                     <h1 className="text-4xl font-bold">milkcocoa</h1>
-                    <h1 className="flex items-center gap-2 text-lg font-bold">
+                    <p className="mt-2 flex items-center gap-2 text-lg font-bold">
                         <FaBuilding className="text-slate-300" aria-hidden="true" />
                         <span>Cocoa Tech. Lab.</span>
-                    </h1>
-                    <h2 className="flex items-center gap-2 text-lg text-teal-500">
+                    </p>
+                    <p className="mt-1 flex items-center gap-2 text-lg text-teal-300">
                         <FaUserTie className="text-teal-400" aria-hidden="true" />
                         <span>Kotlin Backend Engineer</span>
-                    </h2>
+                    </p>
 
-                    <p className="text-md flex items-center gap-2">
+                    <p className="mt-1 flex items-center gap-2 text-base">
                         <FaLocationDot className="text-slate-300" aria-hidden="true" />
                         <span>Osaka, Japan</span>
                     </p>
-                    <p className="text-md">
-
+                    <p className="mt-4 max-w-3xl leading-7 text-slate-200">
+                        Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開しています。
                     </p>
                 </div>
-            </div>
-            <div className={"py-4"}>
-                <h1 className="border-b border-slate-600/80 pb-2 text-4xl font-bold">Tech. Stack</h1>
+            </header>
+            <section className="py-4" aria-labelledby="tech-stack-heading">
+                <h2 id="tech-stack-heading" className="border-b border-slate-600/80 pb-2 text-3xl font-bold sm:text-4xl">Tech. Stack</h2>
                 <div className="mt-4 grid gap-4 lg:grid-cols-2">
                     {TechStackItems.map((stack) => (
                         <section
                             key={stack.title}
                             className={cardBaseClass}
                         >
-                            <h2 className="text-xl font-semibold text-teal-300">{stack.title}</h2>
+                            <h3 className="text-xl font-semibold text-teal-300">{stack.title}</h3>
 
                             <div className="mt-3 space-y-3">
                                 {
                                     stack.groups.map((tech) => (
                                         <div key={`${stack.title}-${tech.label}`}>
-                                            <h3 className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-300">
+                                            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-300">
                                                 {tech.label}
-                                            </h3>
+                                            </h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {tech.items.map((i) => (
                                                     <span
@@ -213,10 +228,10 @@ export default function Home() {
                         </section>
                     ))}
                 </div>
-            </div>
+            </section>
 
-            <div className={"py-4"}>
-                <h1 className="border-b border-slate-600/80 pb-2 text-4xl font-bold">Works</h1>
+            <section className="py-4" aria-labelledby="works-heading">
+                <h2 id="works-heading" className="border-b border-slate-600/80 pb-2 text-3xl font-bold sm:text-4xl">Works</h2>
                 <div className="mt-4 grid gap-4 lg:grid-cols-2">
                     {workItems(4, 0).map((item) => (
                         item.href ? (
@@ -230,10 +245,11 @@ export default function Home() {
                                 <Image
                                     src={item.image}
                                     alt={item.title}
+                                    sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
                                     className="h-48 w-full rounded-xl object-cover"
                                 />
 
-                                <h2 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h2>
+                                <h3 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h3>
                                 <p className="mt-2 text-slate-200">{item.description}</p>
 
                                 <div className="mt-3 flex flex-wrap gap-2">
@@ -255,10 +271,11 @@ export default function Home() {
                                 <Image
                                     src={item.image}
                                     alt={item.title}
+                                    sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
                                     className="h-48 w-full rounded-xl object-cover"
                                 />
 
-                                <h2 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h2>
+                                <h3 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h3>
                                 <p className="mt-2 text-slate-200">{item.description}</p>
 
                                 <div className="mt-3 flex flex-wrap gap-2">
@@ -283,7 +300,7 @@ export default function Home() {
                         View All &gt;&gt;
                     </Link>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };

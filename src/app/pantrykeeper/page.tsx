@@ -4,20 +4,25 @@ import React from "react";
 
 
 export async function generateMetadata(): Promise<Metadata> {
-    // templateを設定しているので、サイト名は自動で付く
-    return {title: 'PantryKeeper プライバシーポリシー'};
+    const title = 'PantryKeeper プライバシーポリシー';
+    const description = 'PantryKeeperにおける個人情報の取り扱いを定めたプライバシーポリシー。';
+    return {
+        title,
+        description,
+        alternates: {canonical: '/pantrykeeper'},
+        openGraph: {title, description, url: '/pantrykeeper'},
+        twitter: {card: 'summary', title, description},
+    };
 }
 
 
 
 export default async function PrivacyPolicy() {
     return (
-        <div
-            className={"bg-white px-4 py-4 prose prose-slate max-w-none mx-auto my-8 prose-h1:text-4xl prose-h2:text-3xl prose-img:rounded-xl prose-headings:underline prose-a:text-blue-600 prose-pre:bg-transparent prose-pre:px-4 rounded-2xl"}
-             dangerouslySetInnerHTML={{
-                 __html: MarkdownIt().render(PKPrivacyPolicy)
-             }}>
-        </div>
+        <article className="prose prose-slate mx-auto my-8 max-w-none rounded-2xl bg-white px-4 py-4 prose-headings:underline prose-h1:text-4xl prose-h2:text-3xl prose-a:text-blue-600 prose-img:rounded-xl prose-pre:bg-transparent prose-pre:px-4">
+            <h1>PantryKeeper プライバシーポリシー</h1>
+            <div dangerouslySetInnerHTML={{__html: MarkdownIt().render(PKPrivacyPolicy)}} />
+        </article>
     )
 }
 

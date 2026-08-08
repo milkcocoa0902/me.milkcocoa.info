@@ -1,26 +1,29 @@
 import {Header} from "@/app/_common/header";
 import {Footer} from "@/app/_common/footer";
+import type {Metadata} from "next";
 import React from "react";
 import {MainContent} from "@/app/_common/mainContent";
 import "./globals.css"
 
 
 
-const siteName= 'ここあさんの倉庫';
-const description = 'ここあさんが乱雑にものを置いているようです';
+const siteName = 'ここあさんの倉庫';
+const description = 'Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開するmilkcocoaのポートフォリオ。';
 const url = 'https://me.milkcocoa.info';
 
-export const metadata = {
+export const metadata: Metadata = {
+    metadataBase: new URL(url),
     title: {
         default: siteName,
-        /** `next-seo`の`titleTemplate`に相当する機能 */
         template: `%s - ${siteName}`,
     },
     description,
+    authors: [{name: 'milkcocoa', url: 'https://github.com/milkcocoa0902'}],
+    creator: 'milkcocoa',
     openGraph: {
         title: siteName,
         description,
-        url,
+        url: '/',
         siteName,
         locale: 'ja_JP',
         type: 'website',
@@ -32,12 +35,6 @@ export const metadata = {
         site: '@milkcocoa0902',
         creator: '@milkcocoa0902',
     },
-    verification: {
-        // google: 'サーチコンソールのやつ',
-    },
-    alternates: {
-        canonical: url,
-    },
 };
 
 
@@ -48,16 +45,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-      <html>
+      <html lang="ja">
       <body className="m-0 p-0" >
-      <div className={"min-h-dvh p-0 m-0 text-white"}>
+      <div className="m-0 flex min-h-dvh flex-col p-0 text-white">
+          <a className="skip-link" href="#main-content">メインコンテンツへ移動</a>
           <Header/>
-          {/* main content */}
-          <MainContent>
-              {children}
-          </MainContent>
-
-          {/* footer */}
+          <main className="flex-1" id="main-content" tabIndex={-1}>
+              <MainContent>
+                  {children}
+              </MainContent>
+          </main>
           <Footer/>
       </div>
       </body>

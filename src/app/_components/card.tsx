@@ -1,5 +1,5 @@
 import React from "react";
-import { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 type CardProps = {
     title?: string
@@ -29,7 +29,17 @@ export const Card: React.FC<CardProps> = ({
                 width: width ? `${width}px` : "350px"
             }}
         >
-            {image ? <img src={image.src} className="w-full h-[180px] object-cover" style={{ borderRadius: `${borderRadius}px` }} alt={title}/> : <></>}
+            {image ? (
+                <Image
+                    src={image}
+                    alt={title}
+                    width={width}
+                    height={180}
+                    sizes={`${width}px`}
+                    className="h-[180px] w-full object-cover"
+                    style={{borderRadius: `${borderRadius}px`}}
+                />
+            ) : null}
             <h3 className="py-1 m-0 text-xl font-bold">
                 {title}
             </h3>

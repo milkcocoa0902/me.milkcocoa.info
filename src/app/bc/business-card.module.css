@@ -1,0 +1,490 @@
+.scene {
+    --ink: #eaf4f3;
+    --muted: #90aaa8;
+    --accent: #58e0ca;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    min-height: 100dvh;
+    place-items: center;
+    overflow: hidden;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 15% 10%, rgba(27, 147, 136, .2), transparent 34rem),
+        radial-gradient(circle at 90% 85%, rgba(42, 79, 122, .28), transparent 35rem),
+        #061019;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ambient {
+    position: absolute;
+    width: min(72vw, 62rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(88, 224, 202, .08);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 8rem rgba(88, 224, 202, .015),
+        0 0 0 16rem rgba(88, 224, 202, .01);
+}
+
+.cardPosition {
+    width: min(88vw, 40rem, calc((100dvh - 7rem) * 1.586));
+    perspective: 1200px;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.586 / 1;
+    transform-style: preserve-3d;
+    transition: transform .75s cubic-bezier(.2, .72, .2, 1);
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.face {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border: 1px solid rgba(172, 219, 213, .18);
+    border-radius: 1.5rem;
+    backface-visibility: hidden;
+    box-shadow: 0 2.2rem 5rem rgba(0, 0, 0, .45);
+}
+
+.front {
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, .055), transparent 42%),
+        #0a1d25;
+}
+
+.flipped .front {
+    pointer-events: none;
+}
+
+.front::after {
+    position: absolute;
+    right: -16%;
+    bottom: -45%;
+    width: 62%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(88, 224, 202, .3);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2.5rem rgba(88, 224, 202, .03), 0 0 5rem rgba(88, 224, 202, .12);
+    content: "";
+}
+
+.grid {
+    position: absolute;
+    inset: 0;
+    opacity: .12;
+    background-image:
+        linear-gradient(rgba(137, 207, 198, .18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(137, 207, 198, .18) 1px, transparent 1px);
+    background-size: 2.2rem 2.2rem;
+    mask-image: linear-gradient(115deg, #000, transparent 60%);
+}
+
+.frontContent {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding: clamp(1.2rem, 4vw, 3rem);
+}
+
+.brandRow,
+.frontFooter,
+.backHeader,
+.flipHint,
+.location,
+.portfolioLink {
+    display: flex;
+    align-items: center;
+}
+
+.brandRow {
+    gap: .75rem;
+}
+
+.mark {
+    display: grid;
+    width: clamp(2rem, 5vw, 3.2rem);
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid rgba(88, 224, 202, .7);
+    border-radius: 35% 65% 62% 38% / 45% 38% 62% 55%;
+    color: var(--accent);
+    font-family: Georgia, serif;
+    font-size: clamp(1.15rem, 3vw, 2rem);
+    font-style: italic;
+}
+
+.studio {
+    color: #b8cecb;
+    font-size: clamp(.68rem, 1.7vw, .9rem);
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+.identity {
+    margin: auto 0;
+}
+
+.eyebrow {
+    margin: 0 0 .45rem;
+    color: var(--accent);
+    font-size: clamp(.58rem, 1.7vw, .82rem);
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.identity h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.2rem, 8vw, 5.2rem);
+    font-weight: 400;
+    letter-spacing: -.045em;
+    line-height: .95;
+}
+
+.location {
+    gap: .45rem;
+    margin: clamp(.65rem, 2vw, 1.15rem) 0 0;
+    color: var(--muted);
+    font-size: clamp(.66rem, 1.8vw, .9rem);
+}
+
+.frontFooter {
+    min-height: 2.4rem;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.domain {
+    color: var(--muted);
+    font-family: monospace;
+    font-size: clamp(.6rem, 1.7vw, .8rem);
+}
+
+.dateStamp {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+    padding-left: .65rem;
+    border-left: 2px solid var(--accent);
+}
+
+.dateStamp span {
+    color: var(--muted);
+    font-size: clamp(.48rem, 1.2vw, .62rem);
+    font-weight: 700;
+    letter-spacing: .2em;
+}
+
+.dateStamp time {
+    font-size: clamp(.65rem, 1.7vw, .84rem);
+    font-weight: 700;
+}
+
+.flipHint {
+    gap: .55rem;
+    color: var(--accent);
+    font-size: clamp(.52rem, 1.4vw, .7rem);
+    font-weight: 700;
+    letter-spacing: .16em;
+}
+
+.faceButton {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+}
+
+.faceButton:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: -5px;
+}
+
+.back {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.1rem, 3.4vw, 2.5rem);
+    pointer-events: none;
+    transform: rotateY(180deg);
+    background: #eff8f6;
+    color: #102426;
+}
+
+.flipped .back {
+    pointer-events: auto;
+}
+
+.backGlow {
+    position: absolute;
+    top: -40%;
+    right: -12%;
+    width: 55%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgba(40, 181, 161, .14);
+    filter: blur(2rem);
+}
+
+.backHeader {
+    position: relative;
+    justify-content: space-between;
+}
+
+.backHeader h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 4vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -.03em;
+}
+
+.flipBack {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    color: #42605e;
+    font-size: clamp(.56rem, 1.5vw, .72rem);
+    font-weight: 800;
+    letter-spacing: .14em;
+}
+
+.flipBack:focus-visible,
+.contactLink:focus-visible,
+.portfolioLink:focus-visible {
+    outline: 2px solid #168f80;
+    outline-offset: 3px;
+}
+
+.linkGrid {
+    position: relative;
+    display: grid;
+    margin-top: clamp(.7rem, 2vw, 1.35rem);
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #c8dad7;
+    border-left: 1px solid #c8dad7;
+}
+
+.contactLink {
+    display: grid;
+    min-width: 0;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(.45rem, 1.5vw, .8rem);
+    padding: clamp(.55rem, 1.8vw, 1rem);
+    border-right: 1px solid #c8dad7;
+    border-bottom: 1px solid #c8dad7;
+    color: inherit;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+}
+
+.contactLink:hover {
+    background: #dff2ee;
+    color: #076e62;
+}
+
+.contactIcon {
+    width: clamp(.85rem, 2.2vw, 1.2rem);
+    height: clamp(.85rem, 2.2vw, 1.2rem);
+    color: #168f80;
+}
+
+.contactLink span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: .08rem;
+}
+
+.contactLink small {
+    color: #6d8582;
+    font-size: clamp(.48rem, 1.2vw, .6rem);
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.contactLink strong {
+    overflow: hidden;
+    font-size: clamp(.58rem, 1.6vw, .82rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.linkArrow {
+    width: .65rem;
+    color: #78918e;
+}
+
+.portfolioLink {
+    align-self: flex-end;
+    gap: .55rem;
+    margin-top: auto;
+    color: #137d71;
+    font-size: clamp(.6rem, 1.6vw, .78rem);
+    font-weight: 800;
+    letter-spacing: .06em;
+    text-decoration: none;
+}
+
+.instruction {
+    position: absolute;
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    margin: 0;
+    color: rgba(211, 234, 231, .55);
+    font-size: .72rem;
+    letter-spacing: .08em;
+}
+
+@media (max-aspect-ratio: 4 / 5) {
+    .cardPosition {
+        width: min(92vw, 38rem, calc((100dvh - 7rem) * 1.586));
+    }
+}
+
+@media (max-width: 420px) {
+    .card {
+        aspect-ratio: 1.45 / 1;
+    }
+
+    .face {
+        border-radius: 1rem;
+    }
+
+    .frontContent {
+        padding: .9rem;
+    }
+
+    .mark {
+        width: 1.9rem;
+        font-size: 1.05rem;
+    }
+
+    .studio {
+        font-size: .58rem;
+        letter-spacing: .14em;
+    }
+
+    .identity h1 {
+        font-size: clamp(2rem, 12vw, 2.8rem);
+    }
+
+    .identity .eyebrow {
+        margin-bottom: .25rem;
+        font-size: .52rem;
+    }
+
+    .location {
+        margin-top: .5rem;
+        font-size: .58rem;
+    }
+
+    .frontFooter {
+        min-height: 1.8rem;
+        gap: .5rem;
+    }
+
+    .dateStamp {
+        gap: .05rem;
+        padding-left: .45rem;
+    }
+
+    .dateStamp span {
+        font-size: .42rem;
+    }
+
+    .dateStamp time,
+    .domain {
+        font-size: .56rem;
+    }
+
+    .flipHint {
+        gap: .35rem;
+        font-size: .45rem;
+        letter-spacing: .12em;
+    }
+
+    .back {
+        padding: .75rem .8rem;
+    }
+
+    .backHeader .eyebrow {
+        margin-bottom: .15rem;
+        font-size: .46rem;
+    }
+
+    .backHeader h2 {
+        font-size: 1.15rem;
+    }
+
+    .flipBack {
+        gap: .3rem;
+        padding: .25rem;
+        font-size: .5rem;
+    }
+
+    .linkGrid {
+        margin-top: .45rem;
+    }
+
+    .contactLink {
+        gap: .35rem;
+        padding: .4rem .45rem;
+    }
+
+    .contactIcon {
+        width: .75rem;
+        height: .75rem;
+    }
+
+    .contactLink small {
+        font-size: .42rem;
+    }
+
+    .contactLink strong {
+        font-size: .54rem;
+    }
+
+    .linkArrow {
+        width: .5rem;
+    }
+
+    .portfolioLink {
+        gap: .35rem;
+        font-size: .52rem;
+    }
+}
+
+@media (max-height: 500px) {
+    .cardPosition {
+        width: min(78vw, 38rem, calc((100dvh - 4rem) * 1.586));
+    }
+
+    .instruction {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition-duration: .01ms;
+    }
+}

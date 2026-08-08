@@ -8,8 +8,8 @@
     "next:dev": "next dev",
     "dev": "run-p watch:article next:dev",
     "build": "next build",
+    "lint": "eslint .",
     "next:start": "next start",
-    "next:lint": "next lint",
     "next:export": "next build; next export",
     "cf:preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
@@ -22,7 +22,7 @@
     "gray-matter": "^4.0.3",
     "markdown-it": "^14.2.0",
     "markdown-it-anchor": "^9.2.0",
-    "next": "^16.2.9",
+    "next": "^16.2.11",
     "node-html-parser": "^7.1.0",
     "openpgp": "^6.1.1",
     "react": "^18.3.1",
@@ -35,7 +35,7 @@
     "zenn-markdown-html": "^0.5.1"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240712.0",
+    "@cloudflare/workers-types": "^5.20260801.1",
     "@mdit/plugin-container": "^0.22.2",
     "@shikijs/markdown-it": "^3.21.0",
     "@tailwindcss/typography": "^0.5.19",
@@ -46,10 +46,10 @@
     "@types/react-dom": "^18.3.7",
     "esbuild": "^0.28.1",
     "eslint": "^9.39.2",
-    "eslint-config-next": "^15.5.9",
+    "eslint-config-next": "^16.2.11",
     "npm-run-all": "^4.1.5",
     "open-graph-scraper-lite": "^2.1.0",
-    "postcss": "^8.5.6",
-    "wrangler": "^4.103.0"
+    "postcss": "^8.5.23",
+    "wrangler": "^4.120.0"
   }
 }
