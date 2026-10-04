@@ -143,7 +143,6 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
     md.use(anchor, {
         level: [2, 3],
         slugify: createHeadingSlug,
-        permalink: false,
     })
     .use((md) => {
         const defaultRender = md.renderer.rules.paragraph_open || ((tokens, idx, options, env, self) => {
@@ -205,7 +204,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
     })
         .use(container, {
             name: "message",
-            openRender: (tokens, index, _options) => {
+            openRenderer: (tokens, index, _options) => {
                 const token = tokens[index];
                 const info = token.info.trim().slice(7).trim(); // "message" の後ろを取得
 
@@ -231,14 +230,14 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
         })
         .use(container, {
             name: "hint",
-            openRender: (tokens, index, _options) => {
+            openRenderer: (tokens, index, _options) => {
                 const info = tokens[index].info.trim().slice(4).trim();
                 return `<div class="my-4 p-4 bg-gray-100 border-l-4 border-gray-400 text-gray-700 rounded">\n<div class="font-bold mb-2">${escapeHtml(info || "Hint")}</div>\n`;
             }
         })
         .use(container, {
             name: "details",
-            openRender: (tokens, index, _options) => {
+            openRenderer: (tokens, index, _options) => {
                 const info = tokens[index].info.trim().slice(7).trim();
                 return `<details class="my-4 rounded-2xl border border-slate-700/70 bg-slate-900/40 overflow-hidden group">
 <summary class="p-4 cursor-pointer font-bold list-none flex items-center justify-between text-teal-200 hover:bg-slate-800/40 transition-colors">
@@ -249,7 +248,7 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
 </summary>
 <div class="p-4 border-t border-slate-700/70 text-slate-100">`;
             },
-            closeRender: () => `</div></details>\n`
+            closeRenderer: () => `</div></details>\n`
         });
 
 
