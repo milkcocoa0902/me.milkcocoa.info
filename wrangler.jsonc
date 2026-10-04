@@ -2,12 +2,13 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
   "name": "me-milkcocoa-info",
-  "compatibility_date": "2026-01-05",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_date": "2026-10-04",
+  "cache": {
+    "enabled": false
+  },
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"
-  }
+  },
+  "minify": true
 }
