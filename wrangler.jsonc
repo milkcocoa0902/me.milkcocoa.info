@@ -3,6 +3,9 @@
   "main": ".open-next/worker.js",
   "name": "me-milkcocoa-info",
   "compatibility_date": "2026-10-04",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "cache": {
     "enabled": false
   },
