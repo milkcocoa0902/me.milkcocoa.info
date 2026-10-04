@@ -1,0 +1,799 @@
+.page {
+    --ink: #f1f5f2;
+    --muted: #a7b2ac;
+    --line: rgb(159 181 169 / 20%);
+    --panel: rgb(10 22 24 / 76%);
+    --signal: #65e6a6;
+    --cyan: #71d3f6;
+    --amber: #f7bf65;
+    position: relative;
+    isolation: isolate;
+    margin-block: 1rem 4rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 1.75rem;
+    background:
+        radial-gradient(circle at 82% 5%, rgb(28 119 91 / 24%), transparent 28rem),
+        radial-gradient(circle at 2% 33%, rgb(29 99 126 / 16%), transparent 30rem),
+        #061113;
+    color: var(--ink);
+    box-shadow: 0 2rem 6rem rgb(0 0 0 / 28%);
+}
+
+.page::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image:
+        linear-gradient(rgb(255 255 255 / 2.5%) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(255 255 255 / 2.5%) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: linear-gradient(to bottom, black, transparent 42%);
+    content: "";
+    pointer-events: none;
+}
+
+.breadcrumb {
+    padding: 1.5rem clamp(1.25rem, 4vw, 4.5rem) 0;
+}
+
+.breadcrumb ol {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+}
+
+.breadcrumb li + li::before {
+    margin-inline-end: 0.65rem;
+    color: #52635a;
+    content: "/";
+}
+
+.breadcrumb a {
+    color: var(--signal);
+    text-underline-offset: 0.25rem;
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(34rem, 1.18fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    align-items: center;
+    min-height: 48rem;
+    padding: clamp(3.5rem, 8vw, 8rem) clamp(1.25rem, 4vw, 4.5rem) clamp(4rem, 8vw, 7rem);
+}
+
+.heroCopy {
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow,
+.sectionIndex {
+    margin: 0;
+    color: var(--signal);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.eyebrow {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.eyebrow span,
+.terminal > p span {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 1rem rgb(101 230 166 / 65%);
+}
+
+.hero h1 {
+    max-width: 11ch;
+    margin: 1.45rem 0 0;
+    font-size: clamp(3.3rem, 6.7vw, 7.4rem);
+    font-weight: 760;
+    letter-spacing: -0.07em;
+    line-height: 0.98;
+    text-wrap: balance;
+}
+
+.hero h1 span {
+    display: inline-block;
+    font-size: 0.78em;
+    letter-spacing: -0.08em;
+    white-space: nowrap;
+}
+
+.lead {
+    margin: 2rem 0 0;
+    color: #dce7e1;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 650;
+    letter-spacing: -0.025em;
+    line-height: 1.65;
+}
+
+.heroDescription {
+    max-width: 42rem;
+    margin: 1.25rem 0 0;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.heroActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.primaryAction,
+.secondaryAction {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 750;
+    text-decoration: none;
+    transition: translate 180ms ease, background-color 180ms ease, border-color 180ms ease;
+}
+
+.primaryAction {
+    gap: 0.7rem;
+    background: var(--signal);
+    color: #04130d;
+}
+
+.primaryAction svg:last-child {
+    font-size: 0.8rem;
+}
+
+.secondaryAction {
+    border: 1px solid rgb(255 255 255 / 24%);
+    color: var(--ink);
+}
+
+.primaryAction:hover,
+.secondaryAction:hover {
+    translate: 0 -2px;
+}
+
+.primaryAction:hover { background: #8af0bc; }
+.secondaryAction:hover { border-color: var(--signal); background: rgb(101 230 166 / 8%); }
+
+.signalList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    margin: 3rem 0 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.85rem;
+    background: var(--line);
+}
+
+.signalList li {
+    min-width: 0;
+    padding: 0.8rem;
+    background: rgb(4 15 17 / 90%);
+}
+
+.signalList span,
+.signalList strong { display: block; }
+
+.signalList span {
+    color: #718078;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.signalList strong {
+    margin-top: 0.35rem;
+    overflow: hidden;
+    color: #d9e4de;
+    font-size: 0.75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.productFigure {
+    position: relative;
+    width: min(60rem, 100%);
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 17%);
+    border-radius: 1.2rem;
+    background: #0b0c0d;
+    box-shadow: 0 2rem 5rem rgb(0 0 0 / 48%), 0 0 0 0.5rem rgb(255 255 255 / 2%);
+    rotate: 1.2deg;
+}
+
+.figureTopbar {
+    display: flex;
+    gap: 0.38rem;
+    align-items: center;
+    height: 2.5rem;
+    padding-inline: 0.85rem;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+    background: #111719;
+}
+
+.figureTopbar span {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: #52615b;
+}
+
+.figureTopbar span:first-child { background: #f1716f; }
+.figureTopbar span:nth-child(2) { background: var(--amber); }
+.figureTopbar span:nth-child(3) { background: var(--signal); }
+
+.figureTopbar p {
+    margin: 0 auto;
+    padding-inline-end: 2.5rem;
+    color: #77827d;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.66rem;
+}
+
+.dashboardImage { display: block; width: 100%; height: auto; }
+
+.productFigure figcaption {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 0.85rem 1rem;
+    border-top: 1px solid rgb(255 255 255 / 8%);
+    color: #a9b4ae;
+    font-size: 0.7rem;
+}
+
+.productFigure figcaption span {
+    color: var(--signal);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    text-transform: uppercase;
+}
+
+.statement,
+.capabilities,
+.flowSection,
+.roadmapSection,
+.quickStart,
+.securityNote,
+.finalCta {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 42rem;
+}
+
+.statement {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding: clamp(4.5rem, 10vw, 9rem) clamp(1.25rem, 8vw, 9rem);
+    border-top: 1px solid var(--line);
+}
+
+.statement h2,
+.sectionHeading h2,
+.quickStart h2,
+.securityNote h2,
+.finalCta h2 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    font-weight: 720;
+    letter-spacing: -0.055em;
+    line-height: 1.08;
+    text-wrap: balance;
+}
+
+.statement > div > p {
+    max-width: 48rem;
+    margin: 2rem 0 0;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    line-height: 2;
+}
+
+.capabilities,
+.flowSection,
+.roadmapSection {
+    padding: clamp(4.5rem, 8vw, 8rem) clamp(1.25rem, 6vw, 7rem);
+    border-top: 1px solid var(--line);
+}
+
+.sectionHeading {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+    gap: 1rem 2rem;
+    align-items: start;
+}
+
+.sectionHeading h2,
+.sectionHeading > p:last-child { grid-column: 2; }
+
+.sectionHeading > p:last-child {
+    max-width: 50rem;
+    margin: 0.6rem 0 0;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.sectionHeading .sectionIndex { grid-column: 1; grid-row: 1 / span 2; }
+
+.capabilityList {
+    margin: clamp(3.5rem, 7vw, 6rem) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+}
+
+.capabilityList li {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.35fr) minmax(0, 1fr);
+    gap: 2rem;
+    padding-block: clamp(2.25rem, 5vw, 4.25rem);
+    border-bottom: 1px solid var(--line);
+}
+
+.capabilityMarker {
+    display: flex;
+    justify-content: space-between;
+    padding-inline-end: clamp(1rem, 3vw, 4rem);
+    color: var(--signal);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.capabilityMarker svg { font-size: 1.4rem; }
+
+.capabilityList h3 {
+    margin: 0;
+    font-size: clamp(1.55rem, 3vw, 2.7rem);
+    letter-spacing: -0.04em;
+}
+
+.capabilityList li > div:last-child p {
+    max-width: 50rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.flowSection { background: rgb(5 14 16 / 74%); }
+
+.flowList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 4rem 0 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+}
+
+.flowList li {
+    position: relative;
+    min-height: 18rem;
+    padding: 1.25rem;
+}
+
+.flowList li + li { border-left: 1px solid var(--line); }
+
+.flowList li:not(:last-child)::after {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: -0.55rem;
+    display: grid;
+    width: 1.1rem;
+    height: 1.1rem;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #071315;
+    color: var(--signal);
+    content: "›";
+    translate: 0 -50%;
+}
+
+.flowNumber {
+    color: #66746d;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+}
+
+.flowList li > div {
+    display: flex;
+    height: calc(100% - 1.5rem);
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.flowList p {
+    margin: 0;
+    color: var(--signal);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.flowList strong { margin-top: 0.5rem; font-size: clamp(1.05rem, 2vw, 1.4rem); }
+
+.flowList li > div > span {
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    line-height: 1.7;
+}
+
+.roadmapSection {
+    position: relative;
+    background:
+        radial-gradient(circle at 76% 38%, rgb(31 116 91 / 12%), transparent 28rem),
+        rgb(5 14 16 / 74%);
+}
+
+.roadmapGraph {
+    margin: clamp(3.5rem, 7vw, 6rem) 0 0;
+    padding: 0;
+}
+
+.roadmapItem {
+    display: grid;
+    grid-template-columns: 8.5rem 3.5rem minmax(0, 1fr);
+    min-height: 15rem;
+}
+
+.roadmapPeriod {
+    padding-top: 1rem;
+    text-align: end;
+}
+
+.roadmapPeriod span,
+.roadmapPeriod code {
+    display: block;
+}
+
+.roadmapPeriod span {
+    color: #d8e4dd;
+    font-size: 0.9rem;
+    font-weight: 750;
+}
+
+.roadmapPeriod code {
+    margin-top: 0.45rem;
+    color: #74837b;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+}
+
+.roadmapRail {
+    position: relative;
+    min-height: 100%;
+}
+
+.roadmapRail::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--signal), rgb(113 211 246 / 42%));
+    content: "";
+    translate: -50% 0;
+}
+
+.roadmapItem:first-child .roadmapRail::before {
+    top: 1.5rem;
+}
+
+.roadmapItem:last-child .roadmapRail::before {
+    bottom: calc(100% - 1.5rem);
+}
+
+.roadmapRail > span {
+    position: absolute;
+    z-index: 1;
+    top: 1.05rem;
+    left: 50%;
+    width: 0.95rem;
+    height: 0.95rem;
+    border: 2px solid var(--cyan);
+    border-radius: 50%;
+    background: #061113;
+    box-shadow: 0 0 0 0.35rem #061113;
+    translate: -50% 0;
+}
+
+.currentMilestone .roadmapRail > span {
+    border-color: var(--signal);
+    background: var(--signal);
+    box-shadow: 0 0 0 0.35rem #061113, 0 0 1.2rem rgb(101 230 166 / 55%);
+}
+
+.currentMilestone .roadmapPeriod code {
+    color: var(--signal);
+}
+
+.roadmapCommit {
+    padding: 0.75rem 0 clamp(3rem, 6vw, 5.5rem) clamp(1rem, 3vw, 3rem);
+    border-top: 1px solid var(--line);
+}
+
+.roadmapCommit h3 {
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2.45rem);
+    letter-spacing: -0.04em;
+    line-height: 1.25;
+    text-wrap: balance;
+}
+
+.roadmapCommit > p {
+    max-width: 49rem;
+    margin: 1rem 0 0;
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.roadmapDetails {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    max-width: 64rem;
+    margin: 1.75rem 0 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 0.9rem;
+    background: var(--line);
+}
+
+.roadmapDetails > div {
+    padding: 1.1rem;
+    background: rgb(6 17 19 / 94%);
+}
+
+.roadmapDetails dt {
+    color: var(--signal);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.roadmapDetails dd {
+    margin: 0.65rem 0 0;
+    color: #aebbb4;
+    font-size: 0.8rem;
+    line-height: 1.75;
+}
+
+.roadmapCommit ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+}
+
+.roadmapCommit li {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.35rem 0.65rem;
+    color: #aab8b0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.68rem;
+}
+
+.quickStart {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(28rem, 1.1fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: center;
+    padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 8vw, 9rem);
+    border-top: 1px solid var(--line);
+    background: radial-gradient(circle at 70% 50%, rgb(101 230 166 / 10%), transparent 30rem);
+}
+
+.quickStart h2 { margin-top: 1rem; }
+.quickStartCopy > p:not(.sectionIndex) { margin: 1.5rem 0 0; color: var(--muted); line-height: 1.9; }
+
+.stackList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 2rem;
+    padding: 0;
+}
+
+.stackList li {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 0.8rem;
+    color: #c9d6cf;
+    font-size: 0.78rem;
+}
+
+.stackList svg { color: var(--signal); }
+
+.terminal {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 17%);
+    border-radius: 1rem;
+    background: #020708;
+    box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 35%);
+}
+
+.terminal figcaption {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--line);
+    background: #0c1416;
+    color: #77837d;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+}
+
+.terminal figcaption span { color: #7f8d86; letter-spacing: 0.2em; }
+
+.terminal pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    color: #cbd8d1;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: clamp(0.72rem, 1.5vw, 0.92rem);
+    line-height: 1.8;
+}
+
+.terminal code span { color: var(--signal); }
+
+.terminal > p {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--line);
+    color: #89978f;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.68rem;
+}
+
+.securityNote {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 0 clamp(1.25rem, 6vw, 7rem);
+    padding: clamp(2rem, 4vw, 3.25rem);
+    border: 1px solid rgb(247 191 101 / 35%);
+    border-radius: 1.25rem;
+    background: rgb(99 61 16 / 13%);
+}
+
+.securityNote .sectionIndex { color: var(--amber); }
+.securityNote h2 { margin-top: 0.8rem; font-size: clamp(1.6rem, 3.2vw, 2.6rem); }
+.securityNote > p { align-self: end; margin: 0; color: #c9c1b2; line-height: 1.9; }
+
+.finalCta {
+    display: flex;
+    min-height: 40rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 1.25rem;
+    text-align: center;
+}
+
+.finalCta h2 { margin-top: 1.25rem; font-size: clamp(2.8rem, 7vw, 6.5rem); }
+.finalCta > p:not(.sectionIndex) { margin: 1.5rem 0 0; color: var(--muted); }
+.finalCta .primaryAction { margin-top: 2rem; }
+
+@media (max-width: 1100px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .heroCopy { max-width: 48rem; }
+    .productFigure { width: 100%; rotate: 0deg; }
+    .quickStart { grid-template-columns: 1fr; }
+    .terminal { width: 100%; max-width: 50rem; }
+}
+
+@media (max-width: 760px) {
+    .page { margin-block-start: 0.5rem; border-radius: 1rem; }
+    .hero { padding-top: 4rem; }
+    .desktopBreak { display: none; }
+    .signalList { grid-template-columns: 1fr; }
+    .productFigure figcaption { display: block; }
+    .productFigure figcaption span { display: block; margin-bottom: 0.35rem; }
+    .statement,
+    .sectionHeading,
+    .capabilityList li,
+    .securityNote { grid-template-columns: 1fr; }
+    .sectionHeading h2,
+    .sectionHeading > p:last-child,
+    .sectionHeading .sectionIndex { grid-column: 1; grid-row: auto; }
+    .capabilityMarker { max-width: 9rem; padding-inline-end: 0; }
+    .flowList { grid-template-columns: 1fr; }
+    .flowList li { min-height: 11rem; }
+    .flowList li + li { border-top: 1px solid var(--line); border-left: 0; }
+    .flowList li:not(:last-child)::after {
+        top: auto;
+        right: 50%;
+        bottom: -0.55rem;
+        rotate: 90deg;
+        translate: 50% 0;
+    }
+    .roadmapItem {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        min-height: 17rem;
+    }
+    .roadmapPeriod {
+        display: flex;
+        grid-column: 2;
+        grid-row: 1;
+        gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.85rem 0 0 0.75rem;
+        text-align: start;
+    }
+    .roadmapPeriod code { margin-top: 0; }
+    .roadmapDetails { grid-template-columns: 1fr; }
+    .roadmapRail {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+    }
+    .roadmapCommit {
+        grid-column: 2;
+        grid-row: 2;
+        padding-inline-start: 0.75rem;
+    }
+    .securityNote { gap: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes roadmap-reveal {
+            from {
+                opacity: 0.15;
+                translate: 0 1.25rem;
+            }
+        }
+
+        .roadmapItem {
+            animation: roadmap-reveal auto linear both;
+            animation-timeline: view(block);
+            animation-range: entry 10% entry 85%;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primaryAction,
+    .secondaryAction { transition: none; }
+    .primaryAction:hover,
+    .secondaryAction:hover { translate: 0; }
+}

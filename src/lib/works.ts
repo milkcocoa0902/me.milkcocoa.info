@@ -1,5 +1,5 @@
 import {StaticImageData} from "next/image";
-import CocoaDiskInfo from "../../public/assets/works/CocoaDiskInfo.png";
+import CocoaDiskInfo from "../../public/assets/works/cocoadiskinfo/dashboard-overview.png";
 import NoteForBabyFood from "../../public/assets/works/GoodByeMilk.jpg";
 import CocoaZip from "../../public/assets/works/CocoaZip.jpg";
 import CocoaTweet from "../../public/assets/works/cocoatweet.png";
@@ -9,7 +9,7 @@ import LatteIcon from "../../public/assets/works/latte.png"
 import CrimsonIcon from "../../public/assets/works/Crimson.png"
 import ColotokIcon from "../../public/assets/works/Colotok.png"
 
-type Work = {
+export type Work = {
     title: string
     description: string
     stack: string[]
@@ -25,18 +25,18 @@ const items: WorkInternal[] = [
     {
         id: 0,
         title: 'Colotok',
-        description: 'Powerful logging library for Kotlin Multiplatform',
-        stack: ['Kotlin', 'KMP', 'Logging'],
+        description: '文脈・整形・出力先をコードで組み立てる、Kotlin Multiplatform向けロギングランタイム',
+        stack: ['Kotlin', 'KMP', 'Structured Logging', 'Loki / CloudWatch'],
         image: ColotokIcon,
-        href: 'https://github.com/milkcocoa0902/Colotok',
+        href: '/works/colotok',
     },
     {
         id: 1,
         title: 'CocoaDiskInfo',
-        description: 'Simple S.M.A.R.T. viewer for Linux',
-        stack: ['C++', 'Linux', 'S.M.A.R.T'],
+        description: 'S.M.A.R.T.を現在値と履歴で捉える、Linux向けディスクヘルスビューア',
+        stack: ['Kotlin', 'Compose Desktop', 'Ktor', 'SQLite / PostgreSQL'],
         image: CocoaDiskInfo,
-        href: 'https://github.com/koron0902/CocoaDiskInfo',
+        href: '/works/cocoadiskinfo',
     },
     {
         id: 2,

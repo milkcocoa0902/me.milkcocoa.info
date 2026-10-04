@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import {Metadata} from "next";
-import {workCount, workItems} from "@/lib/works";
+import {type Work, workCount, workItems} from "@/lib/works";
 
 export const metadata: Metadata = {
     title: "Works",
@@ -23,9 +24,37 @@ export const metadata: Metadata = {
     },
 };
 
+const chipBaseClass = "inline-flex rounded-full px-3 py-1 text-sm font-medium";
+const cardBaseClass = "rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40";
+
+function WorkCardContent({item}: {item: Work}) {
+    return (
+        <>
+            <Image
+                src={item.image}
+                alt={item.title}
+                sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
+                className="h-48 w-full rounded-xl object-cover"
+            />
+
+            <h2 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h2>
+            <p className="mt-2 text-slate-200">{item.description}</p>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+                {item.stack.map((tech) => (
+                    <span
+                        key={`${item.title}-${tech}`}
+                        className={`${chipBaseClass} border border-cyan-400/40 bg-cyan-500/20 text-cyan-200`}
+                    >
+                        {tech}
+                    </span>
+                ))}
+            </div>
+        </>
+    );
+}
+
 export default function WorksPage() {
-    const chipBaseClass = "inline-flex rounded-full px-3 py-1 text-sm font-medium";
-    const cardBaseClass = "rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40";
     const works = workItems(workCount(), 0);
 
     return (
@@ -37,8 +66,24 @@ export default function WorksPage() {
             </p>
 
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                {works.map((item) => (
-                    item.href ? (
+                {works.map((item) => {
+                    if (!item.href) {
+                        return (
+                            <section key={item.title} className={cardBaseClass}>
+                                <WorkCardContent item={item} />
+                            </section>
+                        );
+                    }
+
+                    if (item.href.startsWith("/")) {
+                        return (
+                            <Link key={item.title} href={item.href} className={`${cardBaseClass} block`}>
+                                <WorkCardContent item={item} />
+                            </Link>
+                        );
+                    }
+
+                    return (
                         <a
                             key={item.title}
                             href={item.href}
@@ -46,55 +91,10 @@ export default function WorksPage() {
                             rel="noopener noreferrer"
                             className={`${cardBaseClass} block`}
                         >
-                            <Image
-                                src={item.image}
-                                alt={item.title}
-                                sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
-                                className="h-48 w-full rounded-xl object-cover"
-                            />
-
-                            <h2 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h2>
-                            <p className="mt-2 text-slate-200">{item.description}</p>
-
-                            <div className="mt-3 flex flex-wrap gap-2">
-                                {item.stack.map((tech) => (
-                                    <span
-                                        key={`${item.title}-${tech}`}
-                                        className={`${chipBaseClass} border border-cyan-400/40 bg-cyan-500/20 text-cyan-200`}
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
+                            <WorkCardContent item={item} />
                         </a>
-                    ) : (
-                        <section
-                            key={item.title}
-                            className={cardBaseClass}
-                        >
-                            <Image
-                                src={item.image}
-                                alt={item.title}
-                                sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
-                                className="h-48 w-full rounded-xl object-cover"
-                            />
-
-                            <h2 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h2>
-                            <p className="mt-2 text-slate-200">{item.description}</p>
-
-                            <div className="mt-3 flex flex-wrap gap-2">
-                                {item.stack.map((tech) => (
-                                    <span
-                                        key={`${item.title}-${tech}`}
-                                        className={`${chipBaseClass} border border-cyan-400/40 bg-cyan-500/20 text-cyan-200`}
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        </section>
-                    )
-                ))}
+                    );
+                })}
             </div>
         </article>
     );
