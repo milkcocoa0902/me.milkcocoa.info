@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@mdit/plugin-container": "^2.0.2",
-    "@opennextjs/cloudflare": "^1.19.4",
+    "@opennextjs/cloudflare": "^1.20.8",
     "@shikijs/engine-oniguruma": "^4.5.0",
     "@sindresorhus/slugify": "^3.0.0",
     "@tailwindcss/postcss": "^4.1.10",
