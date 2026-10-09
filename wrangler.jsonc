@@ -13,5 +13,6 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  "previews": {},
   "minify": true
 }
