@@ -36,7 +36,7 @@
     "shiki": "^4.5.0",
     "tailwindcss": "^4.1.10",
     "typescript": "^7.0.2",
-    "zenn-cli": "^0.1.161",
+    "zenn-cli": "^0.5.5",
     "zenn-content-css": "^0.1.161",
     "zenn-markdown-html": "^0.5.1"
   },
