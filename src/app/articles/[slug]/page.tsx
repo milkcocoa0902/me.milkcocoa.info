@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import {renderArticle} from "@/lib/md";
 import {extractToc} from "@/lib/toc";
 import {ArticleToc} from "./_components/ArticleToc";
+import { CommandPrompt, TuiBadge, TuiPanel } from "@/app/_common/tui";
 
 type ArticlePageProps = {
     params: Promise<{ slug: string }>
@@ -106,42 +107,61 @@ export default async function Article({params}: ArticlePageProps ) {
     return (
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{__html: jsonLd}} />
-            <div className="mx-auto my-6 w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 px-4">
-                <aside className="sticky top-14 z-[2000] self-start lg:col-start-2 lg:row-start-1 lg:top-24 lg:z-auto">
-                    <ArticleToc items={tocItems} />
-                </aside>
-                <article
-                    className="w-full min-w-0 rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 md:p-6 lg:col-start-1 lg:row-start-1">
-                    <div className="mt-2 mb-0 flex items-center justify-center">
-                        <span className="m-auto text-6xl leading-none" aria-hidden="true">{article.emoji}</span>
-                    </div>
-                    <div className="mt-4 mb-6 border-b border-slate-600/80 pb-4">
-                        <h1 className="text-center text-4xl font-bold text-white">
-                            {article.title}
-                        </h1>
-                        <p className="mt-2 text-center text-sm text-slate-300">
-                            <time dateTime={toIsoDate(article.date) ?? article.date}>
-                                {`${convertToDateString(new Date(article.date))} に公開`}
-                            </time>
-                        </p>
-                    </div>
-                    <div className="my-2 px-4 md:px-6">
-                        <div className="my-4 flex w-full min-h-6 flex-wrap gap-1.5">
-                            {article.topics.map((tag) => (
-                                <span
-                                    key={`${slug}-${tag}`}
-                                    className="inline-flex items-center shrink-0 rounded-full border border-cyan-400/40 bg-cyan-500/20 px-2 py-0.5 text-xs text-cyan-200"
-                                >
-                            #{tag}
-                        </span>
-                            ))}
-                        </div>
+            <div className="mx-auto my-6 w-full max-w-6xl space-y-4 px-2 sm:my-8 sm:px-4">
+                <CommandPrompt
+                    command={`bat ~/articles/${slug}.md`}
+                    path="~/articles"
+                    showCaret
+                />
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_300px]">
+                    <aside className="sticky top-14 z-[2000] self-start lg:col-start-2 lg:row-start-1 lg:top-20 lg:z-auto">
+                        <ArticleToc items={tocItems} />
+                    </aside>
+                    <article className="w-full min-w-0 lg:col-start-1 lg:row-start-1">
+                        <TuiPanel
+                            decorativeHeader
+                            title={`${slug}.md`}
+                            meta="markdown"
+                            bodyClassName="p-4 sm:p-6 md:p-8"
+                        >
+                            <header className="mb-6 border-b border-slate-800 pb-6">
+                                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+                                    <span
+                                        className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xs border border-slate-800 bg-slate-950/80 text-4xl leading-none"
+                                        aria-hidden="true"
+                                    >
+                                        {article.emoji}
+                                    </span>
+                                    <div className="min-w-0 flex-1 space-y-2">
+                                        <h1 className="text-2xl font-bold leading-tight text-slate-50 sm:text-3xl md:text-4xl">
+                                            {article.title}
+                                        </h1>
+                                        <p className="m-0 font-mono text-xs text-slate-400 sm:text-sm">
+                                            <span aria-hidden="true" className="text-teal-400">published_at: </span>
+                                            <time dateTime={toIsoDate(article.date) ?? article.date} className="text-slate-200">
+                                                {`${convertToDateString(new Date(article.date))} に公開`}
+                                            </time>
+                                        </p>
+                                    </div>
+                                </div>
 
-                        <ArticleBody
-                            html={renderedContent}
-                        />
-                    </div>
-                </article>
+                                {article.topics.length > 0 && (
+                                    <div className="mt-4 flex w-full flex-wrap gap-1.5">
+                                        {article.topics.map((tag) => (
+                                            <TuiBadge key={`${slug}-${tag}`} tone="cyan" prefix="#">
+                                                {tag}
+                                            </TuiBadge>
+                                        ))}
+                                    </div>
+                                )}
+                            </header>
+
+                            <div className="my-2">
+                                <ArticleBody html={renderedContent} />
+                            </div>
+                        </TuiPanel>
+                    </article>
+                </div>
             </div>
         </>
     )
