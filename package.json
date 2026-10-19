@@ -26,7 +26,7 @@
     "gray-matter": "^4.0.3",
     "markdown-it": "^15.0.2",
     "markdown-it-anchor": "^10.0.0",
-    "next": "^16.2.11",
+    "next": "^16.4.0",
     "node-html-parser": "^9.0.4",
     "open-graph-scraper-lite": "^2.1.0",
     "openpgp": "^6.3.2",
