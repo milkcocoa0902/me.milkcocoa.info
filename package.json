@@ -24,7 +24,7 @@
     "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.20",
     "gray-matter": "^4.0.3",
-    "markdown-it": "^15.0.2",
+    "markdown-it": "^15.0.3",
     "markdown-it-anchor": "^10.0.0",
     "next": "^16.2.11",
     "node-html-parser": "^9.0.4",
