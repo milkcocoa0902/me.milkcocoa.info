@@ -13,5 +13,24 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
-  "minify": true
+  "minify": true,
+  "d1_databases": [
+    {
+      "binding": "CONTACT_DB",
+      "database_name": "business-contact",
+      "migrations_dir": "migrations/contact"
+    }
+  ],
+  "vars": {
+    "CONTACT_AWS_ROLE_ARN": "",
+    "CONTACT_LAMBDA_ALIAS_ARN": ""
+  },
+  "secrets": {
+    "required": [
+      "TURNSTILE_SECRET_KEY",
+      "CONTACT_EMAIL_ENCRYPTION_KEY",
+      "CONTACT_AWS_ACCESS_KEY_ID",
+      "CONTACT_AWS_SECRET_ACCESS_KEY"
+    ]
+  }
 }

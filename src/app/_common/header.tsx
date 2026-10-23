@@ -35,6 +35,12 @@ const menuItems: Menu[] = [
         to: "/gpg",
         matches: (pathname) => pathname.startsWith("/gpg"),
     },
+    {
+        index: 4,
+        text: "Contact",
+        to: "/contact",
+        matches: (pathname) => pathname.startsWith("/contact"),
+    },
 ]
 
 export function Header() {

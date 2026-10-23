@@ -273,6 +273,10 @@ export default function Home() {
                                 <span>gpg --list-keys</span>
                                 <span aria-hidden="true">-&gt;</span>
                             </Link>
+                            <Link href="/contact" className="inline-flex min-h-12 items-center justify-between gap-3 rounded-xs border border-teal-700 bg-slate-950/70 px-3.5 py-2 font-mono text-xs font-semibold text-teal-300 no-underline hover:border-teal-400 hover:text-teal-200">
+                                <span>contact --business</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </Link>
                         </div>
                     </div>
                 </TuiPanel>

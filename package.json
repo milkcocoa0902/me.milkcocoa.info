@@ -9,6 +9,7 @@
     "dev": "run-p watch:article next:dev",
     "build": "next build",
     "lint": "eslint .",
+    "test:contact": "node scripts/test-contact.mjs",
     "next:start": "next start",
     "next:export": "next build; next export",
     "cf:build": "opennextjs-cloudflare build",
@@ -17,6 +18,8 @@
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "3.1155.0",
+    "@aws-sdk/client-sts": "3.1155.0",
     "@mdit/plugin-container": "^2.0.2",
     "@opennextjs/cloudflare": "^1.19.4",
     "@shikijs/engine-oniguruma": "^4.5.0",
