@@ -1,0 +1,136 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: IAM-only contact notifications using existing SES identity
+
+Parameters:
+  SesIdentity:
+    Type: String
+    Description: Existing verified SES domain or email identity in this account and region
+    AllowedPattern: '[a-zA-Z0-9@._+-]+'
+  FromAddress:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9._+%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+  ToAddress:
+    Type: String
+    AllowedPattern: '[a-zA-Z0-9._+%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+  ReservedConcurrency:
+    Type: Number
+    Default: 1
+    AllowedValues: [0, 1]
+
+Resources:
+  ContactLogs:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${AWS::StackName}-contact'
+      RetentionInDays: 7
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: contact-only
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ContactLogs}:log-stream:*'
+              - Effect: Allow
+                Action: ses:SendEmail
+                Resource: !Sub 'arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/${SesIdentity}'
+                Condition:
+                  StringEquals:
+                    ses:FromAddress: !Ref FromAddress
+                  ForAllValues:StringEquals:
+                    ses:Recipients: [!Ref ToAddress]
+                  'Null':
+                    ses:Recipients: 'false'
+
+  ContactFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-contact'
+      CodeUri: ../../services/contact-api/
+      Handler: handler.handler
+      Runtime: nodejs24.x
+      Architectures: [arm64]
+      MemorySize: 128
+      Timeout: 5
+      ReservedConcurrentExecutions: !Ref ReservedConcurrency
+      Role: !GetAtt ExecutionRole.Arn
+      AutoPublishAlias: live
+      AutoPublishAliasAllProperties: true
+      VersionDeletionPolicy: Retain
+      Environment:
+        Variables:
+          CONTACT_FROM: !Ref FromAddress
+          CONTACT_TO: !Ref ToAddress
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints: [src/handler.ts]
+        Target: node24
+        Format: cjs
+        OutExtension: ['.js=.cjs']
+        Minify: true
+        Sourcemap: false
+
+  CallerUser:
+    Type: AWS::IAM::User
+    Properties:
+      Path: /contact/
+
+  InvokeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !GetAtt CallerUser.Arn
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: invoke-live-only
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: lambda:InvokeFunction
+                Resource: !Sub '${ContactFunction.Arn}:live'
+
+  AssumeRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: assume-contact-only
+      Users: [!Ref CallerUser]
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Resource: !GetAtt InvokeRole.Arn
+
+Outputs:
+  FunctionName:
+    Value: !Ref ContactFunction
+  LiveAliasArn:
+    Value: !Sub '${ContactFunction.Arn}:live'
+  InvokeRoleArn:
+    Value: !GetAtt InvokeRole.Arn
+  CallerUserName:
+    Value: !Ref CallerUser
+  LogGroupName:
+    Value: !Ref ContactLogs
+  Region:
+    Value: !Ref AWS::Region

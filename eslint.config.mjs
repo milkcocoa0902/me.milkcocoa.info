@@ -9,5 +9,7 @@ export default defineConfig([
         ".wrangler/**",
         "cloudflare-env.d.ts",
         "next-env.d.ts",
+        "services/**/dist/**",
+        "infra/**/.aws-sam/**",
     ]),
 ]);

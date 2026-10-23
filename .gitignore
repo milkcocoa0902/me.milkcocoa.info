@@ -43,3 +43,7 @@ sample
 .open-next
 .wrangler/
 .dev.vars
+
+services/contact-api/dist/
+infra/contact/.aws-sam/
+infra/contact/samconfig.toml
