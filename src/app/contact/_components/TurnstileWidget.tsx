@@ -25,8 +25,7 @@ export function TurnstileWidget({siteKey, resetCounter, onToken, onError}: {
         if (!ready || !container.current || !window.turnstile) return;
         const api = window.turnstile;
         widget.current = api.render(container.current, {
-            // Compact (150 × 140px) fits the form even on 320px-wide screens.
-            sitekey: siteKey, action: CONTACT_ACTION, theme: "dark", size: "compact", language: "ja",
+            sitekey: siteKey, action: CONTACT_ACTION, theme: "dark", size: "normal", language: "ja",
             callback: onToken, "expired-callback": () => onToken(""), "response-field": false,
             "error-callback": onError,
         });
@@ -38,6 +37,6 @@ export function TurnstileWidget({siteKey, resetCounter, onToken, onError}: {
     return <>
         <Script id="contact-turnstile" src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
             strategy="afterInteractive" onReady={() => setReady(true)} onError={onError} />
-        <div ref={container} role="group" aria-label="送信前の確認" className="min-h-[140px] w-full min-w-0" />
+        <div ref={container} role="group" aria-label="送信前の確認" className="min-h-[65px] w-full min-w-0" />
     </>;
 }

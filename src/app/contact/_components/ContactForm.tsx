@@ -115,13 +115,12 @@ export function ContactForm({siteKey = ""}: {siteKey?: string}) {
                     aria-invalid={Boolean(errors.message)} aria-describedby="contact-message-count contact-message-hint contact-message-error"
                     className={`${inputClass} resize-y`} />
                 <CharacterCounter id="contact-message-count" value={fields.message} limit={CONTACT_LIMITS.message} />
-                <p id="contact-message-hint" className="mt-2 text-sm text-slate-400">添付ファイルには対応していません。</p>
                 <p id="contact-message-error" className="mt-1 text-sm text-rose-300">{errors.message}</p>
             </div>
         </fieldset>
         <section aria-labelledby="contact-privacy" className="space-y-2 text-sm leading-7 text-slate-300">
             <h2 id="contact-privacy" className="font-semibold text-slate-100">入力情報の取り扱い</h2>
-            <p>入力いただいた情報は、ご相談の確認と返信のために利用し、サイト運営者のデータベースとメール環境に保存します。データベース上の返信先メールアドレスは暗号化します。</p>
+            <p>入力いただいた情報は、ご相談の確認と返信のために利用し、運営者のデータベースに保存します。データベース上の返信先メールアドレスは暗号化します。</p>
             <p>迷惑送信や重複送信を防ぐため、IPアドレス・受付日時・通知メールの送信状態を記録します。</p>
             <p>自動返信メールは送信しません。</p>
         </section>
