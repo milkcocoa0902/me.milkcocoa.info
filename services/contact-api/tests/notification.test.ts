@@ -1,11 +1,30 @@
-import {test} from "node:test";
+import {test, mock} from "node:test";
 import assert from "node:assert/strict";
 import {SendEmailCommand, type SESClient} from "@aws-sdk/client-ses";
 import {parseContact, validEmail} from "../src/contract.ts";
 import {createHandler} from "../src/handler.ts";
 import {createMailer} from "../src/mail.ts";
+import {logNotification} from "../src/diagnostics.ts";
 
 const input = {requestId: "d66fc392-4c37-40e9-b435-22b7058f643f", name: "相談者", email: "user@example.net", message: "日本語の本文\n2行目"};
+
+test("SES diagnostics preserve stage and safe metadata without leaking exception contents", async () => {
+    const logger = mock.method(console, "log", () => {});
+    try {
+        const client = {send: async () => {throw {name: "TimeoutError", message: input.email, payload: input, $metadata: {httpStatusCode: 504}};}} as unknown as SESClient;
+        const result = await createHandler(createMailer(client, "from@example.org", "to@example.org"))(input);
+        assert.deepEqual(result, {status: "unknown"});
+        const logs = logger.mock.calls.map(call => JSON.parse(call.arguments[0]));
+        assert.deepEqual(logs.map(log => log.stage), ["notification_started", "ses_send_started", "ses_send_exception", "notification_unknown"]);
+        assert.equal(logs[2].errorType, "TimeoutError");
+        assert.equal(logs[2].httpStatus, 504);
+        assert.equal(logs[2].requestId, input.requestId);
+        assert.equal(typeof logs[2].elapsedMs, "number");
+        logNotification("invalid_input", input.email, {name: input.message});
+        const serialized = JSON.stringify(logger.mock.calls.map(call => call.arguments));
+        for (const value of [input.email, input.name, input.message, "from@example.org", "to@example.org"]) assert.equal(serialized.includes(value), false);
+    } finally {logger.mock.restore();}
+});
 
 test("Lambda accepts only notification fields and never sends invalid events", async () => {
     assert.equal(validEmail("contact@example.org\n"), false);
@@ -46,6 +65,7 @@ test("SES explicit rejection differs from timeout/5xx; none automatically retrie
         [{name: "TimeoutError"}, "unknown"],
         [{name: "MessageRejected", $metadata: {httpStatusCode: 400}}, "failed"],
         [{name: "AccessDeniedException", $metadata: {httpStatusCode: 403}}, "failed"],
+        [{name: "AccessDenied", $metadata: {httpStatusCode: 403}}, "failed"],
         [{name: "MessageRejected", $metadata: {httpStatusCode: 500}}, "unknown"],
     ] as const) {
         let sends = 0;
