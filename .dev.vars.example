@@ -1,0 +1,9 @@
+# Server-only Worker environment. Copy to .dev.vars for local testing.
+# Do not use NEXT_PUBLIC_ for any secret below.
+TURNSTILE_SECRET_KEY=
+# Base64 encoding of 32 cryptographically random bytes (AES-256-GCM).
+CONTACT_EMAIL_ENCRYPTION_KEY=
+CONTACT_AWS_ACCESS_KEY_ID=
+CONTACT_AWS_SECRET_ACCESS_KEY=
+CONTACT_AWS_ROLE_ARN=
+CONTACT_LAMBDA_ALIAS_ARN=

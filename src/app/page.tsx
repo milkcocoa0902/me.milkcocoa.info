@@ -1,8 +1,9 @@
 import type {Metadata} from "next";
 import Image from "next/image";
 import Link from "next/link";
-import {workItems} from "@/lib/works";
+import {workItems, type Work} from "@/lib/works";
 import { FaBuilding, FaLocationDot, FaUserTie } from "react-icons/fa6";
+import { CommandPrompt, TuiBadge, TuiPanel, type TuiBadgeTone } from "@/app/_common/tui";
 
 const description = "Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開するmilkcocoaのポートフォリオ。";
 
@@ -29,7 +30,10 @@ export const metadata: Metadata = {
     },
 };
 
-type TechCategoryChipTone = "language" | "framework" | "library" | "tools" | "infra" | "service"
+type TechCategoryChipTone = Extract<
+    TuiBadgeTone,
+    "language" | "framework" | "library" | "tools" | "infra" | "service"
+>;
 
 
 type TechCategory = {
@@ -158,149 +162,251 @@ const TechStackItems: TechCategory[] = [
 
 
 
-export default function Home() {
-    const chipBaseClass = 'inline-flex rounded-full px-3 py-1 text-sm font-medium'
-    const cardBaseClass = 'rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:shadow-lg hover:shadow-slate-950/40'
-    const chipTone = {
-        language: 'border border-emerald-400/40 bg-emerald-500/20 text-emerald-200',
-        framework: 'border border-sky-400/40 bg-sky-500/20 text-sky-200',
-        library: 'border border-violet-400/40 bg-violet-500/20 text-violet-200',
-        tools: 'border border-fuchsia-400/40 bg-fuchsia-500/20 text-fuchsia-200',
-        infra: 'border border-amber-400/40 bg-amber-500/20 text-amber-200',
-        service: 'border border-orange-400/40 bg-orange-500/20 text-orange-200'
-    }
-
-
+function WorkExcerptCardContent({ item }: { item: Work }) {
     return (
-        <div className="my-4 rounded-2xl p-1 text-white sm:p-4">
-            <header className="pb-6">
-                <div>
-                    <h1 className="text-4xl font-bold">milkcocoa</h1>
-                    <p className="mt-2 flex items-center gap-2 text-lg font-bold">
-                        <FaBuilding className="text-slate-300" aria-hidden="true" />
-                        <span>Cocoa Tech. Lab.</span>
-                    </p>
-                    <p className="mt-1 flex items-center gap-2 text-lg text-teal-300">
-                        <FaUserTie className="text-teal-400" aria-hidden="true" />
-                        <span>Kotlin Backend Engineer</span>
-                    </p>
+        <>
+            <div className="overflow-hidden rounded-xs border border-slate-800 bg-slate-950">
+                <Image
+                    src={item.image}
+                    alt={item.title}
+                    sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
+                    className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.01]"
+                />
+            </div>
 
-                    <p className="mt-1 flex items-center gap-2 text-base">
-                        <FaLocationDot className="text-slate-300" aria-hidden="true" />
-                        <span>Osaka, Japan</span>
-                    </p>
-                    <p className="mt-4 max-w-3xl leading-7 text-slate-200">
-                        Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開しています。
-                    </p>
-                </div>
+            <div className="mt-4 flex items-baseline justify-between gap-2">
+                <h3 className="font-mono text-lg font-bold text-teal-300 group-hover:text-teal-200 sm:text-xl">
+                    {item.title}
+                </h3>
+                {item.href && (
+                    <span
+                        aria-hidden="true"
+                        className="font-mono text-xs text-slate-400 transition-colors group-hover:text-teal-300"
+                    >
+                        {item.href.startsWith("/") ? "[open ->]" : "[ext ↗]"}
+                    </span>
+                )}
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-slate-200 sm:text-base">
+                {item.description}
+            </p>
+
+            <div className="mt-3 flex flex-wrap gap-1.5">
+                {item.stack.map((tech) => (
+                    <TuiBadge key={`${item.title}-${tech}`} tone="cyan" prefix="#">
+                        {tech}
+                    </TuiBadge>
+                ))}
+            </div>
+        </>
+    );
+}
+
+export default function Home() {
+    return (
+        <div className="my-6 space-y-10 text-slate-100 sm:my-8">
+            <header>
+                <CommandPrompt
+                    command="whoami --verbose"
+                    path="~"
+                    showCaret
+                    as="h1"
+                    title="milkcocoa"
+                    className="mb-4"
+                />
+                <TuiPanel decorativeHeader title="profile">
+                    <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+                        <div className="space-y-4">
+                            <dl className="grid gap-2.5 font-mono text-sm sm:grid-cols-3 sm:gap-4">
+                                <div className="rounded-xs border border-slate-800/90 bg-slate-950/50 px-3 py-2">
+                                    <dt className="text-xs text-slate-400">org</dt>
+                                    <dd className="mt-1 flex items-center gap-2 font-semibold text-slate-100">
+                                        <FaBuilding className="shrink-0 text-slate-400" aria-hidden="true" />
+                                        <span>Cocoa Tech. Lab.</span>
+                                    </dd>
+                                </div>
+                                <div className="rounded-xs border border-slate-800/90 bg-slate-950/50 px-3 py-2">
+                                    <dt className="text-xs text-slate-400">role</dt>
+                                    <dd className="mt-1 flex items-center gap-2 font-semibold text-teal-300">
+                                        <FaUserTie className="shrink-0 text-teal-400" aria-hidden="true" />
+                                        <span>Kotlin Backend Engineer</span>
+                                    </dd>
+                                </div>
+                                <div className="rounded-xs border border-slate-800/90 bg-slate-950/50 px-3 py-2">
+                                    <dt className="text-xs text-slate-400">location</dt>
+                                    <dd className="mt-1 flex items-center gap-2 font-semibold text-slate-100">
+                                        <FaLocationDot className="shrink-0 text-slate-400" aria-hidden="true" />
+                                        <span>Osaka, Japan</span>
+                                    </dd>
+                                </div>
+                            </dl>
+
+                            <div className="max-w-3xl space-y-2">
+                                <p className="text-sm leading-7 text-slate-200 sm:text-base">
+                                    Kotlin・Android・バックエンド開発を中心に、技術記事と個人開発プロダクトを公開しています。
+                                </p>
+                                <p lang="en" className="text-sm leading-relaxed text-slate-400">
+                                    Crafting backend systems, Android apps, and indie tools with Kotlin — sharing technical notes along the way.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 md:flex-col md:items-stretch">
+                            <Link
+                                href="/articles/p/1"
+                                className="inline-flex items-center justify-between gap-3 rounded-xs border border-slate-700 bg-slate-950/70 px-3.5 py-2 font-mono text-xs font-semibold text-teal-300 no-underline transition-colors hover:border-teal-400/70 hover:bg-slate-900 hover:text-teal-200"
+                            >
+                                <span>cd ~/articles</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </Link>
+                            <Link
+                                href="/works"
+                                className="inline-flex items-center justify-between gap-3 rounded-xs border border-slate-700 bg-slate-950/70 px-3.5 py-2 font-mono text-xs font-semibold text-cyan-300 no-underline transition-colors hover:border-cyan-400/70 hover:bg-slate-900 hover:text-cyan-200"
+                            >
+                                <span>cd ~/works</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </Link>
+                            <Link
+                                href="/gpg"
+                                className="inline-flex items-center justify-between gap-3 rounded-xs border border-slate-700 bg-slate-950/70 px-3.5 py-2 font-mono text-xs font-semibold text-slate-300 no-underline transition-colors hover:border-teal-400/70 hover:bg-slate-900 hover:text-teal-200"
+                            >
+                                <span>gpg --list-keys</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </Link>
+                            <Link href="/contact" className="inline-flex min-h-12 items-center justify-between gap-3 rounded-xs border border-teal-700 bg-slate-950/70 px-3.5 py-2 font-mono text-xs font-semibold text-teal-300 no-underline hover:border-teal-400 hover:text-teal-200">
+                                <span>contact --business</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </Link>
+                        </div>
+                    </div>
+                </TuiPanel>
             </header>
-            <section className="py-4" aria-labelledby="tech-stack-heading">
-                <h2 id="tech-stack-heading" className="border-b border-slate-600/80 pb-2 text-3xl font-bold sm:text-4xl">Tech. Stack</h2>
-                <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                    {TechStackItems.map((stack) => (
-                        <section
-                            key={stack.title}
-                            className={cardBaseClass}
-                        >
-                            <h3 className="text-xl font-semibold text-teal-300">{stack.title}</h3>
 
-                            <div className="mt-3 space-y-3">
-                                {
-                                    stack.groups.map((tech) => (
-                                        <div key={`${stack.title}-${tech.label}`}>
-                                            <h4 className="mb-2 text-sm font-semibold uppercase tracking-wide text-slate-300">
+            <section aria-labelledby="tech-stack-heading">
+                <CommandPrompt
+                    command="cat ~/.config/tech-stack.toml"
+                    path="~"
+                    as="h2"
+                    title="Tech. Stack"
+                    id="tech-stack-heading"
+                    className="mb-4"
+                />
+                <div className="grid gap-4 lg:grid-cols-2">
+                    {TechStackItems.map((stack, index) => (
+                        <section key={stack.title} aria-label={stack.title}>
+                            <TuiPanel
+                                decorativeHeader
+                                title={`stack.${index}`}
+                                meta="toml"
+                                className="h-full"
+                            >
+                                <h3 className="font-mono text-lg font-bold text-teal-300 sm:text-xl">
+                                    {stack.title}
+                                </h3>
+
+                                <div className="mt-4 space-y-3.5">
+                                    {stack.groups.map((tech) => (
+                                        <div
+                                            key={`${stack.title}-${tech.label}`}
+                                            className="border-l-2 border-slate-800 pl-3"
+                                        >
+                                            <h4 className="mb-2 font-mono text-xs font-semibold uppercase tracking-wider text-slate-400">
                                                 {tech.label}
                                             </h4>
-                                            <div className="flex flex-wrap gap-2">
+                                            <div className="flex flex-wrap gap-1.5">
                                                 {tech.items.map((i) => (
-                                                    <span
+                                                    <TuiBadge
                                                         key={`${stack.title}-${tech.label}-${i.name}`}
-                                                        className={`${chipBaseClass} ${chipTone[i.tone]}`}
+                                                        tone={i.tone}
                                                     >
-                                                {i.name}
-                                            </span>
+                                                        {i.name}
+                                                    </TuiBadge>
                                                 ))}
                                             </div>
                                         </div>
-                                    ))
-                                }
-                            </div>
+                                    ))}
+                                </div>
+                            </TuiPanel>
                         </section>
                     ))}
                 </div>
             </section>
 
-            <section className="py-4" aria-labelledby="works-heading">
-                <h2 id="works-heading" className="border-b border-slate-600/80 pb-2 text-3xl font-bold sm:text-4xl">Works</h2>
-                <div className="mt-4 grid gap-4 lg:grid-cols-2">
-                    {workItems(4, 0).map((item) => (
-                        item.href ? (
+            <section aria-labelledby="works-heading">
+                <CommandPrompt
+                    command="ls -la ~/works | head -n 4"
+                    path="~"
+                    as="h2"
+                    title="Works"
+                    id="works-heading"
+                    className="mb-4"
+                />
+                <div className="grid gap-4 lg:grid-cols-2">
+                    {workItems(4, 0).map((item, idx) => {
+                        const panelTitle = `work.${String(idx).padStart(2, "0")}`;
+                        if (!item.href) {
+                            return (
+                                <section key={item.title} aria-label={item.title}>
+                                    <TuiPanel decorativeHeader title={panelTitle} className="h-full">
+                                        <WorkExcerptCardContent item={item} />
+                                    </TuiPanel>
+                                </section>
+                            );
+                        }
+
+                        const isInternal = item.href.startsWith("/");
+                        if (isInternal) {
+                            return (
+                                <Link
+                                    key={item.title}
+                                    href={item.href}
+                                    className="block no-underline"
+                                >
+                                    <TuiPanel
+                                        decorativeHeader
+                                        title={panelTitle}
+                                        meta="local"
+                                        interactive
+                                        className="h-full"
+                                    >
+                                        <WorkExcerptCardContent item={item} />
+                                    </TuiPanel>
+                                </Link>
+                            );
+                        }
+
+                        return (
                             <a
                                 key={item.title}
                                 href={item.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className={`${cardBaseClass} block`}
+                                className="block no-underline"
                             >
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
-                                    className="h-48 w-full rounded-xl object-cover"
-                                />
-
-                                <h3 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h3>
-                                <p className="mt-2 text-slate-200">{item.description}</p>
-
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                    {item.stack.map((tech) => (
-                                        <span
-                                            key={`${item.title}-${tech}`}
-                                            className={`${chipBaseClass} border border-cyan-400/40 bg-cyan-500/20 text-cyan-200`}
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
+                                <TuiPanel
+                                    decorativeHeader
+                                    title={panelTitle}
+                                    meta="external"
+                                    interactive
+                                    className="h-full"
+                                >
+                                    <WorkExcerptCardContent item={item} />
+                                </TuiPanel>
                             </a>
-                        ) : (
-                            <section
-                                key={item.title}
-                                className={cardBaseClass}
-                            >
-                                <Image
-                                    src={item.image}
-                                    alt={item.title}
-                                    sizes="(min-width: 1024px) 43vw, calc(100vw - 3rem)"
-                                    className="h-48 w-full rounded-xl object-cover"
-                                />
-
-                                <h3 className="mt-4 text-xl font-semibold text-teal-300">{item.title}</h3>
-                                <p className="mt-2 text-slate-200">{item.description}</p>
-
-                                <div className="mt-3 flex flex-wrap gap-2">
-                                    {item.stack.map((tech) => (
-                                        <span
-                                            key={`${item.title}-${tech}`}
-                                            className={`${chipBaseClass} border border-cyan-400/40 bg-cyan-500/20 text-cyan-200`}
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </section>
-                        )
-                    ))}
+                        );
+                    })}
                 </div>
-                <div className="mt-4 flex justify-end">
+                <div className="mt-5 flex justify-end">
                     <Link
                         href="/works"
-                        className="inline-flex items-center rounded-xl border border-slate-700/70 bg-slate-900/40 px-4 py-2 text-sm font-semibold text-teal-300 transition duration-200 hover:-translate-y-0.5 hover:border-slate-500/80 hover:text-teal-200 hover:shadow-lg hover:shadow-slate-950/40"
+                        className="inline-flex items-center gap-2 rounded-xs border border-slate-700 bg-slate-900/70 px-4 py-2 font-mono text-sm font-semibold text-teal-300 no-underline transition-colors hover:border-teal-400/70 hover:bg-slate-900 hover:text-teal-200"
                     >
-                        View All &gt;&gt;
+                        <span aria-hidden="true">[</span>
+                        <span>View All</span>
+                        <span aria-hidden="true">-&gt;]</span>
                     </Link>
                 </div>
             </section>
         </div>
     );
-};
+}

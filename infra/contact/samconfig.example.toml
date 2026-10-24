@@ -1,0 +1,10 @@
+version = 0.1
+
+[prod.deploy.parameters]
+stack_name = "business-contact"
+resolve_s3 = true
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+fail_on_empty_changeset = false
+# Set region/profile and non-secret parameters with sam deploy --guided.
+# Never put access keys or Turnstile secrets in this file.

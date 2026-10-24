@@ -46,9 +46,9 @@ export default function RootLayout({
 }) {
   return (
       <html lang="ja">
-      <body className="m-0 p-0" >
-      <div className="m-0 flex min-h-dvh flex-col p-0 text-white">
-          <a className="skip-link" href="#main-content">メインコンテンツへ移動</a>
+      <body className="m-0 p-0 antialiased selection:bg-teal-400/25 selection:text-teal-100">
+      <div className="m-0 flex min-h-dvh flex-col p-0 text-slate-100">
+          <a className="skip-link font-mono text-sm" href="#main-content">[skip_to_main] メインコンテンツへ移動</a>
           <Header/>
           <main className="flex-1" id="main-content" tabIndex={-1}>
               <MainContent>

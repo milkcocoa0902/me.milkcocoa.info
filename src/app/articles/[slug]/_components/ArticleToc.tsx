@@ -67,31 +67,35 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
   };
 
   return (
-    <nav aria-label="目次" className="w-full lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto relative z-[2001]">
+    <nav aria-label="目次" className="w-full lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto relative z-[2001]">
       {/* モバイル用: details/summaryを使用 */}
       <div className="lg:hidden">
-        <details className="rounded-2xl border border-slate-700/70 bg-slate-900/95 backdrop-blur-md overflow-hidden group">
+        <details className="rounded-sm border border-slate-700/80 bg-slate-900/95 backdrop-blur-md overflow-hidden group">
           <summary 
-            className="flex items-center justify-between p-4 cursor-pointer list-none touch-manipulation focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-teal-300"
+            className="flex items-center justify-between px-3.5 py-2.5 cursor-pointer list-none touch-manipulation font-mono text-sm focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-teal-300"
           >
-            <span className="text-lg font-bold text-white">Table of Contents</span>
+            <span className="flex items-center gap-1.5 font-bold text-teal-300">
+              <span aria-hidden="true" className="text-slate-500">[</span>
+              <span>Table of Contents</span>
+              <span aria-hidden="true" className="text-slate-500">]</span>
+            </span>
             <span className="text-slate-400 p-1" aria-hidden="true">
-              <RiMenuUnfoldLine className="group-open:hidden" size={24} aria-hidden="true" />
-              <RiMenuFoldLine className="hidden group-open:block" size={24} aria-hidden="true" />
+              <RiMenuUnfoldLine className="group-open:hidden" size={20} aria-hidden="true" />
+              <RiMenuFoldLine className="hidden group-open:block" size={20} aria-hidden="true" />
             </span>
           </summary>
-          <ul className="px-4 pb-4 space-y-2 text-sm max-h-[70vh] overflow-y-auto border-t border-slate-700 pt-2">
+          <ul className="px-4 pb-4 space-y-1.5 text-sm max-h-[70vh] overflow-y-auto border-t border-slate-800 pt-3">
             {items.map((item) => (
               <li
                 key={item.id}
-                style={{ paddingLeft: `${(item.level - 2) * 1}rem` }}
+                style={{ paddingLeft: `${(item.level - 2) * 0.85}rem` }}
               >
                 <a
                   href={`#${item.id}`}
                   onClick={handleLinkClick}
-                  className={`block rounded-sm transition-colors duration-200 hover:text-teal-300 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
+                  className={`block rounded-xs transition-colors duration-150 hover:text-teal-300 py-1 px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
                     activeId === item.id
-                      ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
+                      ? "bg-teal-950/50 text-teal-300 font-semibold border-l-2 border-teal-400"
                       : "text-slate-400"
                   }`}
                 >
@@ -104,19 +108,28 @@ export const ArticleToc: React.FC<ArticleTocProps> = ({ items }) => {
       </div>
 
       {/* デスクトップ用: 常に表示 */}
-      <div className="hidden lg:block rounded-2xl border border-slate-700/70 bg-slate-900/40 p-4">
-        <p className="text-lg font-bold text-white mb-4 border-b border-slate-700 pb-2">Table of Contents</p>
-        <ul className="space-y-2 text-sm">
+      <div className="hidden lg:block rounded-sm border border-slate-700/80 bg-slate-900/55 overflow-hidden">
+        <div className="flex items-center justify-between border-b border-slate-800/90 bg-slate-950/60 px-3.5 py-1.5 font-mono text-xs">
+          <span className="flex items-center gap-1.5 font-medium text-teal-300">
+            <span aria-hidden="true" className="text-slate-500">[</span>
+            <span>Table of Contents</span>
+            <span aria-hidden="true" className="text-slate-500">]</span>
+          </span>
+          <span aria-hidden="true" className="text-[11px] text-slate-400">
+            {items.length}h
+          </span>
+        </div>
+        <ul className="p-3.5 space-y-1.5 text-sm">
           {items.map((item) => (
             <li
               key={item.id}
-              style={{ paddingLeft: `${(item.level - 2) * 1}rem` }}
+              style={{ paddingLeft: `${(item.level - 2) * 0.85}rem` }}
             >
               <a
                 href={`#${item.id}`}
-                className={`block rounded-sm transition-colors duration-200 hover:text-teal-300 py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
+                className={`block rounded-xs transition-colors duration-150 hover:text-teal-300 py-1 px-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300 ${
                   activeId === item.id
-                    ? "text-teal-400 font-bold border-l-2 border-teal-400 pl-2 -ml-2.5"
+                    ? "bg-teal-950/50 text-teal-300 font-semibold border-l-2 border-teal-400"
                     : "text-slate-400"
                 }`}
               >

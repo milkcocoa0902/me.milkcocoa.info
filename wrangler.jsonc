@@ -14,5 +14,41 @@
     "binding": "ASSETS"
   },
   "previews": {},
-  "minify": true
+  "minify": true,
+  "d1_databases": [
+    {
+      "binding": "CONTACT_DB",
+      "database_name": "business-contact",
+      "database_id": "5cbc8d61-62a0-405e-a628-963e2436751b",
+      "migrations_dir": "migrations/contact"
+    }
+  ],
+  "vars": {
+    "CONTACT_AWS_ROLE_ARN": "arn:aws:iam::233575764647:role/business-contact-InvokeRole-dolHED07BHiC",
+    "CONTACT_LAMBDA_ALIAS_ARN": "arn:aws:lambda:us-east-1:233575764647:function:business-contact-contact:live"
+  },
+  "secrets": {
+    "required": [
+      "TURNSTILE_SECRET_KEY",
+      "CONTACT_EMAIL_ENCRYPTION_KEY",
+      "CONTACT_AWS_ACCESS_KEY_ID",
+      "CONTACT_AWS_SECRET_ACCESS_KEY"
+    ]
+  },
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true
+    },
+    "issue_detection": {
+      "enabled": false
+    }
+  }
 }

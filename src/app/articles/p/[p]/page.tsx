@@ -6,6 +6,7 @@ import {ArticleCard} from '../../_components/articleCard'
 import {Metadata} from "next";
 import PageNavigation from "../../_components/pageNavigation";
 import {notFound} from "next/navigation";
+import { CommandPrompt } from "@/app/_common/tui";
 
 type ArticleListPageProps = {
     params: Promise<{
@@ -75,13 +76,24 @@ export default async function Articles({ params }: ArticleListPageProps) {
     }
 
     return (
-        <div className="my-4 rounded-2xl p-4 text-white">
-            <h1 className="border-b border-slate-600/80 pb-2 text-4xl font-bold">Articles</h1>
-            <ul className="mt-4 grid gap-4 lg:grid-cols-2" role="list">
+        <div className="my-6 space-y-6 text-slate-100 sm:my-8">
+            <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <CommandPrompt
+                    command={`ls -lt ~/articles --page=${page}`}
+                    path="~/articles"
+                    showCaret
+                    as="h1"
+                    title="Articles"
+                />
+                <p className="m-0 font-mono text-xs text-slate-400">
+                    total {articles.totalCount} entries | page {page}/{totalPage}
+                </p>
+            </header>
+            <ul className="grid gap-4 lg:grid-cols-2" role="list">
                 {
                     articles.articles.map((article: Article) => {
                         return (
-                            <li key={article.slug}>
+                            <li key={article.slug} className="h-full">
                                 <ArticleCard
                                     slug={article.slug}
                                     title={article.title}
@@ -95,7 +107,7 @@ export default async function Articles({ params }: ArticleListPageProps) {
                     })
                 }
             </ul>
-            <div className="flex flex-col justify-center items-center my-4">
+            <div className="my-6 flex flex-col items-center justify-center">
                 <PageNavigation current={page} isLastPage={page === totalPage}/>
             </div>
         </div>

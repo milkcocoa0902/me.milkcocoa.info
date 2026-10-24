@@ -27,5 +27,39 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Test contact request handling
+        run: npm run test:contact
+
       - name: Build for Cloudflare Workers
         run: npm run cf:build
+
+  contact-lambda:
+    name: Verify contact Lambda
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SAM_CLI_TELEMETRY: '0'
+      AWS_EC2_METADATA_DISABLED: 'true'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: services/contact-api/package-lock.json
+      - name: Install Lambda dependencies
+        run: npm --prefix services/contact-api ci
+      - name: Test Lambda
+        run: npm --prefix services/contact-api test
+      - name: Typecheck Lambda
+        run: npm --prefix services/contact-api run typecheck
+      - name: Set up SAM CLI
+        run: pip install aws-sam-cli==1.169.0 cfn-lint==1.53.3
+      - name: Validate SAM template
+        run: sam validate --lint --region ap-northeast-1 --template-file infra/contact/template.yaml
+      - name: Build Lambda with SAM
+        run: |
+          export PATH="$PWD/services/contact-api/node_modules/.bin:$PATH"
+          sam build --template-file infra/contact/template.yaml --build-dir infra/contact/.aws-sam/build
