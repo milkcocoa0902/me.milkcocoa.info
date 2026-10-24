@@ -1,6 +1,7 @@
 import "server-only";
 import type {Notification, NotificationResult} from "./storage";
 import {logContactFailure} from "./diagnostics";
+import {FetchHttpHandler, streamCollector} from "@smithy/fetch-http-handler";
 
 type NotificationConfig = {
     CONTACT_AWS_ACCESS_KEY_ID: string;
@@ -23,8 +24,11 @@ export function createNotifier(env: NotificationConfig) {
         const [{STSClient, AssumeRoleCommand}, {LambdaClient, InvokeCommand}] = await Promise.all([
             import("@aws-sdk/client-sts"), import("@aws-sdk/client-lambda"),
         ]);
-        const options = {region: alias[2], maxAttempts: 1, requestHandler: {connectionTimeout: 500, requestTimeout: 3000}};
-        const sts = new STSClient({...options, credentials: {accessKeyId: env.CONTACT_AWS_ACCESS_KEY_ID, secretAccessKey: env.CONTACT_AWS_SECRET_ACCESS_KEY}});
+        // OpenNext selects the Node SDK build. Explicitly use Workers' Fetch API
+        // and Web Streams instead of the SDK's default Node HTTP transport.
+        const options = {region: alias[2], maxAttempts: 1, streamCollector};
+        const sts = new STSClient({...options, requestHandler: new FetchHttpHandler({requestTimeout: 3000}),
+            credentials: {accessKeyId: env.CONTACT_AWS_ACCESS_KEY_ID, secretAccessKey: env.CONTACT_AWS_SECRET_ACCESS_KEY}});
         let credentials;
         try {
             credentials = (await sts.send(new AssumeRoleCommand({RoleArn: env.CONTACT_AWS_ROLE_ARN, RoleSessionName: "business-contact", DurationSeconds: 900}), {abortSignal: AbortSignal.timeout(3000)})).Credentials;
@@ -33,7 +37,7 @@ export function createNotifier(env: NotificationConfig) {
         if (!credentials?.AccessKeyId || !credentials.SecretAccessKey || !credentials.SessionToken) {
             logContactFailure("aws_incomplete_session"); return {status: "failed"};
         }
-        const lambda = new LambdaClient({...options, requestHandler: {connectionTimeout: 500, requestTimeout: 6000}, credentials: {accessKeyId: credentials.AccessKeyId, secretAccessKey: credentials.SecretAccessKey, sessionToken: credentials.SessionToken}});
+        const lambda = new LambdaClient({...options, requestHandler: new FetchHttpHandler({requestTimeout: 6000}), credentials: {accessKeyId: credentials.AccessKeyId, secretAccessKey: credentials.SecretAccessKey, sessionToken: credentials.SessionToken}});
         try {
             const result = await lambda.send(new InvokeCommand({FunctionName: env.CONTACT_LAMBDA_ALIAS_ARN, InvocationType: "RequestResponse", Payload: new TextEncoder().encode(JSON.stringify(contact))}), {abortSignal: AbortSignal.timeout(6000)});
             if (result.FunctionError || !result.Payload) {
@@ -44,6 +48,9 @@ export function createNotifier(env: NotificationConfig) {
                 if (response.status === "sent" && "messageId" in response && typeof response.messageId === "string" && response.messageId) return {status: "sent", messageId: response.messageId};
                 if (response.status === "failed" || response.status === "invalid_input") {
                     logContactFailure("lambda_notification_rejected"); return {status: "failed"};
+                }
+                if (response.status === "unknown") {
+                    logContactFailure("lambda_notification_unknown"); return {status: "unknown"};
                 }
             }
             logContactFailure("lambda_unexpected_response"); return {status: "unknown"};

@@ -12,6 +12,31 @@ const env = {
 };
 const input = {requestId: "d66fc392-4c37-40e9-b435-22b7058f643f", name: "名前", email: "user@example.net", message: "相談です"};
 
+test("real SDK signing and serialization use Fetch for STS then Lambda", async () => {
+    const requests: Request[] = [];
+    const transport = mock.method(globalThis, "fetch", async (request: Request) => {
+        requests.push(request);
+        const url = new URL(request.url);
+        const authorization = request.headers.get("authorization") ?? "";
+        if (url.hostname === "sts.ap-northeast-1.amazonaws.com") {
+            assert.match(authorization, /AWS4-HMAC-SHA256 Credential=test-key\//);
+            const body = await request.text();
+            assert.ok(body.includes("AssumeRole") || request.headers.get("x-amz-target")?.includes("AssumeRole"));
+            return new Response(`<AssumeRoleResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/"><AssumeRoleResult><Credentials><AccessKeyId>short-key</AccessKeyId><SecretAccessKey>short-secret</SecretAccessKey><SessionToken>session-token</SessionToken><Expiration>2099-01-01T00:00:00Z</Expiration></Credentials></AssumeRoleResult><ResponseMetadata><RequestId>test</RequestId></ResponseMetadata></AssumeRoleResponse>`, {headers: {"content-type": "text/xml"}});
+        }
+        assert.equal(url.hostname, "lambda.ap-northeast-1.amazonaws.com");
+        assert.match(decodeURIComponent(url.pathname), /function:contact:live\/invocations$/);
+        assert.match(authorization, /AWS4-HMAC-SHA256 Credential=short-key\//);
+        assert.equal(request.headers.get("x-amz-security-token"), "session-token");
+        assert.deepEqual(await request.json(), input);
+        return Response.json({status: "sent", messageId: "ses-id"});
+    });
+    try {
+        assert.deepEqual(await createNotifier(env)(input), {status: "sent", messageId: "ses-id"});
+        assert.equal(requests.length, 2);
+    } finally {transport.mock.restore();}
+});
+
 test("AWS diagnostics distinguish access denial without logging error messages or arbitrary names", () => {
     const logger = mock.method(console, "error", () => {});
     try {
