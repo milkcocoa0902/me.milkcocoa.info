@@ -112,7 +112,7 @@ test("Siteverify checks hostname and action, rejects replay, and fails closed on
         assert.ok(init.body instanceof URLSearchParams);
         assert.equal(init.body.get("secret"), "test-secret");
         assert.equal(init.body.get("remoteip"), "192.0.2.1");
-        assert.equal(init.redirect, "error");
+        assert.equal(init.redirect, "manual");
         assert.ok(init.signal);
         return Promise.resolve(Response.json({success: true, hostname: "me.milkcocoa.info", action: "business_contact"}));
     }) as typeof fetch;
@@ -130,6 +130,21 @@ test("Siteverify checks hostname and action, rejects replay, and fails closed on
         assert.equal(await createTurnstileVerifier("test", "me.milkcocoa.info", (async () => Response.json(body)) as typeof fetch)("token", "ip"), expected);
     }
     assert.equal(await createTurnstileVerifier("test", "host", (async () => {throw new Error();}) as typeof fetch)("token", "ip"), "unavailable");
+});
+
+test("Siteverify rejects redirects without parsing or following them", async () => {
+    for (const status of [301, 302, 303, 307, 308]) {
+        let calls = 0;
+        const fetcher = (async (_: unknown, init: RequestInit) => {
+            calls++;
+            assert.equal(init.redirect, "manual");
+            const response = new Response(null, {status, headers: {Location: "https://other.example"}});
+            response.json = async () => assert.fail("Redirect bodies must not be parsed");
+            return response;
+        }) as typeof fetch;
+        assert.equal(await createTurnstileVerifier("test-secret", "me.milkcocoa.info", fetcher)("token", "192.0.2.1"), "unavailable");
+        assert.equal(calls, 1);
+    }
 });
 
 test("manual retries preserve the request ID, content edits create a new ID, tokens are excluded", () => {

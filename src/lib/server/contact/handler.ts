@@ -1,4 +1,5 @@
 import "server-only";
+import {logContactFailure} from "./diagnostics";
 import {CONTACT_PATH, CONTACT_LIMITS, parseContactRequest, type ContactFields, type ContactResponse} from "../../contact/contract";
 
 export type VerifiedContact = ContactFields & {requestId: string; clientIp: string};
@@ -76,10 +77,10 @@ export async function handleContact(request: Request, deps: ContactDependencies)
     if (!parsed.ok) return respond({status: "error", code: "invalid_input", fields: parsed.fields});
     // Only the deployed Cloudflare ingress may supply this header. Never read client JSON/X-Forwarded-For.
     const ip = request.headers.get("cf-connecting-ip");
-    if (!ip) return respond({status: "error", code: "unavailable"});
+    if (!ip) { logContactFailure("missing_client_ip"); return respond({status: "error", code: "unavailable"}); }
     let verification: Verification;
     try { verification = await deps.verify(parsed.value.turnstileToken, ip); }
-    catch { verification = "unavailable"; }
+    catch { logContactFailure("verification_exception"); verification = "unavailable"; }
     if (verification !== "valid") {
         return respond({status: "error", code: verification === "invalid" ? "invalid_token" : verification});
     }
@@ -88,6 +89,7 @@ export async function handleContact(request: Request, deps: ContactDependencies)
         return respond(await deps.deliver({name, email, message, requestId, clientIp: ip}));
     } catch {
         // An unexpected failure may follow persistence. Preserve the request ID for a safe replay.
+        logContactFailure("delivery_exception");
         return respond({status: "error", code: "unknown"});
     }
 }

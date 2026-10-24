@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {STSClient, type AssumeRoleCommand} from "@aws-sdk/client-sts";
 import {LambdaClient, type InvokeCommand} from "@aws-sdk/client-lambda";
 import {createNotifier} from "../src/lib/server/contact/notify";
+import {logContactFailure} from "../src/lib/server/contact/diagnostics";
 
 const env = {
     CONTACT_AWS_ACCESS_KEY_ID: "test-key", CONTACT_AWS_SECRET_ACCESS_KEY: "test-secret",
@@ -10,6 +11,18 @@ const env = {
     CONTACT_LAMBDA_ALIAS_ARN: "arn:aws:lambda:ap-northeast-1:123456789012:function:contact:live",
 };
 const input = {requestId: "d66fc392-4c37-40e9-b435-22b7058f643f", name: "名前", email: "user@example.net", message: "相談です"};
+
+test("AWS diagnostics distinguish access denial without logging error messages or arbitrary names", () => {
+    const logger = mock.method(console, "error", () => {});
+    try {
+        logContactFailure("aws_assume_role_failed", {name: "AccessDenied", message: "private credential", secret: "private"});
+        logContactFailure("lambda_invoke_or_parse_failed", {name: "private credential", message: "private"});
+        assert.deepEqual(logger.mock.calls.map(call => JSON.parse(call.arguments[0])), [
+            {event: "contact_failure", stage: "aws_assume_role_failed", errorType: "AccessDenied"},
+            {event: "contact_failure", stage: "lambda_invoke_or_parse_failed", errorType: "OtherError"},
+        ]);
+    } finally { logger.mock.restore(); }
+});
 
 test("Worker notification assumes the fixed role before invoking only the live alias, with no token or IP", async () => {
     const order: string[] = [];

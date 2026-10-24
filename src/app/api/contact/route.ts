@@ -4,6 +4,7 @@ import {getCloudflareContext} from "@opennextjs/cloudflare";
 import {createStoredDelivery} from "@/lib/server/contact/storage";
 import {createTurnstileVerifier} from "@/lib/server/contact/turnstile";
 import {createNotifier} from "@/lib/server/contact/notify";
+import {logContactFailure} from "@/lib/server/contact/diagnostics";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,7 @@ export async function POST(request: Request) {
             deliver: createStoredDelivery({db: env.CONTACT_DB, emailKey: env.CONTACT_EMAIL_ENCRYPTION_KEY, notify: createNotifier(env)}),
         });
     } catch {
+        logContactFailure("route_exception");
         return Response.json({status: "error", code: "unavailable"}, {status: 503, headers: {"Cache-Control": "no-store"}});
     }
 }
