@@ -17,7 +17,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "chokidar": "^3.5.3",
+    "chokidar": "^5.0.0",
     "gray-matter": "^4.0.3",
     "socket.io": "^4.7.2"
   }
