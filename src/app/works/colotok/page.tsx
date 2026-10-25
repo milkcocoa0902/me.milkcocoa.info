@@ -16,9 +16,10 @@ import styles from "./colotok.module.css";
 
 const githubUrl = "https://github.com/milkcocoa0902/Colotok";
 const docsUrl = "https://milkcocoa0902.github.io/colotok/";
+const version = "1.0.0";
 const mavenUrl = "https://central.sonatype.com/artifact/io.github.milkcocoa0902/colotok";
 const title = "Colotok — Kotlinのログを、行き先から自由に。";
-const description = "Kotlin Multiplatformで、整形・文脈・出力先をコードから組み立てられるオープンソースのロギングランタイム。";
+const description = "ログの整形・付加情報・出力先をコードで組み合わせる、Kotlin Multiplatform対応のオープンソースロギングライブラリ。";
 
 export const metadata: Metadata = {
     title,
@@ -52,41 +53,48 @@ const features = [
         number: "01",
         label: "Providers",
         title: "書く処理と、届ける処理を分ける。",
-        description: "Console・File・Streamを組み合わせ、同じログを必要な場所へ。独自Providerも共通のライフサイクル上で実装できます。",
+        description: "Console・File・Streamを組み合わせ、同じログを必要な場所へ。独自のProviderを追加して、出力先を拡張することもできます。",
     },
     {
         icon: FaLayerGroup,
         number: "02",
         label: "Context & Format",
         title: "文字列の先に、文脈を残す。",
-        description: "attributesとMDCをログ時点でsnapshot。テキストだけでなく、kotlinx.serializationを使った構造化ログにも対応します。",
+        description: "注文IDやリクエスト情報をログと一緒に記録。イベントをJSON形式で出力し、検索や分析に活用できます。",
     },
     {
         icon: FaBolt,
         number: "03",
         label: "Runtime",
         title: "非同期処理を、最後まで扱う。",
-        description: "buffer、overflow、flush、graceful shutdownをランタイムとして提供。出力先の失敗とログの受理状態をmetricsで観測できます。",
+        description: "ログを一時的に蓄えるバッファから出力・終了処理まで管理。処理状況や出力先のエラーをメトリクスで把握できます。",
     },
 ];
 
 const pipeline = [
-    ["Record", "level · message · attributes", "ログ呼び出し時の情報をひとつのrecordへ"],
-    ["Context", "MDC snapshot", "非同期処理へ渡る前に文脈を固定"],
-    ["Format", "text · structured JSON", "用途に合わせた表現へ変換"],
+    ["Record", "level · message · attributes", "ログ呼び出し時に時刻と属性を記録"],
+    ["Context", "MDC snapshot", "MDCのスナップショットをイベントに保持"],
+    ["Format", "text · structured JSON", "各ProviderでテキストやJSONへ整形"],
     ["Provide", "local · remote · custom", "複数の行き先へそれぞれ配信"],
 ] as const;
 
 const destinations = [
-    {icon: FaTerminal, name: "Console", detail: "色付きの開発ログ"},
-    {icon: FaFileLines, name: "File", detail: "size / date rotation"},
-    {icon: FaCloud, name: "Grafana Loki", detail: "KMP remote provider"},
-    {icon: FaCloud, name: "CloudWatch", detail: "AWS / JVM integration"},
-    {icon: FaCodeBranch, name: "SLF4J", detail: "1.7.x / 2.x bindings"},
-    {icon: FaBoxOpen, name: "Your Provider", detail: "独自の出力先へ拡張"},
+    {icon: FaTerminal, name: "Console", detail: "組み込み · 開発中のログ出力", doc: "02-01-provider-configuration.html"},
+    {icon: FaFileLines, name: "File / Stream", detail: "組み込み · ファイル保存／ストリーム出力", doc: "02-01-provider-configuration.html"},
+    {icon: FaCloud, name: "Grafana Loki", detail: "追加モジュール · KMP", doc: "official-plugin.html"},
+    {icon: FaCloud, name: "CloudWatch", detail: "追加モジュール · JVM", doc: "official-plugin.html"},
+    {icon: FaCodeBranch, name: "SLF4J", detail: "1.7 / 2.x対応 · JVM", doc: "official-plugin.html"},
+    {icon: FaBoxOpen, name: "Your Provider", detail: "独自の出力先へ拡張", doc: "custom-provider.html"},
 ];
 
-const platforms = ["JVM", "Android", "JavaScript", "iOS", "macOS"];
+const platforms = ["JVM", "Android", "JS / Node.js", "iOS / Simulator · Arm64", "macOS · Arm64"];
+const modules = [
+    ["colotok", "ログ出力・整形・組み込みProvider", "上記の全環境"],
+    ["colotok-coroutines", "コルーチン連携・非同期出力", "上記の全環境"],
+    ["colotok-loki", "Grafana Lokiへの出力", "上記の全環境"],
+    ["colotok-cloudwatch", "CloudWatch Logsへの出力", "JVM"],
+    ["colotok-slf4j / colotok-slf4j2", "SLF4J 1.7 / 2.xバインディング", "JVM"],
+];
 
 export default function ColotokPage() {
     return (
@@ -107,8 +115,8 @@ export default function ColotokPage() {
                         そして、必要な場所へ届ける。
                     </p>
                     <p className={styles.heroDescription}>
-                        Colotokは、ProviderとFormatterをコードから組み立てる
-                        Kotlin Multiplatform向けのロギングランタイムです。
+                        Colotokは、出力先とログの形式をコードで組み合わせる、
+                        Kotlin Multiplatform対応のロギングライブラリです。
                     </p>
 
                     <div className={styles.heroActions}>
@@ -123,11 +131,11 @@ export default function ColotokPage() {
                             GitHubで見る
                             <FaArrowRight aria-hidden="true" />
                         </a>
-                        <a className={styles.secondaryAction} href="#quick-start">3行で始める</a>
+                        <a className={styles.secondaryAction} href="#quick-start">導入方法を見る</a>
                     </div>
 
                     <ul className={styles.signalList} role="list" aria-label="Colotokの基本情報">
-                        <li><span>Release</span><strong>0.4.3</strong></li>
+                        <li><span>Release</span><strong><a href={`${githubUrl}/releases/tag/${version}`}>{version}</a></strong></li>
                         <li><span>Core</span><strong>Kotlin Multiplatform</strong></li>
                         <li><span>License</span><strong>Apache 2.0</strong></li>
                     </ul>
@@ -136,12 +144,12 @@ export default function ColotokPage() {
                 <div className={styles.runtimeVisual} aria-label="Colotokでログを複数のProviderへ届けるコードと出力例">
                     <div className={styles.runtimeGlow} aria-hidden="true" />
                     <div className={styles.codeWindow}>
-                        <div className={styles.windowBar} aria-hidden="true">
+                        <div className={styles.windowBar}>
                             <span /><span /><span />
-                            <p>Application.kt</p>
+                            <p>Application.kt · 設定省略</p>
                         </div>
-                        <pre><code><span className={styles.keyword}>val</span> logger = <span className={styles.type}>ColotokLoggerContext</span>(){"\n"}
-    .<span className={styles.method}>addProvider</span>(<span className={styles.type}>ConsoleProvider</span>()){"\n"}
+                        <pre tabIndex={0} aria-label="複数の出力先を組み合わせる概念例"><code><span className={styles.keyword}>val</span> logger = <span className={styles.type}>ColotokLoggerContext</span>(){"\n"}
+    .<span className={styles.method}>addProvider</span>(<span className={styles.type}>ConsoleProvider</span>(<span className={styles.type}>ConsoleProviderConfig</span>())){"\n"}
     .<span className={styles.method}>addProvider</span>(<span className={styles.type}>LokiProvider</span> {`{ ... }`}){"\n"}
     .<span className={styles.method}>getLogger</span>(){"\n\n"}
 logger.<span className={styles.method}>info</span>({"\n"}
@@ -156,14 +164,13 @@ logger.<span className={styles.method}>info</span>({"\n"}
 
                     <div className={styles.outputWindow}>
                         <div className={styles.outputHeading}>
-                            <span>LIVE OUTPUT</span>
+                            <span>出力イメージ</span>
                             <i aria-hidden="true" />
                         </div>
                         <p><span>12:21:13.354</span> <strong>INFO</strong> Order accepted</p>
                         <dl>
                             <div><dt>order_id</dt><dd>A-1024</dd></div>
                             <div><dt>providers</dt><dd>console, loki</dd></div>
-                            <div><dt>accepted</dt><dd>true</dd></div>
                         </dl>
                     </div>
                 </div>
@@ -172,10 +179,10 @@ logger.<span className={styles.method}>info</span>({"\n"}
             <section className={styles.statement} aria-labelledby="statement-title">
                 <p className={styles.sectionIndex}>Why Colotok</p>
                 <div>
-                    <h2 id="statement-title">ログは文字列ではなく、<br />アプリケーションの出来事だ。</h2>
+                    <h2 id="statement-title">アプリケーションの出来事を、<br />文脈とともに残す。</h2>
                     <p>
                         開発中はConsoleへ。本番ではFileやLoki、CloudWatchへ。
-                        Colotokは呼び出し側を出力先の都合から切り離し、同じrecordを、同じ文脈のまま運びます。
+                        ログを書くコードを変えずに、用途に合わせて出力先を組み合わせられます。
                     </p>
                 </div>
             </section>
@@ -207,8 +214,8 @@ logger.<span className={styles.method}>info</span>({"\n"}
             <section className={styles.pipelineSection} aria-labelledby="pipeline-title">
                 <div className={styles.sectionHeading}>
                     <p className={styles.sectionIndex}>Logging pipeline</p>
-                    <h2 id="pipeline-title">ひとつのrecordが、<br />行き先へ届くまで。</h2>
-                    <p>記録・文脈・表現・出力を分ける、小さく交換可能なパイプラインです。</p>
+                    <h2 id="pipeline-title">ひとつのログが、<br />行き先へ届くまで。</h2>
+                    <p>ログに付加情報を添え、出力先ごとに形式を整えて届けます。</p>
                 </div>
                 <ol className={styles.pipeline} role="list">
                     {pipeline.map(([name, technology, itemDescription], index) => (
@@ -228,19 +235,21 @@ logger.<span className={styles.method}>info</span>({"\n"}
                 <div className={styles.sectionHeading}>
                     <p className={styles.sectionIndex}>Route anywhere</p>
                     <h2 id="destinations-title">近くにも、遠くにも。</h2>
-                    <p>組み込みProviderから公式integration、独自実装まで。同じloggerから複数の出力先を選べます。</p>
+                    <p>ファイルやクラウドへの出力に加え、既存のログAPIとの連携や、独自の出力先への拡張にも対応します。</p>
                 </div>
                 <ul className={styles.destinationGrid} role="list">
                     {destinations.map((destination) => {
                         const Icon = destination.icon;
                         return (
                             <li key={destination.name}>
-                                <Icon aria-hidden="true" />
-                                <div>
-                                    <strong>{destination.name}</strong>
-                                    <span>{destination.detail}</span>
-                                </div>
-                                <FaArrowRight aria-hidden="true" />
+                                <a href={`${docsUrl}${destination.doc}`}>
+                                    <Icon aria-hidden="true" />
+                                    <div>
+                                        <strong>{destination.name}</strong>
+                                        <span>{destination.detail}</span>
+                                    </div>
+                                    <FaArrowRight aria-hidden="true" />
+                                </a>
                             </li>
                         );
                     })}
@@ -252,8 +261,8 @@ logger.<span className={styles.method}>info</span>({"\n"}
                     <p className={styles.sectionIndex}>Multiplatform at the core</p>
                     <h2 id="platform-title">共通コードのログを、<br />それぞれの環境へ。</h2>
                     <p>
-                        core・coroutines・LokiはKotlin Multiplatformへ。
-                        SLF4JとCloudWatchはJVM integrationとして、必要な場所にだけ追加できます。
+                        基本機能とコルーチン・Loki連携は、複数のプラットフォームに対応。
+                        JVMではSLF4JやCloudWatchとの連携も利用できます。
                     </p>
                 </div>
                 <ul role="list">
@@ -264,15 +273,26 @@ logger.<span className={styles.method}>info</span>({"\n"}
                         </li>
                     ))}
                 </ul>
+                <div className={styles.moduleSupport}>
+                    <div className={styles.tableScroll} role="region" aria-label="モジュールの対応環境" tabIndex={0}>
+                        <table>
+                            <caption>モジュールと対応環境 · {version}</caption>
+                            <thead><tr><th scope="col">モジュール</th><th scope="col">用途</th><th scope="col">対応環境</th></tr></thead>
+                            <tbody>{modules.map(([name, purpose, targets]) => (
+                                <tr key={name}><th scope="row"><code>{name}</code></th><td>{purpose}</td><td>{targets}</td></tr>
+                            ))}</tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
 
             <section className={styles.quickStart} id="quick-start" aria-labelledby="quick-start-title">
                 <div className={styles.quickStartCopy}>
-                    <p className={styles.sectionIndex}>Quick start · v0.4.3</p>
-                    <h2 id="quick-start-title">Providerを選べば、<br />すぐに書ける。</h2>
-                    <p>Maven Centralからcoreを追加し、ContextへProviderを登録します。最小構成はこれだけです。</p>
+                    <p className={styles.sectionIndex}>Quick start · v{version}</p>
+                    <h2 id="quick-start-title">新しいアプリにも、<br />既存のコードにも。</h2>
+                    <p>Maven Centralから必要なモジュールを追加して導入できます。既存のJVMアプリケーションには、SLF4Jを通じて組み込むこともできます。</p>
                     <div className={styles.quickLinks}>
-                        <a href={docsUrl} target="_blank" rel="noopener noreferrer">
+                        <a href={`${docsUrl}01-colotok-introduce.html`} target="_blank" rel="noopener noreferrer">
                             ドキュメントを読む <FaArrowRight aria-hidden="true" />
                         </a>
                         <a href={mavenUrl} target="_blank" rel="noopener noreferrer">
@@ -282,15 +302,18 @@ logger.<span className={styles.method}>info</span>({"\n"}
                 </div>
                 <div className={styles.installStack}>
                     <div className={styles.snippet}>
-                        <p><span>01</span> build.gradle.kts</p>
-                        <pre><code><span className={styles.keyword}>implementation</span>(<span className={styles.string}>&quot;io.github.milkcocoa0902:colotok:0.4.3&quot;</span>)</code></pre>
+                        <p>build.gradle.kts · 基本モジュール</p>
+                        <pre tabIndex={0} aria-label="Gradleの依存関係"><code><span className={styles.method}>implementation</span>(<span className={styles.string}>{`"io.github.milkcocoa0902:colotok:${version}"`}</span>)</code></pre>
                     </div>
                     <div className={styles.snippet}>
-                        <p><span>02</span> Application.kt</p>
-                        <pre><code><span className={styles.keyword}>val</span> logger = <span className={styles.type}>ColotokLoggerContext</span>(){"\n"}
-    .<span className={styles.method}>addProvider</span>(<span className={styles.type}>ConsoleProvider</span>()){"\n"}
-    .<span className={styles.method}>getLogger</span>(){"\n\n"}
-logger.<span className={styles.method}>info</span>(<span className={styles.string}>&quot;Hello, Colotok&quot;</span>)</code></pre>
+                        <p>SLF4J連携 · JVM</p>
+                        <div className={styles.integrationCopy}>
+                            <h3>ログの呼び出しは、そのまま。</h3>
+                            <p>SLF4JのバックエンドをColotokに切り替えると、アプリや依存ライブラリがSLF4Jに出力するログを、Colotokで扱えます。</p>
+                            <div className={styles.quickLinks}>
+                                <a href={`${docsUrl}official-plugin.html`}>SLF4J連携を見る <FaArrowRight aria-hidden="true" /></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -298,7 +321,7 @@ logger.<span className={styles.method}>info</span>(<span className={styles.strin
             <footer className={styles.finalCta}>
                 <p className={styles.sectionIndex}>Open source on GitHub</p>
                 <h2>ログの流れを、<br />コードで設計しよう。</h2>
-                <p>Colotokは、Kotlinで育てているオープンソースプロジェクトです。</p>
+                <p>Colotokは、Apache 2.0ライセンスで公開しているオープンソースプロジェクトです。</p>
                 <a href={githubUrl} target="_blank" rel="noopener noreferrer">
                     <FaGithub aria-hidden="true" />
                     ColotokをGitHubで見る

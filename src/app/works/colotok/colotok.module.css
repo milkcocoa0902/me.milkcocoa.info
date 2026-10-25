@@ -581,7 +581,7 @@
     padding: 0;
 }
 
-.destinationGrid li {
+.destinationGrid li > a {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 1rem;
@@ -593,13 +593,13 @@
     background: rgb(9 7 16 / 65%);
 }
 
-.destinationGrid li > svg:first-child {
+.destinationGrid li > a > svg:first-child {
     width: 1.1rem;
     color: var(--violet);
     font-size: 1.1rem;
 }
 
-.destinationGrid li > svg:last-child { color: #5f566c; font-size: 0.68rem; }
+.destinationGrid li > a > svg:last-child { color: #5f566c; font-size: 0.68rem; }
 .destinationGrid strong,
 .destinationGrid span { display: block; }
 .destinationGrid strong { color: #ede8f4; }
@@ -845,3 +845,27 @@
     .secondaryAction,
     .finalCta a { transition: none; }
 }
+
+/* Keep additions within the existing panels and color palette. */
+.destinationGrid li > a { height: 100%; text-decoration: none; }
+.destinationGrid li > a:hover { border-color: var(--violet); }
+.moduleSupport { grid-column: 1 / -1; min-width: 0; }
+.tableScroll { overflow-x: auto; }
+.tableScroll table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+.tableScroll caption { padding-bottom: 1rem; text-align: left; color: var(--violet); }
+.tableScroll th, .tableScroll td { padding: 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tableScroll th { font-weight: 600; }
+.tableScroll td { color: var(--muted); }
+.tableScroll code { overflow-wrap: anywhere; }
+.signalList a { color: var(--violet); text-underline-offset: 0.25em; }
+.page :is(a, pre, [role="region"]):focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+.installStack, .runtimeVisual { min-width: 0; }
+@media (max-width: 760px) {
+    .tableScroll th, .tableScroll td { padding: 0.75rem 0.4rem; }
+    .tableScroll table { min-width: 34rem; }
+}
+
+.integrationCopy { padding: 1.25rem; }
+.integrationCopy h3 { margin: 0; color: var(--ink); font-size: 1.1rem; }
+.integrationCopy > p { margin: 0.75rem 0 0; color: var(--muted); font-size: 0.9rem; line-height: 1.85; }
+.integrationCopy .quickLinks { margin-top: 1rem; font-size: 0.85rem; }
