@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch:article": "ts-node watch/article.ts",
+    "watch:article": "node watch/article.mjs",
     "ogp": "ts-node image/generate_og.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
