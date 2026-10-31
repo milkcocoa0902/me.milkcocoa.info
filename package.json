@@ -43,7 +43,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "zenn-cli": "^0.5.5",
-    "zenn-content-css": "^0.1.161",
+    "zenn-content-css": "^0.5.7",
     "zenn-markdown-html": "^0.5.1"
   },
   "devDependencies": {
