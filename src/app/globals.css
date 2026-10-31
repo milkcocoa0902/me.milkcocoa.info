@@ -148,6 +148,18 @@
   @apply mt-0 pt-6! m-0!;
 }
 
+.mermaid-output > svg {
+  display: block;
+  margin-inline: auto;
+  height: auto;
+}
+
+.mermaid-diagram > pre {
+  margin: 0;
+  overflow-x: auto;
+  color: #e2e8f0;
+}
+
 /* Details arrow removal for Safari */
 summary::-webkit-details-marker {
   display: none;

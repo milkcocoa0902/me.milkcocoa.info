@@ -7,7 +7,6 @@ import langKotlin from "shiki/langs/kotlin.mjs"
 import langJson from "shiki/langs/json.mjs"
 import langPython from "shiki/langs/python.mjs"
 import langBash from "shiki/langs/bash.mjs"
-import langMermaid from "shiki/langs/mermaid.mjs"
 import langToml from "shiki/langs/toml.mjs"
 import langTsx from "shiki/langs/tsx.mjs"
 
@@ -53,7 +52,7 @@ const createHeadingSlug = (value: string): string => {
 const engine = await createOnigurumaEngine(shikiWasm)
 const highlighter = await createHighlighterCore({
     themes: [themeViteSse],
-    langs: [ langKotlin, langPython, langJson, langBash, langMermaid, langToml, langTsx],
+    langs: [ langKotlin, langPython, langJson, langBash, langToml, langTsx],
     engine: engine
 })
 
@@ -139,6 +138,16 @@ export const renderArticle = async (article: ArticleDetail): Promise<string> => 
             return codeHtml;
         }
     })
+
+    const defaultFence = md.renderer.rules.fence!;
+    md.renderer.rules.fence = (tokens, index, options, env, self) => {
+        const token = tokens[index];
+        if (token.info.trim().split(/\s+/)[0] === "mermaid") {
+            // Keep the source readable without JavaScript; the client enhances it to SVG.
+            return `<div class="mermaid-diagram not-prose my-6 overflow-x-auto rounded-xl border border-slate-700/70 bg-slate-900/40 p-4" data-mermaid><pre><code>${escapeHtml(token.content)}</code></pre></div>\n`;
+        }
+        return defaultFence(tokens, index, options, env, self);
+    };
 
     md.use(anchor, {
         level: [2, 3],
