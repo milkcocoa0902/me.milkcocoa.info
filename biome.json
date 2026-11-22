@@ -1,0 +1,63 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "includes": [
+      "**/*.{js,jsx,ts,tsx,mjs,cjs,mts,cts}",
+      "!!.next",
+      "!!.open-next",
+      "!!.wrangler",
+      "!!.vercel",
+      "!!build",
+      "!!out",
+      "!cloudflare-env.d.ts",
+      "!next-env.d.ts",
+      "!!services/**/dist",
+      "!!infra/**/.aws-sam"
+    ]
+  },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "formatter": {
+    "enabled": false
+  },
+  "assist": {
+    "enabled": false
+  },
+  "linter": {
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    },
+    "rules": {
+      "a11y": {
+        "noNoninteractiveTabindex": "warn",
+        "noRedundantRoles": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "useSemanticElements": "warn"
+      },
+      "correctness": {
+        "noBeforeInteractiveScriptOutsideDocument": "warn",
+        "noNextAsyncClientComponent": "warn",
+        "useExhaustiveDependencies": "warn",
+        "useInlineScriptId": "error"
+      },
+      "performance": {
+        "noSyncScripts": "error"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
+      },
+      "suspicious": {
+        "noControlCharactersInRegex": "warn",
+        "noDocumentImportInPage": "error",
+        "noHeadImportInDocument": "error",
+        "noImplicitAnyLet": "warn",
+        "useGoogleFontDisplay": "warn",
+        "useIterableCallbackReturn": "warn"
+      }
+    }
+  }
+}

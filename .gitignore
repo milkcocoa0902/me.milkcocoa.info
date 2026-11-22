@@ -47,3 +47,4 @@ sample
 services/contact-api/dist/
 infra/contact/.aws-sam/
 infra/contact/samconfig.toml
+.env
